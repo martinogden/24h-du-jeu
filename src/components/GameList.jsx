@@ -2,19 +2,24 @@ import React, { PropTypes } from 'react';
 import Game from './Game.jsx';
 
 
-const GameList = ({ games }) => {
+const GameList = ({ games, onGameClick }) => {
 
-	var children = games.map(
-		game => <Game key={ game.id } { ...game } />
+	var children = games.map(game =>
+		<Game
+			key={ game.id }
+			{ ...game }
+			onClick={ () => onGameClick(game.id) }
+		/>
 	);
 
 	return (
-		<div>{ children }</div>
+		<div className="row">{ children }</div>
 	);
 };
 
 GameList.propTypes = {
-	games: PropTypes.array.isRequired
+	games: PropTypes.array.isRequired,
+	onGameClick: PropTypes.func.isRequired
 };
 
 

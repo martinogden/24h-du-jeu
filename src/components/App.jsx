@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { Provider } from 'react-redux';
+
 import GameListContainer from './GameListContainer.jsx';
 
 
-const App = () => (
-	<div>
+const App = ({ store }) => (
+	<Provider store={ store }>
 		<GameListContainer />
-	</div>
+	</Provider>
 );
+
+App.PropTypes = {
+	store: PropTypes.object.isRequired
+}
+
 
 export default App;

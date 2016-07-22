@@ -17,14 +17,14 @@ class GameListContainer extends React.Component {
 	}
 
 	render() {
-		const { games, isFetching } = this.props;
+		const { games, isFetching, toggleGameOwnership } = this.props;
 
 		if (isFetching) {
 			return (<p>Loading...</p>);
 		}
 
 		return (
-			<GameList games={ games } />
+			<GameList games={ games } onGameClick={ toggleGameOwnership } />
 		);
 	}
 }
@@ -32,7 +32,9 @@ class GameListContainer extends React.Component {
 GameListContainer.propTypes = {
 	games: PropTypes.array.isRequired,
 	isFetching: PropTypes.bool.isRequired,
-	fetchGames: PropTypes.func.isRequired
+	fetchGames: PropTypes.func.isRequired,
+	toggleGameOwnership: PropTypes.func.isRequired,
+	toggleGameKnowledge: PropTypes.func.isRequired
 };
 
 
@@ -41,10 +43,7 @@ const mapStateToProps = (state) => ({
 	isFetching: getIsFetching(state)
 });
 
-GameListContainer = connect(
-	mapStateToProps,
-	actions
-)(GameListContainer);
+GameListContainer = connect(mapStateToProps, actions)(GameListContainer);
 
 
 export default GameListContainer;

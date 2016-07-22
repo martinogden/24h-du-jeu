@@ -4,14 +4,17 @@ import { ActionTypes } from '../constants';
 
 
 const gamesByID = (state={}, action) => {
-	switch(action.type) {
-		case ActionTypes.FETCH_GAMES_SUCCESS:
-			const response = action.payload.response;
-			return response.entities.game;
 
-		default:
-			return state;
+	// TODO: will work only whilst games are
+	// only the objects returned from API
+	if (action.payload && action.payload.response) {
+		return {
+			...state,
+			...action.payload.response.entities.game
+		}
 	}
+
+	return state;
 }
 
 

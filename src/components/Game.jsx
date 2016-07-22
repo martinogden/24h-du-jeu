@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
 
-const Game = ({ name, img }) => (
-	<div className="">
+const Game = ({ name, img, onClick }) => (
+	<div onClick={ onClick }>
 		<img src={ img } />
 		<p>{ name }</p>
 	</div>
@@ -10,7 +10,8 @@ const Game = ({ name, img }) => (
 
 Game.PropTypes = {
 	name: PropTypes.string.isRequired,
-	img: PropTypes.string.isRequired
+	img: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired
 };
 
 
