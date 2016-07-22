@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
+import { getGames, getIsFetching } from '../reducers';
 import GameList from './GameList.jsx';
 
 
@@ -35,7 +36,15 @@ GameListContainer.propTypes = {
 };
 
 
-GameListContainer = connect(state => state, actions)(GameListContainer);
+const mapStateToProps = (state) => ({
+	games: getGames(state),
+	isFetching: getIsFetching(state)
+});
+
+GameListContainer = connect(
+	mapStateToProps,
+	actions
+)(GameListContainer);
 
 
 export default GameListContainer;

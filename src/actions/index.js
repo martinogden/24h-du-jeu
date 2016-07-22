@@ -1,5 +1,8 @@
+import { normalize } from 'normalizr';
+
 import * as api from '../services/api';
 import { ActionTypes } from '../constants';
+import * as schema from './schema';
 
 
 export const fetchGames = () => (dispatch, getState) => {
@@ -10,7 +13,9 @@ export const fetchGames = () => (dispatch, getState) => {
 
 	const success = (response) => dispatch({
 		type: ActionTypes.FETCH_GAMES_SUCCESS,
-		payload: { response: response }
+		payload: {
+			response: normalize(response, schema.arrayOfGames)
+		}
 	});
 
 	const error = (error) => dispatch({
