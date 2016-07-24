@@ -59,3 +59,16 @@ export const toggleKnowledge = (id) => {
 
 	throw new Error(404);
 }
+
+
+export const loginUser = (payload) => {
+	const url = `${ENDPOINT_URL}/user/login`;
+	const params = {
+		method: "POST",
+		body: payload,
+	};
+
+	return fetchJSON(url, params).then(({ response, json }) => ({
+		payload: normalize(json, Schema.User)
+	}));
+};
