@@ -5,13 +5,13 @@ Web app for board game players to mark known games. Built using Flask and React.
 
 ## Running
 
-	$ cd 24hdujeu
+	$ cd 24h-du-jeu
 	$ npm install
 	$ npm start
 
 In another window:
 
-	$ cd 24hdujeu
+	$ cd 24h-du-jeu
 	$ pip install -r requirements.txt
 	$ python server/run.py
 	$ open http://localhost:8080
