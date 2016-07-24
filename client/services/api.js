@@ -14,17 +14,22 @@ const getNextPageURL = (response) => {
 }
 
 
+const fetchJSON = (url, params={}) => (
+	fetch(url, params).then(response => (
+		response.json().then(json => (
+			{ response, json }
+		))
+	))
+);
+
+
 export const fetchGames = (nextPageURL=null) => () => {
 	const url = nextPageURL || `${ENDPOINT_URL}/games`;
 
-	return fetch(url).then(response => {
-
-		return response.json().then(json => ({
-			payload: normalize(json, Schema.arrayOfGames),
-			meta: { nextPageURL: getNextPageURL(response) }
-		}));
-
-	})
+	return fetchJSON(url).then(({ response, json }) => ({
+		payload: normalize(json, Schema.arrayOfGames),
+		meta: { nextPageURL: getNextPageURL(response) }
+	}));
 };
 
 
@@ -54,3 +59,16 @@ export const toggleKnowledge = (id) => {
 
 	throw new Error(404);
 }
+
+
+export const loginUser = (payload) => {
+	const url = `${ENDPOINT_URL}/user/login`;
+	const params = {
+		method: "POST",
+		body: payload,
+	};
+
+	return fetchJSON(url, params).then(({ response, json }) => ({
+		payload: normalize(json, Schema.User)
+	}));
+};

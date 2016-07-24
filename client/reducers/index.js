@@ -64,7 +64,7 @@ const isFetching = (state=false, action) => {
 
 const isLoggedIn = (state=false, action) => {
 	switch(action.type) {
-		case ActionTypes.AUTH_USER:
+		case ActionTypes.AUTH_USER_SUCCESS:
 			return true;
 
 		default:
