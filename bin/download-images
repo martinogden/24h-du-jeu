@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+import os
+import re
+import shutil
+import sqlite3
+
+import requests
+from boardgamegeek import BoardGameGeek
+from boardgamegeek.exceptions import BoardGameGeekError
+
+
+DATABASE = 'db/24hDuJeuReferentDb2016Full'
+IMG_DIR = os.path.realpath('static/img')
+PATT = r'_t\.jpg$'
+
+
+def show_error(g_id, name):
+	print "cannot find image %s (%s)" % (name, g_id)
+
+
+def download_bgg_img(g_id, name, uri_t):
+
+	bgg = BoardGameGeek()
+
+	# don't download if image already exists
+	fn = os.path.join(IMG_DIR, "%s.jpg" % g_id)
+	if os.path.exists(fn):
+		return
+
+
+	if uri_t:
+		uri = re.sub(PATT, '.jpg', uri_t)
+	else:
+		# we don't have a bgg thumbnail uri
+		# see if we can find image on bgg using id
+		try:
+			bgg_id = int(g_id.replace('bgg', ''))
+		except ValueError:
+			return show_error(g_id, name)
+
+		try:
+			game = bgg.game(game_id=bgg_id)
+		except BoardGameGeekError as e:
+			return show_error(g_id, name)
+
+		uri = game.image
+
+
+	response = requests.get(uri, stream=True)
+
+	if not response.ok:
+		return show_error(g_id, name)
+
+	# save downloaded file
+	with open(fn, 'wb') as f:
+		shutil.copyfileobj(response.raw, f)
+
+
+
+def run():
+	conn = sqlite3.connect(DATABASE)
+	cur = conn.cursor()
+	q = cur.execute('SELECT ID, NAME, THUMBNAIL_URI FROM GAME')
+
+	for g_id, name, uri_t in q.fetchall():
+		download_bgg_img(g_id, name, uri_t)
+
+	conn.close()
+
+
+if __name__ == "__main__":
+	run()

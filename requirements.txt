@@ -1,0 +1,6 @@
+Flask==0.11.1
+requests==2.10.0
+boardgamegeek==0.13.2
+flask-sqlalchemy
+flask-marshmallow==0.7.0
+marshmallow-sqlalchemy==0.9.0

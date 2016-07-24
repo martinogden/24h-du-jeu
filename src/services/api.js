@@ -1,16 +1,30 @@
-/* TODO replace with proper API call */
-var rawData = localStorage.getItem('games');
+import 'isomorphic-fetch';
+import parse from 'parse-link-header';
+import { normalize } from 'normalizr';
 
-if (!rawData)
-  throw new Error("No game data in local storage.");
+import * as Schema from './schema';
 
-const data = JSON.parse(rawData);
-
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const ENDPOINT_URL = 'http://localhost:5000/api';
 
 
-export const fetchGames = () => {
-  return wait(400).then(() => data)
+const getNextPageURL = (response) => {
+	const linkHeader = response.headers.get('link', '');
+	const links = parse(linkHeader);
+	return links && links.next ? links.next.url : null;
+}
+
+
+export const fetchGames = (nextPageURL=null) => () => {
+	const url = nextPageURL || `${ENDPOINT_URL}/games`;
+
+	return fetch(url).then(response => {
+
+		return response.json().then(json => ({
+			payload: normalize(json, Schema.arrayOfGames),
+			meta: { nextPageURL: getNextPageURL(response) }
+		}));
+
+	})
 };
 
 

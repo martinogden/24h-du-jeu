@@ -1,18 +1,15 @@
-import { normalize } from 'normalizr';
-
 import * as api from '../services/api';
 import { ActionTypes } from '../constants';
-import * as schema from './schema';
 
 
-const apiActionCoordinator = (dispatch, apiMethod, actionTypes, schema) => {
+const apiActionCoordinator = (dispatch, apiMethod, actionTypes) => {
 	const [ request, success, failure ] = actionTypes;
 
 	dispatch({ type: request });
 
 	const successHandler = (response) => dispatch({
 		type: success,
-		payload: { response: normalize(response, schema) }
+		...response
 	});
 
 	const errorHandler = (error) => dispatch({
@@ -25,7 +22,11 @@ const apiActionCoordinator = (dispatch, apiMethod, actionTypes, schema) => {
 }
 
 
-export const fetchGames = () => (dispatch, getState) => {
+export const fetchNextGames = () => (dispatch, getState) => {
+
+	const state = getState();
+	const nextPageURL = state.nextGamePageURL;
+	const apiMethod = api.fetchGames(nextPageURL);
 
 	const actionTypes = [
 		ActionTypes.FETCH_GAMES_REQUEST,
@@ -33,12 +34,7 @@ export const fetchGames = () => (dispatch, getState) => {
 		ActionTypes.FETCH_GAMES_FAILURE
 	];
 
-	return apiActionCoordinator(
-		dispatch,
-		api.fetchGames,
-		actionTypes,
-		schema.arrayOfGames
-	);
+	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
 };
 
 
@@ -52,7 +48,7 @@ export const toggleGameOwnership = (id) => (dispatch, getState) => {
 		ActionTypes.TOGGLE_GAME_OWNERSHIP_FAILURE
 	];
 
-	return apiActionCoordinator(dispatch, apiMethod, actionTypes, schema.game);
+	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
 };
 
 
@@ -65,5 +61,5 @@ export const toggleGameKnowledge = (id) => (dispatch, getState) => {
 		ActionTypes.TOGGLE_GAME_KNOWLEDGE_FAILURE
 	];
 
-	return apiActionCoordinator(dispatch, apiMethod, actionTypes, schema.game);
+	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
 };
