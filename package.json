@@ -26,7 +26,9 @@
     "normalizr": "^2.2.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-masonry-component": "^4.2.1",
     "react-redux": "^4.4.5",
+    "react-waypoint": "^3.1.0",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0"
   }

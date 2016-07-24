@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import Masonry from 'react-masonry-component';
+
 import Game from './Game.jsx';
 
 
@@ -6,14 +8,22 @@ const GameList = ({ games, onGameClick }) => {
 
 	var children = games.map(game =>
 		<Game
+			className="image-element-class"
 			key={ game.id }
 			{ ...game }
 			onClick={ () => onGameClick(game.id) }
 		/>
 	);
 
+	const masonryOptions = {
+		transitionDuration: 0
+	};
+
 	return (
-		<div className="row">{ children }</div>
+		<Masonry
+			className="row"
+			options={ masonryOptions }
+		>{ children }</Masonry>
 	);
 };
 

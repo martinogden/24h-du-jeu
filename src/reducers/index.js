@@ -4,13 +4,12 @@ import { ActionTypes } from '../constants';
 
 
 const gamesByID = (state={}, action) => {
-
 	// TODO: will work only whilst games are
 	// only the objects returned from API
-	if (action.payload && action.payload.response) {
+	if (action.payload) {
 		return {
 			...state,
-			...action.payload.response.entities.game
+			...action.payload.entities.games
 		}
 	}
 
@@ -21,8 +20,22 @@ const gamesByID = (state={}, action) => {
 const gameList = (state=[], action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
-			const response = action.payload.response;
-			return response.result;
+			// append ids
+			return [
+				...state,
+				...action.payload.result
+			];
+
+		default:
+			return state;
+	}
+}
+
+
+const nextGamePageURL = (state=null, action) => {
+	switch(action.type) {
+		case ActionTypes.FETCH_GAMES_SUCCESS:
+			return action.meta.nextPageURL;
 
 		default:
 			return state;
@@ -45,7 +58,13 @@ const isFetching = (state=false, action) => {
 }
 
 
-const RootReducer = combineReducers({ gamesByID, gameList, isFetching });
+const RootReducer = combineReducers({
+	gamesByID,
+	gameList,
+	isFetching,
+	nextGamePageURL
+});
+
 export default RootReducer;
 
 

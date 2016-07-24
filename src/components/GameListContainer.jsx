@@ -1,30 +1,36 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Waypoint from 'react-waypoint';
 
 import * as actions from '../actions';
 import { getGames, getIsFetching } from '../reducers';
 import GameList from './GameList.jsx';
 
-
 class GameListContainer extends React.Component {
 
-	componentDidMount() {
-		this.fetch();
-	}
-
-	fetch() {
-		this.props.fetchGames();
+	getWaypoint() {
+		const { isFetching, fetchNextGames } = this.props;
+		if (!isFetching) {
+			return (
+				<Waypoint
+					onEnter={ fetchNextGames }
+					bottomOffset={ -20 }
+				/>
+			);
+		}
 	}
 
 	render() {
-		const { games, isFetching, toggleGameOwnership } = this.props;
-
-		if (isFetching) {
-			return (<p>Loading...</p>);
-		}
+		const { games, toggleGameOwnership } = this.props;
 
 		return (
-			<GameList games={ games } onGameClick={ toggleGameOwnership } />
+			<div>
+				<GameList
+					games={ games }
+					onGameClick={ toggleGameOwnership }
+				/>
+				{ this.getWaypoint() }
+			</div>
 		);
 	}
 }
@@ -32,7 +38,7 @@ class GameListContainer extends React.Component {
 GameListContainer.propTypes = {
 	games: PropTypes.array.isRequired,
 	isFetching: PropTypes.bool.isRequired,
-	fetchGames: PropTypes.func.isRequired,
+	fetchNextGames: PropTypes.func.isRequired,
 	toggleGameOwnership: PropTypes.func.isRequired,
 	toggleGameKnowledge: PropTypes.func.isRequired
 };
