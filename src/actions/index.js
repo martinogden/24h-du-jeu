@@ -65,8 +65,8 @@ export const toggleGameKnowledge = (id) => (dispatch, getState) => {
 };
 
 
-export const authWithFacebook = (authResponse) => ({
+export const authWithFacebook = (response) => ({
 	type: ActionTypes.AUTH_USER,
-	payload: authResponse,
+	payload: response,
 	meta: { provider: "facebook" }
 });
