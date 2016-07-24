@@ -10,7 +10,7 @@ const Game = ({ name, img_uri, own, know, onClick }) => {
 
 
 	return (
-		<div className="col s6 m4">
+		<div className="col s6 m3">
 			<Card
 				title={ name }
 				header={<CardTitle image={ img_uri } />}
