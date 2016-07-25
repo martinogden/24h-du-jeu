@@ -37,6 +37,7 @@ class App extends React.Component {
 				appId="322217561499723"
 				autoLoad={ true }
 				fields="name,email,picture"
+				icon="fa-facebook"
 				callback={ callback }
 			/>
 		);
