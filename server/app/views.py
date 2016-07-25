@@ -1,8 +1,47 @@
+import json
+
 from flask import Blueprint, jsonify, request, abort
 
 from . import app, db
 from .models import Game, Player
 from .schemas import game_schema, games_schema, player_schema
+from . import auth
+
+
+HTTP_STATUS_OK = 200
+HTTP_STATUS_CODE_CREATED = 201
+HTTP_STATUS_CODE_BAD_REQUEST = 400
+
+
+
+@app.route('/api/user/login', methods=['POST'])
+def login():
+	try:
+		payload = json.loads(request.data)
+		signed_request = payload['signedRequest']
+	except (ValueError, KeyError):
+		abort(HTTP_STATUS_CODE_BAD_REQUEST)
+
+	try:
+		connection = auth.parse_signed_request(signed_request)
+	except auth.SignedRequestDecodeException:
+		abort(HTTP_STATUS_CODE_BAD_REQUEST)
+
+	# get or create Player
+	q = { 'facebook_id': connection['user_id'] }
+	player = Player.query.filter_by(**q).first()
+	if player:
+		return jsonify({}), HTTP_STATUS_OK
+
+	access_token = payload['accessToken']
+	facebook_user = auth.get_user(access_token)
+	player = Player.from_facebook_user(facebook_user)
+
+	db.session.add(player)
+	db.session.commit()
+
+	result, errors = player_schema.dump(player)
+	return jsonify(result), HTTP_STATUS_CODE_CREATED
 
 
 @app.route('/api/games', methods=['GET'])
@@ -10,7 +49,7 @@ def get_games():
 	try:
 		page_num = int(request.args.get('page', 1))
 	except ValueError:
-		abort(400)
+		abort(HTTP_STATUS_CODE_BAD_REQUEST)
 
 	page = Game.query.paginate(page=page_num, per_page=app.config['PER_PAGE'])
 	result, errors = games_schema.dump(page.items)
@@ -28,9 +67,6 @@ def knowers(game_id):
 	return _owner_knower_helper(game_id, 'knowers')
 
 
-### STATIC CONTENT ###
-
-
 def _owner_knower_helper(game_id, attr):
 	# TODO get real logged in user
 	current_user = Player.query.filter_by(id=u'C\xc3line').first_or_404()
@@ -41,7 +77,7 @@ def _owner_knower_helper(game_id, attr):
 
 	if request.method == 'DELETE':
 		if current_user not in rel:
-			abort(400)
+			abort(HTTP_STATUS_CODE_BAD_REQUEST)
 		rel.remove(current_user)
 
 	else:  # PATCH
@@ -57,7 +93,7 @@ def _owner_knower_helper(game_id, attr):
 	result, errors = game_schema.dump(game)
 
 	if errors:
-		return jsonify(errors), 400
+		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
 
 	return jsonify(result)
 

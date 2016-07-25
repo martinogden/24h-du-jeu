@@ -65,10 +65,10 @@ export const loginUser = (payload) => {
 	const url = `${ENDPOINT_URL}/user/login`;
 	const params = {
 		method: "POST",
-		body: payload,
+		body: JSON.stringify(payload),
 	};
 
 	return fetchJSON(url, params).then(({ response, json }) => ({
-		payload: normalize(json, Schema.User)
+		payload: normalize(json, Schema.user)
 	}));
 };
