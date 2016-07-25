@@ -20,10 +20,13 @@ const GameList = ({ games, onGameClick }) => {
 	};
 
 	return (
-		<Masonry
-			className="row"
-			options={ masonryOptions }
-		>{ children }</Masonry>
+		<div className="container">
+			<div className="row">
+				<Masonry
+					options={ masonryOptions }
+				>{ children }</Masonry>
+			</div>
+		</div>
 	);
 };
 

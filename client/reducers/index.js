@@ -6,14 +6,18 @@ import { ActionTypes } from '../constants';
 const gamesByID = (state={}, action) => {
 	// TODO: will work only whilst games are
 	// only the objects returned from API
-	if (action.payload) {
-		return {
-			...state,
-			...action.payload.entities.games
-		}
-	}
+	switch(action.type) {
+		case ActionTypes.FETCH_GAMES_SUCCESS:
+			if (action.payload) {
+				return {
+					...state,
+					...action.payload.entities.games
+				}
+			}
 
-	return state;
+		default:
+			return state;
+	}
 }
 
 
@@ -58,11 +62,23 @@ const isFetching = (state=false, action) => {
 }
 
 
+const isLoggedIn = (state=false, action) => {
+	switch(action.type) {
+		case ActionTypes.AUTH_USER_SUCCESS:
+			return true;
+
+		default:
+			return state;
+	}
+}
+
+
 const RootReducer = combineReducers({
 	gamesByID,
 	gameList,
 	isFetching,
-	nextGamePageURL
+	nextGamePageURL,
+	isLoggedIn,
 });
 
 export default RootReducer;

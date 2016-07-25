@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
+import { Preloader } from 'react-materialize';
 
 import * as actions from '../actions';
 import { getGames, getIsFetching } from '../reducers';
@@ -20,6 +21,16 @@ class GameListContainer extends React.Component {
 		}
 	}
 
+	getLoader() {
+		return (
+			<div className="row">
+			  <div className="col m4 offset-m4 center s4 offset-s4">
+			    <Preloader size="big" flashing/>
+			  </div>
+			</div>
+		);
+	}
+
 	render() {
 		const { games, toggleGameOwnership } = this.props;
 
@@ -30,6 +41,7 @@ class GameListContainer extends React.Component {
 					onGameClick={ toggleGameOwnership }
 				/>
 				{ this.getWaypoint() }
+				{ this.getLoader() }
 			</div>
 		);
 	}

@@ -42,7 +42,37 @@ class Player(db.Model):
 	__tablename__ = 'PLAYER'
 
 	id = db.Column('ID', db.Unicode(80), primary_key=True)
+	facebook_id = db.Column(db.Unicode(80), index=True, unique=True)
+	email = db.Column(db.Unicode(255), unique=True)
+	name = db.Column(db.Unicode(255))
+	picture_url = db.Column(db.UnicodeText)
 	pseudo = db.Column('PSEUDO', db.Unicode(80))
+
+	connections = db.relationship('Connection',
+		backref='player',
+		lazy='dynamic'
+	)
 
 	def __repr__(self):
 		return '<Player %s>' % self.pseudo
+
+	@classmethod
+	def from_facebook_user(cls, user):
+		instance = cls()
+		instance.id = user['id']
+		instance.facebook_id = user['id']
+		instance.email = user['email']
+		instance.name = user['name']
+		instance.picture_url = user['picture']['data']['url']
+		return instance
+
+
+class Connection(db.Model):
+	__tablename__ = 'CONNECTION'
+
+	id = db.Column(db.Integer, primary_key=True)
+	player_id = db.Column(db.Integer, db.ForeignKey('PLAYER.ID'))
+
+	user_id = db.Column(db.Unicode(80))
+	code = db.Column(db.UnicodeText)
+	issued_at = db.Column(db.DateTime)

@@ -15,4 +15,4 @@ class PlayerSchema(ma.ModelSchema):
 
 game_schema = GameSchema()
 games_schema = GameSchema(many=True)
-player_schema = PlayerSchema(many=True)
+player_schema = PlayerSchema()

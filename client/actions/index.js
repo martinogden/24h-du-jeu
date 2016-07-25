@@ -63,3 +63,16 @@ export const toggleGameKnowledge = (id) => (dispatch, getState) => {
 
 	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
 };
+
+
+export const authWithFacebook = (payload) => (dispatch, getState) => {
+	const apiMethod = () => api.loginUser(payload);
+
+	const actionTypes = [
+		ActionTypes.AUTH_USER_REQUEST,
+		ActionTypes.AUTH_USER_SUCCESS,
+		ActionTypes.AUTH_USER_FAILURE
+	];
+
+	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
+};
