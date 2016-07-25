@@ -49,7 +49,7 @@ def get_games():
 	try:
 		page_num = int(request.args.get('page', 1))
 	except ValueError:
-		abort(400)
+		abort(HTTP_STATUS_CODE_BAD_REQUEST)
 
 	page = Game.query.paginate(page=page_num, per_page=app.config['PER_PAGE'])
 	result, errors = games_schema.dump(page.items)
@@ -67,9 +67,6 @@ def knowers(game_id):
 	return _owner_knower_helper(game_id, 'knowers')
 
 
-### STATIC CONTENT ###
-
-
 def _owner_knower_helper(game_id, attr):
 	# TODO get real logged in user
 	current_user = Player.query.filter_by(id=u'C\xc3line').first_or_404()
@@ -80,7 +77,7 @@ def _owner_knower_helper(game_id, attr):
 
 	if request.method == 'DELETE':
 		if current_user not in rel:
-			abort(400)
+			abort(HTTP_STATUS_CODE_BAD_REQUEST)
 		rel.remove(current_user)
 
 	else:  # PATCH
@@ -96,7 +93,7 @@ def _owner_knower_helper(game_id, attr):
 	result, errors = game_schema.dump(game)
 
 	if errors:
-		return jsonify(errors), 400
+		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
 
 	return jsonify(result)
 

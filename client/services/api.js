@@ -69,6 +69,6 @@ export const loginUser = (payload) => {
 	};
 
 	return fetchJSON(url, params).then(({ response, json }) => ({
-		payload: normalize(json, Schema.User)
+		payload: normalize(json, Schema.user)
 	}));
 };
