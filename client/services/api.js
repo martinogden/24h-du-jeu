@@ -4,7 +4,7 @@ import { normalize } from 'normalizr';
 
 import * as Schema from './schema';
 
-const ENDPOINT_URL = 'http://localhost:5000/api';
+export const ENDPOINT_URL = 'http://localhost:5000/api';
 
 
 const getNextPageURL = (response) => {

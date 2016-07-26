@@ -14,5 +14,5 @@ export const apiActionCoordinator = (dispatch, apiMethod, actionTypes) => {
 		payload: new Error(error.message || "Something went wrong.")
 	});
 
-	apiMethod().then(successHandler, errorHandler);
+	return apiMethod().then(successHandler, errorHandler);
 }
