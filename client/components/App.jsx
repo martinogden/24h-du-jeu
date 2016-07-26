@@ -85,7 +85,7 @@ App.PropTypes = {
 
 
 const mapStateToProps = (state) => ({
-	isLoggedIn: state.isLoggedIn
+	isLoggedIn: state.auth.isLoggedIn,
 });
 
 App = connect(mapStateToProps, actions)(App);

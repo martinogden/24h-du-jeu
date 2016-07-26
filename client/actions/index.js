@@ -25,7 +25,7 @@ const apiActionCoordinator = (dispatch, apiMethod, actionTypes) => {
 export const fetchNextGames = () => (dispatch, getState) => {
 
 	const state = getState();
-	const nextPageURL = state.nextGamePageURL;
+	const nextPageURL = state.games.nextPageURL;
 	const apiMethod = api.fetchGames(nextPageURL);
 
 	const actionTypes = [

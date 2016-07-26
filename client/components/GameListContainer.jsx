@@ -4,7 +4,7 @@ import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
 import * as actions from '../actions';
-import { getGames, getIsFetching } from '../reducers';
+import { getGames } from '../reducers';
 import GameList from './GameList.jsx';
 
 class GameListContainer extends React.Component {
@@ -58,7 +58,7 @@ GameListContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
 	games: getGames(state),
-	isFetching: getIsFetching(state)
+	isFetching: state.games.isFetching,
 });
 
 GameListContainer = connect(mapStateToProps, actions)(GameListContainer);
