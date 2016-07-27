@@ -1,7 +1,7 @@
 import assert from 'assert';
 
-import { ActionTypes } from '../../constants';
-import auth from '../../reducers/auth';
+import { ActionTypes } from 'constants';
+import auth from 'reducers/auth';
 
 
 const action = {

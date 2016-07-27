@@ -5,7 +5,7 @@ Web app for board game players to mark known games. Built using Flask and React.
 
 ## Running
 
-	$ cd 24h-du-jeu
+	$ cd 24h-du-jeu/client
 	$ npm install
 	$ npm start
 

@@ -1,7 +1,7 @@
 import path from 'path';
 
 export default {
-  entry: './client/index.jsx',
+  entry: './src/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',

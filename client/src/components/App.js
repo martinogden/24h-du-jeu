@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import { Provider, connect } from 'react-redux';
 
 import * as actions from '../actions/auth';
-import Login from './Login.jsx';
-import Navbar from './Navbar.jsx';
-import GameListContainer from './GameListContainer.jsx';
+import Login from './Login';
+import Navbar from './Navbar';
+import GameListContainer from './GameListContainer';
 
 
 export class App extends React.Component {

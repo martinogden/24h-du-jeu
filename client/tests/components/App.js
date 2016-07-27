@@ -2,9 +2,9 @@ import assert from 'assert';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { App } from '../../components/App.jsx';
-import Login from '../../components/Login.jsx';
-import GameListContainer from '../../components/GameListContainer.jsx';
+import { App } from 'components/App';
+import Login from 'components/Login';
+import GameListContainer from 'components/GameListContainer';
 
 
 describe('<App/>', () => {

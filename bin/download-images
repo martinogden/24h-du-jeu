@@ -11,7 +11,7 @@ from boardgamegeek.exceptions import BoardGameGeekError
 
 
 DATABASE = 'db/24hDuJeuReferentDb2016Full'
-IMG_DIR = os.path.realpath('static/img')
+IMG_DIR = os.path.realpath('client/static/img')
 PATT = r'_t\.jpg$'
 
 

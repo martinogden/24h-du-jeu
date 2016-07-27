@@ -4,8 +4,8 @@ import { shallow } from 'enzyme';
 import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
-import GameList from '../../components/GameList.jsx';
-import { GameListContainer } from '../../components/GameListContainer.jsx';
+import GameList from 'components/GameList';
+import { GameListContainer } from 'components/GameListContainer';
 
 
 const createGameListContainerWrapper = (props) => {

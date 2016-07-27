@@ -2,8 +2,8 @@ import assert from 'assert';
 import deepFreeze from 'deep-freeze';
 import deepcopy from 'deepcopy';
 
-import { ActionTypes } from '../../constants';
-import reducer from '../../reducers/games';
+import { ActionTypes } from 'constants';
+import reducer from 'reducers/games';
 
 
 // example object returned by normalizr

@@ -2,7 +2,7 @@ import assert from 'assert';
 import configureMockStore from 'redux-mock-store';
 import { normalize, Schema, arrayOf } from 'normalizr';
 
-import normalizr from '../../middleware/normalizr.js';
+import normalizr from 'middleware/normalizr.js';
 
 
 const middlewares = [normalizr];

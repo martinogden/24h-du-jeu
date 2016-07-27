@@ -5,8 +5,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 
-import { ActionTypes, Schemas, API_ENDPOINT_URL } from '../../constants';
-import { fetchNextGames } from '../../actions/games';
+import { ActionTypes, Schemas, API_ENDPOINT_URL } from 'constants';
+import { fetchNextGames } from 'actions/games';
 
 
 const middlewares = [ thunk, apiMiddleware ];

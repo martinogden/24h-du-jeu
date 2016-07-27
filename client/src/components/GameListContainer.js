@@ -5,7 +5,7 @@ import { Preloader } from 'react-materialize';
 
 import * as actions from '../actions/games';
 import { getGames } from '../reducers';
-import GameList from './GameList.jsx';
+import GameList from './GameList';
 
 
 export class GameListContainer extends React.Component {

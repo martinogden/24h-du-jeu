@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Masonry from 'react-masonry-component';
 
-import Game from './Game.jsx';
+import Game from './Game';
 
 
 const GameList = ({ games, onGameClick }) => {

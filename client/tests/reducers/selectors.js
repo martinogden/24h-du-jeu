@@ -1,7 +1,7 @@
 import assert from 'assert';
 import deepFreeze from 'deep-freeze';
 
-import { getGames } from '../../reducers/games';
+import { getGames } from 'reducers/games';
 
 
 describe('selectors::getGames', () => {

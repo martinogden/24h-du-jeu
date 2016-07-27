@@ -2,7 +2,7 @@ import assert from 'assert';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import GameList, { __RewireAPI__ } from '../../components/GameList.jsx';
+import GameList, { __RewireAPI__ } from 'components/GameList';
 
 
 const GameStub = ({ game, onGameClick }) => <div key={ game.id }/>;
