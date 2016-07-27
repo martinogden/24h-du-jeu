@@ -41,6 +41,7 @@
     "react-materialize": "^0.14.6",
     "react-redux": "^4.4.5",
     "react-waypoint": "^3.1.0",
+    "redux-api-middleware": "^1.0.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0"
   }
