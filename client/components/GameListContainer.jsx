@@ -22,13 +22,16 @@ class GameListContainer extends React.Component {
 	}
 
 	getLoader() {
-		return (
-			<div className="row">
-			  <div className="col m4 offset-m4 center s4 offset-s4">
-			    <Preloader size="big" flashing/>
-			  </div>
-			</div>
-		);
+		const { isFetching } = this.props;
+		if (isFetching) {
+			return (
+				<div className="row">
+				  <div className="col m4 offset-m4 center s4 offset-s4">
+				    <Preloader size="big" flashing/>
+				  </div>
+				</div>
+			);
+		}
 	}
 
 	render() {
