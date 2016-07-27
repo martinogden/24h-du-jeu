@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import Game, { __RewireAPI__ } from '../../components/Game.jsx';
+import Game from '../../components/Game.jsx';
 
 
 const createGameWrapper = (props) => {

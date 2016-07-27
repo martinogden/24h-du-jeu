@@ -5,7 +5,7 @@ import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
 import GameList from '../../components/GameList.jsx';
-import { GameListContainer, __RewireAPI__ } from '../../components/GameListContainer.jsx';
+import { GameListContainer } from '../../components/GameListContainer.jsx';
 
 
 const createGameListContainerWrapper = (props) => {
