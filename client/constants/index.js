@@ -1,3 +1,6 @@
+import { Schema, arrayOf } from 'normalizr';
+
+
 export const ActionTypes = {
 	FETCH_GAMES_REQUEST: 'FETCH_GAMES_REQUEST',
 	FETCH_GAMES_SUCCESS: 'FETCH_GAMES_SUCCESS',
@@ -15,3 +18,15 @@ export const ActionTypes = {
 	AUTH_USER_SUCCESS: 'AUTH_USER_SUCCESS',
 	AUTH_USER_FAILURE: 'AUTH_USER_FAILURE',
 };
+
+
+const game = new Schema('games');
+
+export const Schemas = {
+	GAME: game,
+	GAMES: arrayOf(game),
+	USER: new Schema('user'),
+}
+
+// todo this needs to go in a config file somewhere
+export const API_ENDPOINT_URL = 'http://localhost:5000/api';

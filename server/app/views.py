@@ -14,7 +14,7 @@ HTTP_STATUS_CODE_BAD_REQUEST = 400
 
 
 
-@app.route('/api/user/login', methods=['POST'])
+@app.route('/api/users/login', methods=['POST'])
 def login():
 	try:
 		payload = json.loads(request.data)

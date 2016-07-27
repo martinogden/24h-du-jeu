@@ -1,55 +1,54 @@
 import assert from 'assert';
+import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
+
 import thunk from 'redux-thunk';
+import { apiMiddleware } from 'redux-api-middleware';
 
-import { ActionTypes } from '../../constants';
-import { fetchNextGames, __RewireAPI__ } from '../../actions/games';
+import { ActionTypes, Schemas, API_ENDPOINT_URL } from '../../constants';
+import { fetchNextGames } from '../../actions/games';
 
 
-const middlewares = [thunk];
+const middlewares = [ thunk, apiMiddleware ];
 const mockStore = configureMockStore(middlewares);
-
-
-const action = {
-	type: ActionTypes.AUTH_USER_SUCCESS
-};
 
 
 describe('actions::games::fetchNextGames', () => {
 
-	it('should dispatch FETCH_GAMES_REQUEST when called', () => {
-		const expectedActions = [
-			{ type: ActionTypes.FETCH_GAMES_REQUEST },
-		];
+	describe('on FETCH_GAMES_SUCCESS', () => {
+		it('should populate action.meta', () => {
 
-		const store = mockStore({ games: {} });
-		const action = fetchNextGames();
-		store.dispatch(action);
+			const nextPageURL = 'https://example.com';
+			const headers = { Link: `<${nextPageURL}>; rel="next"` };
+			const payload = [ {id: 1}, {id: 2} ];
 
-		const actions = store.getActions();
-		assert.deepEqual(actions, expectedActions);
-	})
+			nock(API_ENDPOINT_URL).get('/games').reply(200, payload, headers);
 
-	it('should dispatch FETCH_GAMES_SUCCESS', () => {
 
-		__RewireAPI__.__Rewire__('fetchGames', () => {
-			// n.b. fetchGames returns a function
-			return (nextPageURL) => Promise.resolve();
-		});
+			const expectedActions = [
+				{ 
+					type: ActionTypes.FETCH_GAMES_REQUEST,
+					payload: undefined,
+					meta: undefined,
+				},
+				{
+					type: ActionTypes.FETCH_GAMES_SUCCESS,
+					meta: {
+						schema: Schemas.GAMES,
+						nextPageURL,
+					},
+					payload,
+				},
+			];
 
-		const store = mockStore({ games: {} });
-		const action = fetchNextGames();
+			const store = mockStore({ games: {} });
+			const action = fetchNextGames();
 
-		const expectedActions = [
-			{ type: ActionTypes.FETCH_GAMES_REQUEST },
-			{ type: ActionTypes.FETCH_GAMES_SUCCESS },
-		];
-
-		return store.dispatch(action).then(() => {
-			const actions = store.getActions();
-			assert.deepEqual(actions, expectedActions);
-
-			__RewireAPI__.__ResetDependency__('fetchGames');
+			return store.dispatch(action).then(() => {
+				const actions = store.getActions();
+				assert.deepEqual(actions, expectedActions);
+			});
 		})
 	})
+
 })
