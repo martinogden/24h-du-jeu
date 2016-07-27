@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Card, CardTitle, Col, Chip, Icon } from 'react-materialize';
+import { Card, CardTitle, Icon } from 'react-materialize';
 
 
 const pluralize = (iterable, singular, plural) => {
@@ -14,7 +14,7 @@ const pluralize = (iterable, singular, plural) => {
 }
 
 
-const randInt = (a, b) => a + parseInt((b - a) * Math.random());
+const randInt = (a, b) => a + parseInt((b - a) * Math.random(), 10);
 const li = iter => iter.map(item => {
 	const n = randInt(1, 100);
 	// TODO remove dummy image

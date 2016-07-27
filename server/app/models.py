@@ -33,7 +33,7 @@ class Game(db.Model):
 	@property
 	def img_uri(self):
 		return "%s%s.jpg" % (app.config['IMG_PATH'], self.id)
-	
+
 	def __repr__(self):
 		return '<Game %s>' % self.name
 

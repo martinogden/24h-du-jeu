@@ -10,17 +10,17 @@ import RootReducer from './reducers';
 const configureStore = () => {
 	const loggerMiddleware = createLogger();
 
-  const middlewares = [
-  	thunkMiddleware,
-  	apiMiddleware,
-  	normalizrMiddleware,
-  	loggerMiddleware,
-  ];
+	const middlewares = [
+		thunkMiddleware,
+		apiMiddleware,
+		normalizrMiddleware,
+		loggerMiddleware,
+	];
 
-  return createStore(
-    RootReducer,
-    applyMiddleware(...middlewares)
-  );
+	return createStore(
+		RootReducer,
+		applyMiddleware(...middlewares)
+	);
 };
 
 export default configureStore;

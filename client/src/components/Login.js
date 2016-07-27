@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import { Card, Navbar, NavItem, Icon } from 'react-materialize';
+import { Card } from 'react-materialize';
 
-
-const FACEBOOK_STAUS_NOT_AUTHORIZED = 'not_authorized';
-const FACEBOOK_STAUS_UNKNOWN = 'unknown';
 
 // todo move to stylesheet
 const centerStyles = {

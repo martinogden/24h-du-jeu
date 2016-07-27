@@ -7,12 +7,12 @@ const byID = (state={}, action) => {
 	// only the objects returned from API
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
-			if (action.payload) {
+			if (action.payload)
 				return {
 					...state,
 					...action.payload.entities.games
 				}
-			}
+			break;
 
 		default:
 			return state;

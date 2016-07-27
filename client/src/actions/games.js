@@ -4,6 +4,18 @@ import parse from 'parse-link-header';
 import { ActionTypes, API_ENDPOINT_URL, Schemas } from '../constants';
 
 
+const getMeta = (action, state, response) => {
+	const header = response.headers.get('link', '');
+	const links = parse(header);
+
+	if (links && links.next)
+		return {
+			schema: Schemas.GAMES,
+			nextPageURL: links.next.url,
+		};
+};
+
+
 export const fetchNextGames = () => (dispatch, getState) => dispatch({
 	[CALL_API]: {
 		endpoint: getState().games.nextPageURL || `${API_ENDPOINT_URL}/games`,
@@ -15,18 +27,6 @@ export const fetchNextGames = () => (dispatch, getState) => dispatch({
 		],
 	}
 });
-
-
-const getMeta = (action, state, response) => {
-	const header = response.headers.get('link', '');
-	const links = parse(header);
-
-	if (links && links.next)
-		return {
-			schema: Schemas.GAMES,
-			nextPageURL: links.next.url,
-		};
-};
 
 
 export const toggleGameOwnership = (id) => {};
