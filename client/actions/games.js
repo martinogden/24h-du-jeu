@@ -19,28 +19,8 @@ export const fetchNextGames = () => (dispatch, getState) => {
 };
 
 
-export const toggleGameOwnership = (id) => (dispatch, getState) => {
-
-	const apiMethod = () => toggleOwnership(id);
-
-	const actionTypes = [
-		ActionTypes.TOGGLE_GAME_OWNERSHIP_REQUEST,
-		ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS,
-		ActionTypes.TOGGLE_GAME_OWNERSHIP_FAILURE
-	];
-
-	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
 };
 
 
-export const toggleGameKnowledge = (id) => (dispatch, getState) => {
-	const apiMethod = () => toggleKnowledge(id);
-
-	const actionTypes = [
-		ActionTypes.TOGGLE_GAME_KNOWLEDGE_REQUEST,
-		ActionTypes.TOGGLE_GAME_KNOWLEDGE_SUCCESS,
-		ActionTypes.TOGGLE_GAME_KNOWLEDGE_FAILURE
-	];
-
-	return apiActionCoordinator(dispatch, apiMethod, actionTypes);
-};
+export const toggleGameOwnership = (id) => {};
+export const toggleGameKnowledge = (id) => {};
