@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
-import * as actions from '../actions';
+import * as actions from '../actions/games';
 import { getGames } from '../reducers';
 import GameList from './GameList.jsx';
 
-class GameListContainer extends React.Component {
+
+export class GameListContainer extends React.Component {
 
 	getWaypoint() {
 		const { isFetching, fetchNextGames } = this.props;
@@ -64,7 +65,4 @@ const mapStateToProps = (state) => ({
 	isFetching: state.games.isFetching,
 });
 
-GameListContainer = connect(mapStateToProps, actions)(GameListContainer);
-
-
-export default GameListContainer;
+export default connect(mapStateToProps, actions)(GameListContainer);
