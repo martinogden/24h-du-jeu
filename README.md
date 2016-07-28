@@ -13,7 +13,7 @@ In another window:
 
 	$ cd 24h-du-jeu
 	$ pip install -r requirements.txt
-	$ python server/run.py
+	$ python server/manage.py run
 	$ open http://localhost:8080
 
 
