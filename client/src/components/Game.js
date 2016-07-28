@@ -33,7 +33,7 @@ const li = iter => iter.map(item => {
 });
 
 
-const Game = ({ name, img_uri, own, know, owners, knowers, onClick }) => {
+const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowClick }) => {
 	const inactive = 'inactive grey-text text-lighten-2';
 	const active = 'active green-text';
 
@@ -66,11 +66,11 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onClick }) => {
 				<p className="divider" style={{ margin: '1rem 0' }}></p>
 
 				<div>
-					<p className={ `toggle-own ${own ? active : inactive}` } onClick={ onClick }>
+					<p className={ `toggle-own ${own ? active : inactive}` } onClick={ onOwnClick }>
 						<Icon className="tiny">done_all</Icon>{ ' ' }
 						<a key="own" className={ own ? active : inactive }>j'apporte</a>
 					</p>
-					<p className={ `toggle-know ${know ? active : inactive}` } onClick={ onClick }>
+					<p className={ `toggle-know ${know ? active : inactive}` } onClick={ onKnowClick }>
 						<Icon className="tiny">done</Icon>{ ' ' }
 						<a key="know" className={ know ? active : inactive }>j'explique</a>
 					</p>
@@ -82,6 +82,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onClick }) => {
 };
 
 Game.PropTypes = {
+	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	img_uri: PropTypes.string.isRequired,
 	own: PropTypes.bool,

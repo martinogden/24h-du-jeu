@@ -14,7 +14,8 @@ const createGameWrapper = (props) => {
 		know: false,
 		owners: [],
 		knowers: [],
-		onClick: () => {},
+		onOwnClick: () => {},
+		onKnowClick: () => {},
 		...props,
 	};
 
@@ -42,12 +43,12 @@ describe('<Game/>', () => {
 	})
 
 	it('should call click callback when toggle is clicked', () => {
-		const onClick = sinon.spy();
-		const wrapper = createGameWrapper({ onClick });
+		const onOwnClick = sinon.spy();
+		const wrapper = createGameWrapper({ onOwnClick });
 
-		assert.equal(onClick.callCount, 0);
+		assert.equal(onOwnClick.callCount, 0);
 		wrapper.find('.toggle-own').simulate('click');
-		assert.equal(onClick.callCount, 1);
+		assert.equal(onOwnClick.callCount, 1);
 	})
 
 	it('active state should reflect ownership state', () => {
@@ -59,12 +60,12 @@ describe('<Game/>', () => {
 	});
 
 	it('should call click callback when toggle is clicked', () => {
-		const onClick = sinon.spy();
-		const wrapper = createGameWrapper({ onClick });
+		const onOwnClick = sinon.spy();
+		const wrapper = createGameWrapper({ onOwnClick });
 
-		assert.equal(onClick.callCount, 0);
+		assert.equal(onOwnClick.callCount, 0);
 		wrapper.find('.toggle-own').simulate('click');
-		assert.equal(onClick.callCount, 1);
+		assert.equal(onOwnClick.callCount, 1);
 	})
 
 	it('active state should reflect knowledge state', () => {

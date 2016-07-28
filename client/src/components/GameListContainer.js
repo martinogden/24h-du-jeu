@@ -36,13 +36,14 @@ export class GameListContainer extends React.Component {
 	}
 
 	render() {
-		const { games, toggleGameOwnership } = this.props;
+		const { games, toggleGameOwnership, toggleGameKnowledge } = this.props;
 
 		return (
 			<div>
 				<GameList
 					games={ games }
-					onGameClick={ toggleGameOwnership }
+					onOwnClick={ toggleGameOwnership }
+					onKnowClick={ toggleGameKnowledge }
 				/>
 				{ this.getWaypoint() }
 				{ this.getLoader() }

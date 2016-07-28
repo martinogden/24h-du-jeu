@@ -29,5 +29,29 @@ export const fetchNextGames = () => (dispatch, getState) => dispatch({
 });
 
 
-export const toggleGameOwnership = (id) => {};
-export const toggleGameKnowledge = (id) => {};
+export const toggleGameOwnership = (id) => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/${id}/owners`,
+		method: 'PATCH',
+		credentials: 'include',
+		types: [
+			ActionTypes.TOGGLE_GAME_OWNERSHIP_REQUEST,
+			ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS,
+			ActionTypes.TOGGLE_GAME_OWNERSHIP_FAILURE,
+		],
+	}
+});
+
+
+export const toggleGameKnowledge = (id) => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/${id}/knowers`,
+		method: 'PATCH',
+		credentials: 'include',
+		types: [
+			ActionTypes.TOGGLE_GAME_KNOWLEDGE_REQUEST,
+			ActionTypes.TOGGLE_GAME_KNOWLEDGE_SUCCESS,
+			ActionTypes.TOGGLE_GAME_KNOWLEDGE_FAILURE,
+		],
+	}
+});

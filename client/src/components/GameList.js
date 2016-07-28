@@ -4,14 +4,15 @@ import Masonry from 'react-masonry-component';
 import Game from './Game';
 
 
-const GameList = ({ games, onGameClick }) => {
+const GameList = ({ games, onOwnClick, onKnowClick }) => {
 
 	var children = games.map(game =>
 		<Game
 			className="image-element-class"
 			key={ game.id }
+			onOwnClick={ () => onOwnClick(game.id) }
+			onKnowClick={ () => onKnowClick(game.id) }
 			{ ...game }
-			onClick={ () => onGameClick(game.id) }
 		/>
 	);
 
@@ -32,7 +33,8 @@ const GameList = ({ games, onGameClick }) => {
 
 GameList.propTypes = {
 	games: PropTypes.array.isRequired,
-	onGameClick: PropTypes.func.isRequired
+	onOwnClick: PropTypes.func.isRequired,
+	onKnowClick: PropTypes.func.isRequired,
 };
 
 
