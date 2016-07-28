@@ -24,13 +24,13 @@ def get_games():
 	return add_link_header(page, response)
 
 
-@app.route('/api/games/<game_id>/owners', methods=['PATCH', 'DELETE'])
+@app.route('/api/games/<game_id>/owners', methods=['PATCH'])
 @jwt_required()
 def owners(game_id):
 	return _owner_knower_helper(game_id, 'owners', current_identity)
 
 
-@app.route('/api/games/<game_id>/knowers', methods=['PATCH', 'DELETE'])
+@app.route('/api/games/<game_id>/knowers', methods=['PATCH'])
 @jwt_required()
 def knowers(game_id):
 	return _owner_knower_helper(game_id, 'knowers', current_identity)
@@ -40,22 +40,14 @@ def _owner_knower_helper(game_id, attr, current_user):
 	game = Game.query.filter_by(id=game_id).first_or_404()
 
 	rel = getattr(game, attr)
-	save = True
 
-	if request.method == 'DELETE':
-		if current_user not in rel:
-			abort(HTTP_STATUS_CODE_BAD_REQUEST)
+	if current_user in rel:
 		rel.remove(current_user)
+	else:
+		rel.append(current_user)
 
-	else:  # PATCH
-		if not current_user in rel:  # idempotent
-			rel.append(current_user)
-		else:
-			save = False
-
-	if save:
-		db.session.add(game)
-		db.session.commit()
+	db.session.add(game)
+	db.session.commit()
 
 	result, errors = game_schema.dump(game)
 
