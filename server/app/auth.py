@@ -22,23 +22,6 @@ class SignedRequestDecodeException(Exception):
 	pass
 
 
-def get_user(access_token):
-	url = "%s/me" % FACEBOOK_API_BASE_URL
-	fields = ('id', 'name', 'email', 'picture')
-
-	headers = {'Authorization': 'Bearer %s' % access_token}
-	params = {'fields': ','.join(fields)}
-	response = requests.get(url, params=params, headers=headers)
-
-	if not response.ok:
-		try:
-			msg = response.json()['message']
-		except KeyError:
-			raise OAuthException(msg)
-
-	return response.json()
-
-
 def _decode(string):
 	padding = '=' * (-len(string) % 4)
 	return base64.urlsafe_b64decode(str(string) + padding)
@@ -55,7 +38,7 @@ def parse_signed_request(signed_request):
 	# get payload and signed payload hash
 	try:
 		exp_signed, b64_payload = signed_request.split('.')
-		exp_signed = _decode(exp_signed) 
+		exp_signed = _decode(exp_signed)
 		payload = _decode(b64_payload)
 		payload = json.loads(payload)
 	except (ValueError, TypeError):

@@ -1,48 +1,14 @@
 import json
 
-from flask import Blueprint, jsonify, request, abort
+from flask import jsonify, request, abort
 from flask_jwt import jwt_required, current_identity
 
 from . import app, db
 from .models import Game, Player
 from .schemas import game_schema, games_schema, player_schema
-from . import auth
 
 
-HTTP_STATUS_OK = 200
-HTTP_STATUS_CODE_CREATED = 201
 HTTP_STATUS_CODE_BAD_REQUEST = 400
-
-
-
-@app.route('/api/users/login', methods=['POST'])
-def login():
-	try:
-		payload = json.loads(request.data)
-		signed_request = payload['signedRequest']
-	except (ValueError, KeyError):
-		abort(HTTP_STATUS_CODE_BAD_REQUEST)
-
-	try:
-		connection = auth.parse_signed_request(signed_request)
-	except auth.SignedRequestDecodeException:
-		abort(HTTP_STATUS_CODE_BAD_REQUEST)
-
-	# get or create Player
-	q = { 'facebook_id': connection['user_id'] }
-	player = Player.query.filter_by(**q).first()
-	if player:
-		return jsonify({}), HTTP_STATUS_OK
-
-	access_token = payload['accessToken']
-	facebook_user = auth.get_user(access_token)
-	player = Player.from_facebook_user(facebook_user)
-
-	db.session.add(player)
-	db.session.commit()
-
-	result, errors = player_schema.dump(player)
-	return jsonify(result), HTTP_STATUS_CODE_CREATED
 
 
 @app.route('/api/games', methods=['GET'])
