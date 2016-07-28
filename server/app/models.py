@@ -54,7 +54,7 @@ class Player(db.Model):
 	)
 
 	def __repr__(self):
-		return '<Player %s>' % self.pseudo
+		return '<Player %s>' % (self.pseudo or self.name)
 
 	@classmethod
 	def from_facebook_user(cls, user):
