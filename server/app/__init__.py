@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt import JWT
 
 
 app = Flask(__name__)
@@ -16,3 +17,5 @@ if app.config['DEBUG']:
 
 
 from . import views
+from .auth import authenticate, identity
+jwt = JWT(app, authenticate, identity)

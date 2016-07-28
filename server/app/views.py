@@ -1,6 +1,7 @@
 import json
 
 from flask import Blueprint, jsonify, request, abort
+from flask_jwt import jwt_required, current_identity
 
 from . import app, db
 from .models import Game, Player
@@ -58,18 +59,18 @@ def get_games():
 
 
 @app.route('/api/games/<game_id>/owners', methods=['PATCH', 'DELETE'])
+@jwt_required()
 def owners(game_id):
-	return _owner_knower_helper(game_id, 'owners')
+	return _owner_knower_helper(game_id, 'owners', current_identity)
 
 
 @app.route('/api/games/<game_id>/knowers', methods=['PATCH', 'DELETE'])
+@jwt_required()
 def knowers(game_id):
-	return _owner_knower_helper(game_id, 'knowers')
+	return _owner_knower_helper(game_id, 'knowers', current_identity)
 
 
-def _owner_knower_helper(game_id, attr):
-	# TODO get real logged in user
-	current_user = Player.query.filter_by(id=u'C\xc3line').first_or_404()
+def _owner_knower_helper(game_id, attr, current_user):
 	game = Game.query.filter_by(id=game_id).first_or_404()
 
 	rel = getattr(game, attr)

@@ -4,8 +4,11 @@ import hashlib
 import hmac
 import requests
 
+from .models import Player
 from . import app
 
+
+## Facebook utils
 
 FACEBOOK_API_BASE_URL = 'https://graph.facebook.com'
 HMAC_SHA256 = 'HMAC-SHA256'
@@ -72,3 +75,23 @@ def parse_signed_request(signed_request):
 		raise SignedRequestDecodeException("Invalid signed request")
 
 	return payload
+
+
+## JWT stuff
+
+def authenticate(user_id, signed_request):
+	try:
+		request = parse_signed_request(signed_request)
+	except SignedRequestDecodeException:
+		return None
+
+	if user_id != request['user_id']:
+		return None
+
+	return Player.query.filter_by(facebook_id=user_id).first()
+
+
+def identity(payload):
+	user_id = payload['identity']
+	return Player.query.filter_by(facebook_id=user_id).first()
+

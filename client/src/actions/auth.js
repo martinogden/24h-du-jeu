@@ -4,9 +4,12 @@ import { ActionTypes, API_ENDPOINT_URL } from '../constants';
 
 export const authWithFacebook = (payload) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/users/login`,
+		endpoint: '/auth',
 		method: 'POST',
-		body: JSON.stringify(payload),
+		body: JSON.stringify({
+			id: payload.id,
+			signedRequest: payload.signedRequest,
+		}),
 		types: [
 			ActionTypes.AUTH_USER_REQUEST,
 			ActionTypes.AUTH_USER_SUCCESS,
