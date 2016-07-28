@@ -5,7 +5,8 @@ import auth from 'reducers/auth';
 
 
 const action = {
-	type: ActionTypes.AUTH_USER_SUCCESS
+	type: ActionTypes.AUTH_USER_SUCCESS,
+	payload: { access_token: 'TEST' },
 };
 
 

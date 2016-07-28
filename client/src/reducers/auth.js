@@ -13,7 +13,18 @@ const isLoggedIn = (state=false, action) => {
 	}
 }
 
+const token = (state=null, action) => {
+	switch(action.type) {
+		case ActionTypes.AUTH_USER_SUCCESS:
+			return action.payload.access_token;
+
+		default:
+			return state;
+	}
+}
+
 
 export default combineReducers({
 	isLoggedIn,
+	token,
 });
