@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "BABEL_ENV=test mocha ./tests/**/*.js --compilers js:babel-register",
-    "test-debug": "BABEL_ENV=test node-debug _mocha --debug-brk ./tests/**/*.js --compilers js:babel-register",
+    "test": "NODE_ENV=test BABEL_ENV=test mocha ./tests/**/*.js --compilers js:babel-register",
+    "test-debug": "NODE_ENV=test BABEL_ENV=test node-debug _mocha --debug-brk ./tests/**/*.js --compilers js:babel-register",
     "start": "webpack-dev-server --hot --progress --colors",
     "build": "webpack --progress --colors"
   },

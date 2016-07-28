@@ -28,5 +28,6 @@ export const Schemas = {
 	USER: new Schema('user'),
 }
 
-// todo this needs to go in a config file somewhere
-export const API_ENDPOINT_URL = 'http://localhost:5000/api';
+
+const isTest = process.env.NODE_ENV === 'test';
+export const API_ENDPOINT_URL = `${isTest ? 'http://localhost' : ''}/api`;

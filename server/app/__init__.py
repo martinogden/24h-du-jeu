@@ -11,9 +11,6 @@ ma = Marshmallow(app)
 
 
 if app.config['DEBUG']:
-	from flask_cors import CORS
-	CORS(app, expose_headers=['Link'])
-
 	db.create_all()
 	db.session.commit()
 
