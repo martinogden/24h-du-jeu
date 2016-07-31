@@ -53,13 +53,15 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 		</div>
 	);
 
+	const Header = () => (
+		<div className="card-image" onDoubleClick={ onKnowClick }>
+		  <img src={ img_uri } />
+		</div>
+	);
+
 	return (
 		<div className="col s6 m4">
-			<Card
-				header={ <CardTitle image={ img_uri } /> }
-				reveal={ reveal }
-				title={ name }
-			>
+			<Card header={ <Header/> } reveal={ reveal } title={ name }>
 				<p className="owner-count brown-text text-lighten-1">{ pluralize(owners, 'apporte', 'apportent') }</p>
 				<p className="knower-count brown-text text-lighten-3">{ pluralize(knowers, 'explique', 'expliquent') }</p>
 
