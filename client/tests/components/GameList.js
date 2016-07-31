@@ -15,10 +15,13 @@ describe('<GameList/>', () => {
 
 		const props = {
 			games: [
-				{id: 1},
-				{id: 2},
+				{id: 1, owners: [], knowers: [] },
+				{id: 2, owners: [], knowers: [] },
 			],
-			onGameClick: () => "hello",
+			onOwnClick: () => {},
+			onKnowClick: () => {},
+			ownedGameIDs: [],
+			knownGameIDs: [],
 		};
 
 		const wrapper = shallow(<GameList { ...props } />);

@@ -4,7 +4,10 @@ import Masonry from 'react-masonry-component';
 import Game from './Game';
 
 
-const GameList = ({ games, onOwnClick, onKnowClick }) => {
+const contains = (array, element) => array.indexOf(element) > -1;
+
+
+const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs }) => {
 
 	var children = games.map(game =>
 		<Game
@@ -12,6 +15,8 @@ const GameList = ({ games, onOwnClick, onKnowClick }) => {
 			key={ game.id }
 			onOwnClick={ () => onOwnClick(game.id) }
 			onKnowClick={ () => onKnowClick(game.id) }
+			own={ contains(ownedGameIDs, game.id) }
+			know={ contains(knownGameIDs, game.id) }
 			{ ...game }
 		/>
 	);
@@ -35,6 +40,8 @@ GameList.propTypes = {
 	games: PropTypes.array.isRequired,
 	onOwnClick: PropTypes.func.isRequired,
 	onKnowClick: PropTypes.func.isRequired,
+	ownedGameIDs: PropTypes.array.isRequired,
+	knownGameIDs: PropTypes.array.isRequired,
 };
 
 

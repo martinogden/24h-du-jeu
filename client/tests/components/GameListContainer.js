@@ -15,6 +15,8 @@ const createGameListContainerWrapper = (props) => {
 		fetchNextGames: () => {},
 		toggleGameOwnership: () => {},
 		toggleGameKnowledge: () => {},
+		ownedGameIDs: [],
+		knownGameIDs: [],
 		...props,
 	};
 

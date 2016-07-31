@@ -4,7 +4,7 @@ import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
 import * as actions from '../actions/games';
-import { getGames } from '../reducers';
+import { getGames, getOwnedGameIDs, getKnownGameIDs } from '../reducers';
 import GameList from './GameList';
 
 
@@ -36,14 +36,16 @@ export class GameListContainer extends React.Component {
 	}
 
 	render() {
-		const { games, toggleGameOwnership, toggleGameKnowledge } = this.props;
+		const props = this.props;
 
 		return (
 			<div>
 				<GameList
-					games={ games }
-					onOwnClick={ toggleGameOwnership }
-					onKnowClick={ toggleGameKnowledge }
+					games= { props.games }
+					onOwnClick={ props.toggleGameOwnership }
+					onKnowClick={ props.toggleGameKnowledge }
+					ownedGameIDs={ props.ownedGameIDs }
+					knownGameIDs={ props.knownGameIDs }
 				/>
 				{ this.getWaypoint() }
 				{ this.getLoader() }
@@ -57,12 +59,16 @@ GameListContainer.propTypes = {
 	isFetching: PropTypes.bool.isRequired,
 	fetchNextGames: PropTypes.func.isRequired,
 	toggleGameOwnership: PropTypes.func.isRequired,
-	toggleGameKnowledge: PropTypes.func.isRequired
+	toggleGameKnowledge: PropTypes.func.isRequired,
+	ownedGameIDs: PropTypes.array.isRequired,
+	knownGameIDs: PropTypes.array.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
 	games: getGames(state),
+	ownedGameIDs: getOwnedGameIDs(state),
+	knownGameIDs: getKnownGameIDs(state),
 	isFetching: state.games.isFetching,
 });
 
