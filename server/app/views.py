@@ -11,6 +11,13 @@ from .schemas import game_schema, games_schema, player_schema
 HTTP_STATUS_CODE_BAD_REQUEST = 400
 
 
+def auth_response(access_token, identity):
+	return jsonify({
+		'access_token': access_token.decode('utf-8'),
+		'user_id': identity.id,
+	})
+
+
 @app.route('/api/games', methods=['GET'])
 def get_games():
 	try:

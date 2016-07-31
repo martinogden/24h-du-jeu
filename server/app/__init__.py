@@ -16,6 +16,9 @@ if app.config['DEBUG']:
 	db.session.commit()
 
 
+# eugh. avoid circular imports
 from . import views
 from .auth import authenticate, identity
+
 jwt = JWT(app, authenticate, identity)
+jwt.auth_response_handler(views.auth_response)

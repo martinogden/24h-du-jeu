@@ -23,8 +23,19 @@ const token = (state=null, action) => {
 	}
 }
 
+const userID = (state=null, action) => {
+	switch(action.type) {
+		case ActionTypes.AUTH_USER_SUCCESS:
+			return action.payload.user_id;
+
+		default:
+			return state;
+	}
+}
+
 
 export default combineReducers({
 	isLoggedIn,
 	token,
+	userID,
 });
