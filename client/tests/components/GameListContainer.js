@@ -44,22 +44,12 @@ describe('<GameListContainer/>', () => {
 
 	it('should pass correct props to <GameList/>', () => {
 
-		const toggleGameOwnership = () => {};
-		const toggleGameKnowledge = () => {};
-		const games = [
-			{id: 1},
-			{id: 2},
-		];
+		const expectedProps = Object.keys(GameList.propTypes);
 
-		const wrapper = createGameListContainerWrapper({
-			games,
-			toggleGameOwnership,
-			toggleGameKnowledge,
-		});
-		const props = wrapper.find(GameList).props();
+		const wrapper = createGameListContainerWrapper();
+		const elmt = wrapper.find(GameList)
+		const props = Object.keys( elmt.props() );
 
-		assert.equal(props.games, games);
-		assert.equal(props.onOwnClick, toggleGameOwnership);
-		assert.equal(props.onKnowClick, toggleGameKnowledge);
+		assert.deepEqual(props, expectedProps);
 	})
 })
