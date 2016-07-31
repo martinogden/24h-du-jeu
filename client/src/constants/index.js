@@ -31,3 +31,5 @@ export const Schemas = {
 
 const isTest = process.env.NODE_ENV === 'test';
 export const API_ENDPOINT_URL = `${isTest ? 'http://localhost' : ''}/api`;
+
+export const AUTH_HEADER_PREFIX = 'JWT ';
