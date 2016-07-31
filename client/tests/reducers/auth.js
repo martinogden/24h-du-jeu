@@ -47,3 +47,20 @@ describe('reducers::auth::token', () => {
 	})
 
 })
+
+
+describe('reducers::auth::userID', () => {
+
+	describe('on AUTH_USER_SUCCESS', () => {
+		it('should return provided userID', () => {
+			const state = auth({}, action);
+			assert.deepEqual(state['userID'], USER_ID);
+		})
+	})
+
+	it('should return null as default state', () => {
+		const state = auth({}, {});
+		assert.deepEqual(state['userID'], null);
+	})
+
+})
