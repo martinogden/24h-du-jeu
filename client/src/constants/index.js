@@ -20,12 +20,17 @@ export const ActionTypes = {
 };
 
 
+const user = new Schema('users');
 const game = new Schema('games');
+game.define({
+	owners: arrayOf(user),
+	knowers: arrayOf(user),
+});
 
 export const Schemas = {
+	USER: user,
 	GAME: game,
 	GAMES: arrayOf(game),
-	USER: new Schema('user'),
 }
 
 

@@ -36,7 +36,10 @@ export const toggleGameOwnership = (id) => ({
 		credentials: 'include',
 		types: [
 			ActionTypes.TOGGLE_GAME_OWNERSHIP_REQUEST,
-			ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS,
+			{
+				type: ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS,
+				meta: { schema: Schemas.GAME },
+			},
 			ActionTypes.TOGGLE_GAME_OWNERSHIP_FAILURE,
 		],
 	}
@@ -50,7 +53,10 @@ export const toggleGameKnowledge = (id) => ({
 		credentials: 'include',
 		types: [
 			ActionTypes.TOGGLE_GAME_KNOWLEDGE_REQUEST,
-			ActionTypes.TOGGLE_GAME_KNOWLEDGE_SUCCESS,
+			{
+				type: ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS,
+				meta: { schema: Schemas.GAME },
+			},
 			ActionTypes.TOGGLE_GAME_KNOWLEDGE_FAILURE,
 		],
 	}
