@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Provider, connect } from 'react-redux';
 
-import * as actions from '../actions/auth';
+import * as gameActions from '../actions/games';
+import * as authActions from '../actions/auth';
 import Login from './Login';
 import Navbar from './Navbar';
 import GameListContainer from './GameListContainer';
@@ -35,5 +36,10 @@ App.PropTypes = {
 const mapStateToProps = (state) => ({
 	isLoggedIn: state.auth.isLoggedIn,
 });
+
+const actions = {
+	...gameActions,
+	...authActions,
+};
 
 export default connect(mapStateToProps, actions)(App);
