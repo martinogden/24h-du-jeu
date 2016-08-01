@@ -11,14 +11,14 @@ import GameListContainer from './GameListContainer';
 export class App extends React.Component {
 
 	render() {
-		const { store, isLoggedIn, authWithFacebook } = this.props;
+		const { store, isLoggedIn, authWithFacebook, filterGames } = this.props;
 
 		if (!isLoggedIn)
 			return <Login success={ authWithFacebook }/>;
 
 		return (
 			<div>
-				<Navbar/>
+				<Navbar onSearch={ filterGames } />
 				<Provider store={ store }>
 					<GameListContainer />
 				</Provider>
@@ -29,7 +29,9 @@ export class App extends React.Component {
 
 App.PropTypes = {
 	isLoggedIn: PropTypes.bool.isRequired,
-	store: PropTypes.object.isRequired
+	store: PropTypes.object.isRequired,
+	authWithFacebook: PropTypes.func.isRequired,
+	filterGames: PropTypes.func.isRequired,
 };
 
 

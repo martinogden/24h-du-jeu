@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 
 
-const ESC_KEY = 27;
+const KeyCode = {
+	ESC: 27,
+};
+
 
 
 class SearchBox extends React.Component {
@@ -15,41 +18,57 @@ class SearchBox extends React.Component {
 	}
 
   componentDidMount() {
-    window.addEventListener('keypress', this.onKeyPress);
+    document.addEventListener('keydown', this.onKeyPress.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keypress', this.onKeyPress);
+    document.removeEventListener('keydown', this.onKeyPress.bind(this));
   }
 
+  /**
+   * update state and dispatch search action
+   */
 	update(e) {
 		const q = e.target.value;
 		this.setState({ q: q });
 		this.props.search(q);
 	}
 
+	/**
+	 * reset state and dispatch empty search action
+	 */
 	reset() {
 		this.setState({ q: '' });
 		this.props.search('');
 	}
 
-	onKeyPress(e) {
-		if (e.keyCode === ESC_KEY) {
-			this._cross.click();
-			this.reset();
+	/**
+	 * Escape key clears search input and remove focus
+	 */
+	onKeyPress({ keyCode }) {
+		const active = document.activeElement;
+		const input = this._input;
+
+		if (keyCode === KeyCode.ESC && (input === active || this.state.q)) {
+				input.blur();
+				this.reset();
+				return false;
 		}
 	}
 
 	render() {
 		return (
-			<div className="input-field" autoComplete="off">
+			<div className="input-field">
 
 				<input
 					id="search"
 					type="search"
 					style={{ height: '64px' }}  // TODO extract inline styles
 					value={ this.state.q }
+					tabIndex="0"
+					ref={ (ref) => this._input = ref }
 					onChange={ this.update }
+					autoComplete="off"
 				/>
 
 				<label htmlFor="search">
@@ -59,8 +78,6 @@ class SearchBox extends React.Component {
 				<i
 					className="material-icons"
 					onClick={ this.reset }
-					ref={ (ref) => this._cross = ref }
-					style={{ display: 'block' }}
 				>close</i>
 
 			</div>

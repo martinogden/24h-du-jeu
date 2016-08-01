@@ -24,6 +24,12 @@ export const paginateGames = () => ({
 });
 
 
+export const filterGames = (query) => ({
+	type: ActionTypes.FILTER_GAMES,
+	payload: query,
+});
+
+
 export const toggleGameOwnership = (id) => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/games/${id}/owners`,

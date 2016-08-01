@@ -1,14 +1,20 @@
-import React from 'react';
-import { Navbar as MaterializeNavbar, NavItem, Icon } from 'react-materialize';
+import React, { PropTypes } from 'react';
+import { Navbar as MaterializeNavbar } from 'react-materialize';
+
+import SearchBox from './SearchBox';
 
 
-const Navbar = () => (
+const Navbar = ({ onSearch }) => (
 	<div className="navbar-fixed">
-		<MaterializeNavbar brand='&nbsp;24h du Jeu' right>
-			<NavItem href='#'><Icon>search</Icon></NavItem>
+		<MaterializeNavbar className="green">
+			<SearchBox search={ onSearch } />
 		</MaterializeNavbar>
 	</div>
 );
+
+Navbar.propTypes = {
+	onSearch: PropTypes.func.isRequired,
+};
 
 
 export default Navbar;

@@ -47,6 +47,17 @@ const page = (state=0, action) => {
 }
 
 
+const query = (state=null, action) => {
+	switch(action.type) {
+		case ActionTypes.FILTER_GAMES:
+			return action.payload;
+
+		default:
+			return state;
+	}
+}
+
+
 const isFetching = (state=false, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
@@ -66,6 +77,7 @@ export default combineReducers({
 	byID,
 	list,
 	page,
+	query,
 	isFetching,
 });
 
@@ -75,8 +87,16 @@ export default combineReducers({
 export const getGames = (state) => {
 	const n = state.page * PER_PAGE;
 
+	const matchesFilter = (game) => {
+		if (!state.query)
+			return true;
+
+		const q = new RegExp(state.query, 'i');
+		return game.name.search(q) > -1;
+	};
 
 	return state.list
 		.slice(0, n)  // pagination
 		.map(id => state.byID[id])
+		.filter(matchesFilter);  // search
 };
