@@ -82,15 +82,37 @@ export default combineReducers({
 
 /* Selectors */
 
+const normalize = (str) => {
+	if (!str)
+		return '';
+
+	const [ a, e, i, o, u, c ] = 'aeiouc';
+	const dict = {
+		'â': a, 'à': a, 'ä': a,
+		'é': e, 'è': e, 'ê': e, 'ë': e,
+		'î': i, 'ï': i,
+		'ô': o, 'œ': o + e,
+		'û': u, 'ü': u,
+		'ç': c,
+	};
+
+	return str
+		.split('')
+		.map(c => dict[c] ? dict[c] : c)
+		.join('');
+}
+
+
 export const getGames = (state) => {
 	const n = state.page * PER_PAGE;
+	const query = normalize(state.query)
+	const pattern = new RegExp(query, 'i');
 
 	const matchesFilter = (game) => {
-		if (!state.query)
+		if (!query)
 			return true;
 
-		const q = new RegExp(state.query, 'i');
-		return game.name.search(q) > -1;
+		return game.sort_name.search(pattern) > -1;
 	};
 
 	return state.list

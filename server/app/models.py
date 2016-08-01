@@ -19,6 +19,7 @@ class Game(db.Model):
 
 	id = db.Column('ID', db.Unicode(15), primary_key=True)
 	name = db.Column('NAME', db.Unicode(80))
+	sort_name = db.Column('SORT_NAME', db.Unicode(80))
 
 	knowers = db.relationship('Player',
 		secondary=knowers,
