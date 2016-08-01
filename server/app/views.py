@@ -1,11 +1,9 @@
-import json
-
-from flask import jsonify, request, abort
+from flask import jsonify
 from flask_jwt import jwt_required, current_identity
 
 from . import app, db
-from .models import Game, Player
-from .schemas import game_schema, games_schema, player_schema
+from .models import Game
+from .schemas import game_schema, games_schema
 
 
 HTTP_STATUS_CODE_BAD_REQUEST = 400

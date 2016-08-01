@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import GameList, { __RewireAPI__ } from 'components/GameList';
 
 
-const GameStub = ({ game, onGameClick }) => <div key={ game.id }/>;
+const GameStub = ({ game }) => <div key={ game.id }/>;
 
 
 describe('<GameList/>', () => {

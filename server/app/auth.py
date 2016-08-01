@@ -2,7 +2,6 @@ import base64
 import json
 import hashlib
 import hmac
-import requests
 
 from .models import Player
 from . import app

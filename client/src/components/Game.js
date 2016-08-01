@@ -55,7 +55,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 
 	const Header = () => (
 		<div className="card-image" onDoubleClick={ onKnowClick }>
-		  <img src={ img_uri } />
+			<img src={ img_uri } />
 		</div>
 	);
 

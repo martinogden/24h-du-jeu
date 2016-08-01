@@ -11,7 +11,6 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs }
 
 	var children = games.map(game =>
 		<Game
-			className="image-element-class"
 			key={ game.id }
 			onOwnClick={ () => onOwnClick(game.id) }
 			onKnowClick={ () => onKnowClick(game.id) }

@@ -1,6 +1,5 @@
 import assert from 'assert';
 import deepFreeze from 'deep-freeze';
-import deepcopy from 'deepcopy';
 
 import { ActionTypes } from 'constants';
 import reducer from 'reducers/games';

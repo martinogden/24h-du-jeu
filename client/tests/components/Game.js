@@ -6,8 +6,8 @@ import sinon from 'sinon';
 import Game from 'components/Game';
 
 
-const createGameWrapper = (props) => {
-	var props = {  // defaults
+const createGameWrapper = (props_) => {
+	let props = {  // defaults
 		name: 'Test Game',
 		img_uri: '',
 		own: false,
@@ -16,7 +16,7 @@ const createGameWrapper = (props) => {
 		knowers: [],
 		onOwnClick: () => {},
 		onKnowClick: () => {},
-		...props,
+		...props_,
 	};
 
 	return shallow(<Game {...props } />)

@@ -1,5 +1,5 @@
 import { CALL_API } from 'redux-api-middleware';
-import { ActionTypes, API_ENDPOINT_URL } from '../constants';
+import { ActionTypes } from '../constants';
 
 
 export const authWithFacebook = (payload) => ({

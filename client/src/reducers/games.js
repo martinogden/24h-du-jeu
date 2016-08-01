@@ -3,8 +3,6 @@ import { ActionTypes, PER_PAGE } from '../constants';
 
 
 const byID = (state={}, action) => {
-	// TODO: will work only whilst games are
-	// only the objects returned from API
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS:

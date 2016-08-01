@@ -25,7 +25,7 @@ export class App extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
 App.PropTypes = {
 	isLoggedIn: PropTypes.bool.isRequired,
