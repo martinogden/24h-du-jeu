@@ -116,7 +116,7 @@ export const getGames = (state) => {
 	};
 
 	return state.list
-		.slice(0, n)  // pagination
 		.map(id => state.byID[id])
-		.filter(matchesFilter);  // search
+		.filter(matchesFilter)	// search
+		.slice(0, n);  					// pagination
 };
