@@ -16,11 +16,8 @@ const payload = {
 };
 
 
-const nextPageURL = 'http://google.com/'
-
 const fetch_success_action = {
 	type: ActionTypes.FETCH_GAMES_SUCCESS,
-	meta: { nextPageURL },
 	payload,
 };
 
@@ -37,9 +34,9 @@ const fetch_request_action = {
 describe('reducers::games::list', () => {
 
 	describe('on FETCH_GAMES_SUCCESS', () => {
-		it('should append game id\'s to state', () => {
+		it('should sync list with payload result', () => {
 			const stateBefore = [1];
-			const stateAfter = [1, 2, 3];
+			const stateAfter = [2, 3];
 
 			deepFreeze(stateBefore);
 
@@ -124,37 +121,6 @@ describe('reducers::games::isFetching', () => {
 })
 
 
-describe('reducers::games::nextPageURL', () => {
-
-	it('should set next url from payload if present', () => {
-		const stateBefore = 'some text';
-		const stateAfter = nextPageURL;
-
-		const state = reducer(
-			{ nextPageURL: stateBefore },
-			fetch_success_action
-		);
-
-		assert.deepEqual(state['nextPageURL'], stateAfter);
-	})
-
-	it('should reset next page url if not present in payload', () => {
-		const stateBefore = 'some text';
-		const stateAfter = null;
-
-		const action = deepcopy(fetch_success_action);
-		action.meta.nextPageURL = null;
-
-		const state = reducer(
-			{ nextPageURL: stateBefore },
-			action
-		);
-
-		assert.deepEqual(state['nextPageURL'], stateAfter);
-	})
-
-	it('should return null as default state', () => {
-		const state = reducer({}, {});
-		assert.deepEqual(state['nextPageURL'], null);
-	})
+describe('reducers::games::page', () => {
+	// TODO
 })

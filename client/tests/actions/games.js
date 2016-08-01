@@ -6,23 +6,21 @@ import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 
 import { ActionTypes, Schemas, API_ENDPOINT_URL } from 'constants';
-import { fetchNextGames } from 'actions/games';
+import { fetchGames } from 'actions/games';
 
 
 const middlewares = [ thunk, apiMiddleware ];
 const mockStore = configureMockStore(middlewares);
 
 
-describe('actions::games::fetchNextGames', () => {
+describe('actions::games::fetchGames', () => {
 
 	describe('on FETCH_GAMES_SUCCESS', () => {
 		it('should populate action.meta', () => {
 
-			const nextPageURL = 'https://example.com';
-			const headers = { Link: `<${nextPageURL}>; rel="next"` };
 			const payload = [ {id: 1}, {id: 2} ];
 
-			nock(API_ENDPOINT_URL).get('/games').reply(200, payload, headers);
+			nock(API_ENDPOINT_URL).get('/games').reply(200, payload);
 
 
 			const expectedActions = [
@@ -33,16 +31,13 @@ describe('actions::games::fetchNextGames', () => {
 				},
 				{
 					type: ActionTypes.FETCH_GAMES_SUCCESS,
-					meta: {
-						schema: Schemas.GAMES,
-						nextPageURL,
-					},
+					meta: { schema: Schemas.GAMES },
 					payload,
 				},
 			];
 
 			const store = mockStore({ games: {} });
-			const action = fetchNextGames();
+			const action = fetchGames();
 
 			return store.dispatch(action).then(() => {
 				const actions = store.getActions();

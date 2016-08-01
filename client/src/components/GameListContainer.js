@@ -10,12 +10,16 @@ import GameList from './GameList';
 
 export class GameListContainer extends React.Component {
 
+	componentDidMount() {
+		this.props.fetchGames();
+	}
+
 	getWaypoint() {
-		const { isFetching, fetchNextGames } = this.props;
+		const { isFetching, paginateGames } = this.props;
 		if (!isFetching) {
 			return (
 				<Waypoint
-					onEnter={ fetchNextGames }
+					onEnter={ paginateGames }
 					bottomOffset={ -20 }
 				/>
 			);
@@ -57,7 +61,8 @@ export class GameListContainer extends React.Component {
 GameListContainer.propTypes = {
 	games: PropTypes.array.isRequired,
 	isFetching: PropTypes.bool.isRequired,
-	fetchNextGames: PropTypes.func.isRequired,
+	fetchGames: PropTypes.func.isRequired,
+	paginateGames: PropTypes.func.isRequired,
 	toggleGameOwnership: PropTypes.func.isRequired,
 	toggleGameKnowledge: PropTypes.func.isRequired,
 	ownedGameIDs: PropTypes.array.isRequired,

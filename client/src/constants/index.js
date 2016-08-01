@@ -17,6 +17,8 @@ export const ActionTypes = {
 	AUTH_USER_REQUEST: 'AUTH_USER_REQUEST',
 	AUTH_USER_SUCCESS: 'AUTH_USER_SUCCESS',
 	AUTH_USER_FAILURE: 'AUTH_USER_FAILURE',
+
+	PAGINATE_GAMES: 'PAGINATE_GAMES',
 };
 
 
@@ -38,3 +40,5 @@ const isTest = process.env.NODE_ENV === 'test';
 export const API_ENDPOINT_URL = `${isTest ? 'http://localhost' : ''}/api`;
 
 export const AUTH_HEADER_PREFIX = 'JWT ';
+
+export const PER_PAGE = 20;

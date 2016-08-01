@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ActionTypes } from '../constants';
+import { ActionTypes, PER_PAGE } from '../constants';
 
 
 const byID = (state={}, action) => {
@@ -25,11 +25,7 @@ const byID = (state={}, action) => {
 const list = (state=[], action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
-			// append ids
-			return [
-				...state,
-				...action.payload.result
-			];
+			return action.payload.result;
 
 		default:
 			return state;
@@ -37,10 +33,13 @@ const list = (state=[], action) => {
 }
 
 
-const nextPageURL = (state=null, action) => {
+const page = (state=0, action) => {
 	switch(action.type) {
-		case ActionTypes.FETCH_GAMES_SUCCESS:
-			return action.meta.nextPageURL;
+		case ActionTypes.PAGINATE_GAMES:
+			return state + 1;
+
+		case ActionTypes.FILTER_GAMES:
+			return 1;
 
 		default:
 			return state;
@@ -66,13 +65,18 @@ const isFetching = (state=false, action) => {
 export default combineReducers({
 	byID,
 	list,
-	nextPageURL,
+	page,
 	isFetching,
 });
 
 
-// Selectors
+/* Selectors */
 
-export const getGames = (state) => (
-	state.list.map(id => state.byID[id])
-);
+export const getGames = (state) => {
+	const n = state.page * PER_PAGE;
+
+
+	return state.list
+		.slice(0, n)  // pagination
+		.map(id => state.byID[id])
+};

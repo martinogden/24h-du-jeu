@@ -14,7 +14,8 @@ describe('selectors::getGames', () => {
 				1: {id: 1},
 				2: {id: 2},
 				3: {id: 3},
-			}
+			},
+			page: 1,
 		};
 
 		const expectedGames = [
@@ -44,7 +45,8 @@ describe('selectors::getOwnedGameIDs', () => {
 					1: { id: 1, owners: [], knowers: [] },
 					2: { id: 2, owners: [USER_ID], knowers: [] },
 					3: { id: 3, owners: [USER_ID], knowers: [] },
-				}
+				},
+				page: 1,
 			},
 			auth: { userID: USER_ID },
 		};
@@ -70,7 +72,8 @@ describe('selectors::getKnownGameIDs', () => {
 					1: { id: 1, owners: [], knowers: [] },
 					2: { id: 2, owners: [], knowers: [USER_ID] },
 					3: { id: 3, owners: [], knowers: [USER_ID] },
-				}
+				},
+				page: 1,
 			},
 			auth: { userID: USER_ID },
 		};

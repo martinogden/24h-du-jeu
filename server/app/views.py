@@ -20,15 +20,13 @@ def auth_response(access_token, identity):
 
 @app.route('/api/games', methods=['GET'])
 def get_games():
-	try:
-		page_num = int(request.args.get('page', 1))
-	except ValueError:
-		abort(HTTP_STATUS_CODE_BAD_REQUEST)
+	games = Game.query.all()
+	result, errors = games_schema.dump(games)
 
-	page = Game.query.paginate(page=page_num, per_page=app.config['PER_PAGE'])
-	result, errors = games_schema.dump(page.items)
-	response = jsonify(result)
-	return add_link_header(page, response)
+	if errors:
+		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
+
+	return jsonify(result)
 
 
 @app.route('/api/games/<game_id>/owners', methods=['PATCH'])
@@ -62,19 +60,3 @@ def _owner_knower_helper(game_id, attr, current_user):
 		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
 
 	return jsonify(result)
-
-
-def add_link_header(pagination, response):
-	link = '<%s?page=%d>; rel="%s"';
-	links = []
-
-	if pagination.has_prev:
-		links.append(link % (request.base_url, pagination.prev_num, 'prev'))
-
-	if pagination.has_next:
-		links.append(link % (request.base_url, pagination.next_num, 'next'))
-
-	if links:
-		response.headers['Link'] = ', '.join(links)
-
-	return response
