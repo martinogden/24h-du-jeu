@@ -6,7 +6,7 @@ import SearchBox from './SearchBox';
 
 const Navbar = ({ onSearch }) => (
 	<div className="navbar-fixed">
-		<MaterializeNavbar className="green">
+		<MaterializeNavbar className="orange darken-3">
 			<SearchBox search={ onSearch } />
 		</MaterializeNavbar>
 	</div>

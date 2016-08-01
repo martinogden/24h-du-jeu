@@ -6,6 +6,17 @@ const KeyCode = {
 };
 
 
+const styles = {  // TODO extract inline styles
+	img: {
+		float: 'left',
+		margin: '8px 16px 0 0',
+	},
+	input: {
+		paddingLeft: '152px',
+		height: '64px',
+	},
+};
+
 
 class SearchBox extends React.Component {
 
@@ -63,7 +74,7 @@ class SearchBox extends React.Component {
 				<input
 					id="search"
 					type="search"
-					style={{ height: '64px' }}  // TODO extract inline styles
+					style={ styles.input }
 					value={ this.state.q }
 					tabIndex="0"
 					ref={ (ref) => this._input = ref }
@@ -72,6 +83,7 @@ class SearchBox extends React.Component {
 				/>
 
 				<label htmlFor="search">
+					<img src="/static/img/logo.png" style={ styles.img }/>
 					<i className="material-icons">search</i>
 				</label>
 
