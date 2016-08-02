@@ -25,7 +25,7 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs }
 	};
 
 	return (
-		<div className="container">
+		<div className="container" style={{ width: '960px' }}>
 			<div className="row">
 				<Masonry
 					options={ masonryOptions }

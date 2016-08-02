@@ -3,18 +3,32 @@
 Web app for board game players to mark known games. Built using Flask and React.js
 
 
-## Running
-
-	$ cd 24h-du-jeu/client
-	$ npm install
-	$ npm start
-
-In another window:
+## Installation
 
 	$ cd 24h-du-jeu
 	$ pip install -r requirements.txt
+	$ cd 24h-du-jeu
+	$ npm install
+
+### Downloading images from bgg:
+
+First install imagemagick, then:
+
+
+ 	$ pip install requirements-dev.txt
+ 	$ ./bin/download-images
+
+
+## Running
+
 	$ python server/manage.py run
-	$ open http://localhost:8080
+
+then, in another window:
+
+	$ cd client
+	$ npm start
+
+and go to http://localhost:8080 in a browser.
 
 
 ## License

@@ -60,7 +60,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 	);
 
 	return (
-		<div className="col s6 m4">
+		<div className="col s6 m3">
 			<Card header={ <Header/> } reveal={ reveal } title={ name }>
 				<p className="owner-count brown-text text-lighten-1">{ pluralize(owners, 'apporte', 'apportent') }</p>
 				<p className="knower-count brown-text text-lighten-3">{ pluralize(knowers, 'explique', 'expliquent') }</p>

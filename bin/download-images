@@ -2,10 +2,10 @@
 
 import os
 import re
-import shutil
 import sqlite3
 
 import requests
+from wand.image import Image
 from boardgamegeek import BoardGameGeek
 from boardgamegeek.exceptions import BoardGameGeekError
 
@@ -13,6 +13,7 @@ from boardgamegeek.exceptions import BoardGameGeekError
 DATABASE = 'db/24hDuJeuReferentDb2016Full'
 IMG_DIR = os.path.realpath('client/static/img')
 PATT = r'_t\.jpg$'
+IMG_WIDTH = 223
 
 
 def show_error(g_id, name):
@@ -41,7 +42,7 @@ def download_bgg_img(g_id, name, uri_t):
 
 		try:
 			game = bgg.game(game_id=bgg_id)
-		except BoardGameGeekError as e:
+		except BoardGameGeekError:
 			return show_error(g_id, name)
 
 		uri = game.image
@@ -52,10 +53,10 @@ def download_bgg_img(g_id, name, uri_t):
 	if not response.ok:
 		return show_error(g_id, name)
 
-	# save downloaded file
-	with open(fn, 'wb') as f:
-		shutil.copyfileobj(response.raw, f)
-
+	# resize and save file
+	with Image(file=response.raw) as img:
+		img.transform(resize=str(IMG_WIDTH))
+		img.save(filename=fn)
 
 
 def run():
