@@ -7,7 +7,7 @@ Web app for board game players to mark known games. Built using Flask and React.
 
 	$ cd 24h-du-jeu
 	$ pip install -r requirements.txt
-	$ cd 24h-du-jeu
+	$ cd client
 	$ npm install
 
 ### Downloading images from bgg:
@@ -15,7 +15,7 @@ Web app for board game players to mark known games. Built using Flask and React.
 First install imagemagick, then:
 
 
- 	$ pip install requirements-dev.txt
+ 	$ pip install -r dev-requirements.txt
  	$ ./bin/download-images
 
 
