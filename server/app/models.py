@@ -35,8 +35,8 @@ class Game(db.Model):
 	def img_uri(self):
 		return "%s%s.jpg" % (app.config['IMG_PATH'], self.id)
 
-	def __repr__(self):
-		return '<Game %s>' % self.name
+	def __unicode__(self):
+		return u'<Game %s>' % self.name
 
 
 class Player(db.Model):
@@ -54,8 +54,8 @@ class Player(db.Model):
 		lazy='dynamic'
 	)
 
-	def __repr__(self):
-		return '<Player %s>' % (self.pseudo or self.name)
+	def __unicode__(self):
+		return u'<Player %s>' % (self.pseudo or self.name)
 
 	@classmethod
 	def from_facebook_user(cls, user):
