@@ -2,10 +2,12 @@ import base64
 import json
 import hashlib
 import hmac
+import logging
 
 from .models import Player
 from . import app
 
+logger = logging.getLogger()
 
 ## Facebook utils
 
@@ -62,12 +64,16 @@ def parse_signed_request(signed_request):
 ## JWT stuff
 
 def authenticate(user_id, signed_request):
+	# logger.debug("hello")
+	# import ipdb; ipdb.set_trace
 	try:
 		request = parse_signed_request(signed_request)
-	except SignedRequestDecodeException:
+	except SignedRequestDecodeException as e:
+		raise
 		return None
 
 	if user_id != request['user_id']:
+		logger.debug("authenticate: user_id is different")
 		return None
 
 	return Player.query.filter_by(facebook_id=user_id).first()

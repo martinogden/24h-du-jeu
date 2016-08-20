@@ -1,3 +1,5 @@
+import os
+
 from flask import url_for
 from flask_script import Manager
 from app import app
@@ -28,7 +30,9 @@ def list_routes():
 
 @manager.command
 def run():
-	app.run()
+	# DEBUG has to be a boolean
+	DEBUG = os.environ.get('FLASK_DEBUG', 'True') == 'True'
+	app.run(debug=DEBUG)
 
 
 if __name__ == "__main__":
