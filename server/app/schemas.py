@@ -5,7 +5,7 @@ from .models import Game, Player
 class PlayerSchema(ma.ModelSchema):
 	class Meta:
 		model = Player
-		fields = ('id', 'name')
+		fields = ('id', 'pseudo')
 
 
 class GameSchema(ma.ModelSchema):
