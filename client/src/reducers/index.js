@@ -17,7 +17,7 @@ const filterGameIDs = (by, state) => {
 		return [];
 
 	const isUserInList = (users, id) => (
-		users.filter(uid => uid === id).length > 0
+		users.filter(user => user.id === id).length > 0
 	);
 
 	return getGames(state)

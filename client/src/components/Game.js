@@ -25,9 +25,9 @@ const li = iter => iter.map(item => {
 	};
 
 	return (
-		<li key={ item }>
+		<li key={ item.id }>
 			<img src={ url } className="circle" width="20" style={ iconStyle }/>
-			{ item }
+			{ item.pseudo }
 		</li>
 	);
 });

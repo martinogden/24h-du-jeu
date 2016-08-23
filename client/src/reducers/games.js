@@ -71,12 +71,32 @@ const isFetching = (state=false, action) => {
 }
 
 
+const usersByID = (state={}, action) => {
+	switch(action.type) {
+		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS:
+		case ActionTypes.TOGGLE_GAME_KNOWLEDGE_SUCCESS:
+			if (action.payload) {
+				return {
+					...state,
+					...action.payload.entities.users
+				}
+			}
+			break;
+
+		default:
+			return state;
+	}
+}
+
+
 export default combineReducers({
 	byID,
 	list,
 	page,
 	query,
 	isFetching,
+	usersByID,
 });
 
 
@@ -103,6 +123,11 @@ const normalize = (str) => {
 }
 
 
+const getUsers = (state, ids) => (
+	ids.map(id => state.usersByID[id])
+)
+
+
 export const getGames = (state) => {
 	const n = state.page * PER_PAGE;
 	const query = normalize(state.query)
@@ -115,8 +140,15 @@ export const getGames = (state) => {
 		return game.sort_name.search(pattern) > -1;
 	};
 
+	const getGame = (id) => {
+		const game = { ...state.byID[id] };
+		game.owners = getUsers(state, game.owners || []);
+		game.knowers = getUsers(state, game.knowers || []);
+		return game;
+	}
+
 	return state.list
-		.map(id => state.byID[id])
+		.map(getGame)
 		.filter(matchesFilter)	// search
 		.slice(0, n);  					// pagination
 };
