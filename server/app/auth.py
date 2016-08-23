@@ -81,5 +81,5 @@ def authenticate(user_id, signed_request):
 
 def identity(payload):
 	user_id = payload['identity']
-	return Player.query.filter_by(facebook_id=user_id).first()
+	return Player.query.filter_by(id=user_id).first()
 
