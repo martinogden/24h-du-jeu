@@ -7,3 +7,4 @@ static
 db/*
 env
 flask.log
+*.ico
