@@ -31,6 +31,12 @@ then, in another window:
 and go to http://localhost:8080 in a browser.
 
 
+## Testing
+
+	$ cd client
+	$ npm test
+
+
 ## License
 
 Copyright (c) 2016 Martin Ogden
