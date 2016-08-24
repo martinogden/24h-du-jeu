@@ -141,10 +141,12 @@ export const getGames = (state) => {
 	};
 
 	const getGame = (id) => {
-		const game = { ...state.byID[id] };
-		game.owners = getUsers(state, game.owners || []);
-		game.knowers = getUsers(state, game.knowers || []);
-		return game;
+		const game = state.byID[id];
+		return {
+			...game,
+			owners: getUsers(state, game.owners || []),
+			knowers: getUsers(state, game.knowers || []),
+		};
 	}
 
 	return state.list
