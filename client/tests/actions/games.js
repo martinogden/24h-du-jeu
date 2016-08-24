@@ -2,14 +2,13 @@ import assert from 'assert';
 import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
 
-import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 
 import { ActionTypes, Schemas, API_ENDPOINT_URL } from 'constants';
 import { fetchGames } from 'actions/games';
 
 
-const middlewares = [ thunk, apiMiddleware ];
+const middlewares = [ apiMiddleware ];
 const mockStore = configureMockStore(middlewares);
 
 

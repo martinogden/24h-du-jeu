@@ -19,8 +19,8 @@ describe('selectors::getGames', () => {
 		};
 
 		const expectedGames = [
-			{id: 1},
-			{id: 2},
+			{ id: 1, knowers: [], owners: [] },
+			{ id: 2, knowers: [], owners: [] },
 		];
 
 		deepFreeze(state);
@@ -45,6 +45,9 @@ describe('selectors::getOwnedGameIDs', () => {
 					1: { id: 1, owners: [], knowers: [] },
 					2: { id: 2, owners: [USER_ID], knowers: [] },
 					3: { id: 3, owners: [USER_ID], knowers: [] },
+				},
+				usersByID: {
+					[USER_ID]: { id: USER_ID },
 				},
 				page: 1,
 			},
@@ -72,6 +75,9 @@ describe('selectors::getKnownGameIDs', () => {
 					1: { id: 1, owners: [], knowers: [] },
 					2: { id: 2, owners: [], knowers: [USER_ID] },
 					3: { id: 3, owners: [], knowers: [USER_ID] },
+				},
+				usersByID: {
+					[USER_ID]: { id: USER_ID },
 				},
 				page: 1,
 			},
