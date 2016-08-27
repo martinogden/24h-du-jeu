@@ -25,23 +25,6 @@ const createGameWrapper = (props_) => {
 
 describe('<Game/>', () => {
 
-	// it('should show owner and knower counts', () => {
-	// 	const wrapper = createGameWrapper({
-	// 		owners: [],
-	// 		knowers: ['alice'],
-	// 	});
-
-	// 	assert.equal(
-	// 		wrapper.find('.owner-count').text(),
-	// 		'0 apportent'
-	// 	);
-
-	// 	assert.equal(
-	// 		wrapper.find('.knower-count').text(),
-	// 		'1 explique'
-	// 	);
-	// })
-
 	it('should call click callback when toggle is clicked', () => {
 		const onOwnClick = sinon.spy();
 		const wrapper = createGameWrapper({ onOwnClick });
