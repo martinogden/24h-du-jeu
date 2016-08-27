@@ -39,6 +39,10 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 
 	const reveal = (
 		<div>
+			<span className="card-title grey-text text-darken-4">
+				{ name }
+			</span>
+
 			<p className="divider" style={{ margin: '1rem 0' }}></p>
 			<div className="row">
 				<div className="col s6 m6">
@@ -61,8 +65,12 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 
 	return (
 		<div className="col s6 m3">
-			<Card header={ <Header/> } reveal={ reveal } title={ name }>
+			<Card header={ <Header/> } reveal={ reveal }>
 
+				<span className="card-title grey-text text-darken-4 activator">
+					{ name }
+					<i className="material-icons right">group</i>
+				</span>
 
 				<div>
 					<p className={ `toggle-own ${own ? active : inactive}` } onClick={ onOwnClick }>
@@ -79,6 +87,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 		</div>
 	);
 };
+
 
 Game.PropTypes = {
 	id: PropTypes.string.isRequired,
