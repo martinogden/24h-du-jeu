@@ -70,11 +70,11 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 				<div>
 					<p className={ `toggle-own ${own ? active : inactive}` } onClick={ onOwnClick }>
 						<Icon className="tiny">done_all</Icon>{ ' ' }
-						<a key="own" className={ own ? active : inactive }>j'apporte</a>
+						<a href="#" key="own" className={ own ? active : inactive }>j'apporte</a>
 					</p>
 					<p className={ `toggle-know ${know ? active : inactive}` } onClick={ onKnowClick }>
 						<Icon className="tiny">done</Icon>{ ' ' }
-						<a key="know" className={ know ? active : inactive }>j'explique</a>
+						<a href="#" key="know" className={ know ? active : inactive }>j'explique</a>
 					</p>
 				</div>
 
