@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
-import { NavItem as MaterializeNavItem } from 'react-materialize';
+import { NavItem, Dropdown } from 'react-materialize';
 
 const styles = {  // TODO extract inline styles
 	img: {
-	    margin: '4px 0 0 0',
+		height: '32px',
+		position: 'relative',
+    	top: '12px',
 	},
 };
 
@@ -11,9 +13,20 @@ const styles = {  // TODO extract inline styles
 // TODO : replace fixed image by user image
 
 const Userbar = () => (
-	<ul className="right">
-		<MaterializeNavItem href='#'><img src='/static/img/celine.jpg' className="circle" style={ styles.img }/></MaterializeNavItem>
-	</ul>
+		<li>
+			<Dropdown 
+				trigger={
+					<a href='#'><img src='/static/img/celine.jpg' className="circle" style={ styles.img }/></a>
+				}
+				options={
+					{
+						belowOrigin: true,
+					}	
+				}>
+
+				<NavItem>Logout</NavItem>
+			</Dropdown>
+		</li>
 );
 
 export default Userbar;
