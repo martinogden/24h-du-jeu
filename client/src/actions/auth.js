@@ -17,3 +17,7 @@ export const authWithFacebook = (payload) => ({
 		],
 	}
 });
+
+export const logoutFromFacebook = () => ({
+	type: ActionTypes.AUTH_USER_LOGOUT,
+});

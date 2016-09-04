@@ -10,15 +10,20 @@ import GameListContainer from './GameListContainer';
 
 export class App extends React.Component {
 
+	onLogout() {
+		const { logoutFromFacebook } = this.props;
+		FB.logout(logoutFromFacebook);
+	}
+
 	render() {
-		const { store, isLoggedIn, authWithFacebook, filterGames } = this.props;
+		const { store, isLoggedIn, authWithFacebook, filterGames, logoutFromFacebook } = this.props;
 
 		if (!isLoggedIn)
 			return <Login success={ authWithFacebook }/>;
 
 		return (
 			<div>
-				<Navbar onSearch={ filterGames } />
+				<Navbar onSearch={ filterGames } onLogout={ logoutFromFacebook }/>
 				<Provider store={ store }>
 					<GameListContainer />
 				</Provider>

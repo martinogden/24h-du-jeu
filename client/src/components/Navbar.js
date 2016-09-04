@@ -12,7 +12,7 @@ const styles = {  // TODO extract inline styles
 };
 
 
-const Navbar = ({ onSearch }) => (
+const Navbar = ({ onSearch, onLogout }) => (
 	<span>
 	<div className="navbar-fixed">
 		<nav>
@@ -27,7 +27,7 @@ const Navbar = ({ onSearch }) => (
 				    <Col s={2} m={2}>
 					    <ul className="right">
 					    	<DisplayMode />
-					    	<Userbar />
+					    	<Userbar onLogout={ onLogout }/>
 					    </ul>
 					</Col>
 				</Row>
@@ -39,6 +39,7 @@ const Navbar = ({ onSearch }) => (
 
 Navbar.propTypes = {
 	onSearch: PropTypes.func.isRequired,
+	onLogout: PropTypes.func.isRequired,
 };
 
 

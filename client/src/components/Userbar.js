@@ -12,7 +12,9 @@ const styles = {  // TODO extract inline styles
 
 // TODO : replace fixed image by user image
 
-const Userbar = () => (
+const Userbar = ({onLogout}) => {
+
+	return(
 		<li>
 			<Dropdown 
 				trigger={
@@ -28,9 +30,17 @@ const Userbar = () => (
 				<NavItem>J&#39;apporte</NavItem>
 				<NavItem>J&#39;explique</NavItem>
 				<NavItem divider />
-				<NavItem>Déconnexion</NavItem>
+				<NavItem 
+					onClick={ onLogout }>
+					Déconnexion
+				</NavItem>
 			</Dropdown>
 		</li>
-);
+	);
+};
+
+Userbar.propTypes = {
+	 onLogout: PropTypes.func.isRequired,
+};
 
 export default Userbar;

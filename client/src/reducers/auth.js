@@ -8,6 +8,9 @@ const isLoggedIn = (state=false, action) => {
 		case ActionTypes.AUTH_USER_SUCCESS:
 			return true;
 
+		case ActionTypes.AUTH_USER_LOGOUT:
+			return false;
+
 		default:
 			return state;
 	}
