@@ -3,6 +3,7 @@ import { Row, Col } from 'react-materialize';
 
 import SearchBox from './SearchBox';
 import Userbar from './Userbar';
+import DisplayMode from './DisplayMode';
 
 const styles = {  // TODO extract inline styles
 	img: {
@@ -12,21 +13,28 @@ const styles = {  // TODO extract inline styles
 
 
 const Navbar = ({ onSearch }) => (
-	<nav>
-		<div className="navbar-fixed nav-wrapper orange darken-3">
-			<Row>
-				<Col s={1}>
-			    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
-			    </Col>
-			    <Col s={8} offset={'s2'}>
-			    	<SearchBox search={ onSearch } />
-			    </Col>
-			    <Col s={2}>
-			    	<Userbar />
-				</Col>
-			</Row>
-		</div>
-	</nav>
+	<span>
+	<div className="navbar-fixed">
+		<nav>
+			<div className="nav-wrapper orange darken-3">
+				<Row>
+					<Col s={1} m={1}>
+				    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
+				    </Col>
+				    <Col s={8} m={8} offset={'m2'}>
+				    	<SearchBox search={ onSearch } />
+				    </Col>
+				    <Col s={2} m={2}>
+					    <ul className="right">
+					    	<DisplayMode />
+					    	<Userbar />
+					    </ul>
+					</Col>
+				</Row>
+			</div>
+		</nav>
+	</div>
+	</span>
 );
 
 Navbar.propTypes = {
