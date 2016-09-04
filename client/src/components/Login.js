@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import { Card } from 'react-materialize';
+import { Card, CardTitle } from 'react-materialize';
 
 
 // todo move to stylesheet
@@ -33,6 +33,7 @@ const Login = ({ success }) => {
 	return (
 		<div style={ centerStyles }>
 			<Card className="brown lighten-5"
+				header={<CardTitle image={"/static/img/logo-login.png"} className="responsive-img"/>}
 				title="Bienvenue aux 24h du Jeu !"
 				actions={ [<FacebookLogin callback={ callback } { ...fb_props } />] }>
 			</Card>
