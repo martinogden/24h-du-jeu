@@ -6,6 +6,7 @@ import { Preloader } from 'react-materialize';
 import * as actions from '../actions/games';
 import { getGames, getOwnedGameIDs, getKnownGameIDs } from '../reducers';
 import GameList from './GameList';
+import AddGame from './AddGame';
 
 
 export class GameListContainer extends React.Component {
@@ -17,7 +18,7 @@ export class GameListContainer extends React.Component {
 	getWaypoint() {
 		const { isFetching, paginateGames } = this.props;
 		if (!isFetching) {
-			return (
+			return (				
 				<Waypoint
 					onEnter={ paginateGames }
 					bottomOffset={ -20 }
@@ -44,6 +45,7 @@ export class GameListContainer extends React.Component {
 
 		return (
 			<div>
+				<AddGame/>
 				<GameList
 					games= { props.games }
 					onOwnClick={ props.toggleGameOwnership }
