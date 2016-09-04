@@ -20,6 +20,7 @@ const fb_props = {
 	autoLoad: true,
 	fields: 'name,email,picture',
 	icon: 'fa-facebook',
+	textButton: 'Connexion avec Facebook',
 };
 
 
