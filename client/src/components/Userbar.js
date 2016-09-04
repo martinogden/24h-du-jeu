@@ -20,11 +20,15 @@ const Userbar = () => (
 				}
 				options={
 					{
+						constrain_width: false,
 						belowOrigin: true,
 					}	
 				}>
 
-				<NavItem>Logout</NavItem>
+				<NavItem>J&#39;apporte</NavItem>
+				<NavItem>J&#39;explique</NavItem>
+				<NavItem divider />
+				<NavItem>Déconnexion</NavItem>
 			</Dropdown>
 		</li>
 );
