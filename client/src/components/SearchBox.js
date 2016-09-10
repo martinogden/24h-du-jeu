@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import BaseSearchbox from './BaseSearchbox';
 
-const KeyCode = {
-	ESC: 27,
-};
 
 
 const styles = {  // TODO extract inline styles
@@ -13,54 +11,7 @@ const styles = {  // TODO extract inline styles
 };
 
 
-class SearchBox extends React.Component {
-
-	constructor(props) {
-		super(props);
-		this.state = { q: '' };
-
-		this.update = this.update.bind(this);
-		this.reset = this.reset.bind(this);
-	}
-
-  componentDidMount() {
-    document.addEventListener('keydown', this.onKeyPress.bind(this));
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.onKeyPress.bind(this));
-  }
-
-  /**
-   * update state and dispatch search action
-   */
-	update(e) {
-		const q = e.target.value;
-		this.setState({ q: q });
-		this.props.search(q);
-	}
-
-	/**
-	 * reset state and dispatch empty search action
-	 */
-	reset() {
-		this.setState({ q: '' });
-		this.props.search('');
-	}
-
-	/**
-	 * Escape key clears search input and remove focus
-	 */
-	onKeyPress({ keyCode }) {
-		const active = document.activeElement;
-		const input = this._input;
-
-		if (keyCode === KeyCode.ESC && (input === active || this.state.q)) {
-				input.blur();
-				this.reset();
-				return false;
-		}
-	}
+class SearchBox extends BaseSearchbox {
 
 	render() {
 		return (
@@ -91,9 +42,5 @@ class SearchBox extends React.Component {
 	}
 
 }
-
-SearchBox.propTypes = {
-	search: PropTypes.func.isRequired,
-};
 
 export default SearchBox;
