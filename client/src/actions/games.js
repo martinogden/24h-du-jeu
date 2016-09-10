@@ -62,3 +62,19 @@ export const toggleGameKnowledge = (id) => ({
 		],
 	}
 });
+
+export const fetchBGGGames = (query) => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/bgg-games?q=${encodeURIComponent(query)}`,
+		method: 'GET',
+		credentials: 'include',
+		types: [
+			ActionTypes.FETCH_BGG_GAMES_REQUEST,
+			{
+				type: ActionTypes.FETCH_BGG_GAMES_SUCCESS,
+				meta: { schema: Schemas.BGG_GAMES },
+			},
+			ActionTypes.FETCH_BGG_GAMES_FAILURE,
+		],
+	}
+});

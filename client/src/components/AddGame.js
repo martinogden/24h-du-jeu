@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Button, Modal, Row, Input, Icon } from 'react-materialize';
 
+import BGGSearchbox from './BGGSearchbox';
+
 //TODO Add constraints. e.g. durée
 //TODO Get genre lists directly from DB? (type column)
 //TODO Use Range for durée??
 
-const AddGame = () => (
+const AddGame = ({ onSearch, autocomplete }) => (
 	<div>
 		<Modal
 			//header='Nouveau jeu'
@@ -20,7 +22,7 @@ const AddGame = () => (
 			    </div>
 			}>
 				<Row>
-					<Input s={9} label="Titre"><Icon>mode_edit</Icon></Input>
+					<BGGSearchbox search={ onSearch } autocomplete={ autocomplete }/>
 					<Input s={3} label="ID BoardGameGeek" defaultValue="" disabled />
 					<Input s={12} m={4} type='select' label="Genre">
 					    <option value="" disabled selected>Sélectionner le genre</option>
@@ -46,5 +48,10 @@ const AddGame = () => (
 		</Modal>
     </div>
 );
+
+AddGame.PropTypes = {
+	onSearch: PropTypes.func.isRequired,
+	autocomplete: PropTypes.func.isRequired,
+};
 
 export default AddGame;

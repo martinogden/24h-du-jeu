@@ -1,4 +1,5 @@
-from flask import jsonify
+import requests
+from flask import jsonify, request, abort
 from flask_jwt import jwt_required, current_identity
 
 from . import app, db
@@ -7,6 +8,9 @@ from .schemas import game_schema, games_schema
 
 
 HTTP_STATUS_CODE_BAD_REQUEST = 400
+HTTP_STATUS_CODE_SERVER_ERROR = 500
+AC_MIN_LENGTH = 3
+BGG_MAX_ITEMS = 15
 
 
 def auth_response(access_token, identity):
@@ -58,3 +62,25 @@ def _owner_knower_helper(game_id, attr, current_user):
 		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
 
 	return jsonify(result)
+
+
+@app.route('/api/bgg-games')
+@jwt_required()
+def bgg_games():
+	q = request.args.get('q')
+	if not q or len(q) < AC_MIN_LENGTH:
+		return jsonify([])
+
+	url = 'https://boardgamegeek.com/search/boardgame'
+	headers = { 'Accept': 'application/json' }
+	params = { 'q': q , 'showcount': BGG_MAX_ITEMS }
+
+	response = requests.get(url, params, headers=headers)
+	if not response.ok:
+		return abort(HTTP_STATUS_CODE_SERVER_ERROR)
+
+	data = response.json()
+	if not 'items' in data:
+		return abort(HTTP_STATUS_CODE_SERVER_ERROR)
+
+	return jsonify(data['items'])

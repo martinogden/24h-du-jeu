@@ -36,3 +36,4 @@ export default combineReducers({
 export const getGames = (state) => fromGames.getGames(state.games);
 export const getOwnedGameIDs = (state) => filterGameIDs('owners', state);
 export const getKnownGameIDs = (state) => filterGameIDs('knowers', state);
+export const getBggGames = (state) => fromGames.getBggGames(state.games);

@@ -90,6 +90,30 @@ const usersByID = (state={}, action) => {
 }
 
 
+const bggByID = (state={}, action) => {
+	switch(action.type) {
+		case ActionTypes.FETCH_BGG_GAMES_SUCCESS:
+			if (action.payload)
+				return action.payload.entities.bggGames || {};
+			break;
+
+		default:
+			return state;
+	}
+}
+
+
+const bggList = (state=[], action) => {
+	switch(action.type) {
+		case ActionTypes.FETCH_BGG_GAMES_SUCCESS:
+			return action.payload.result;
+
+		default:
+			return state;
+	}
+}
+
+
 export default combineReducers({
 	byID,
 	list,
@@ -97,6 +121,8 @@ export default combineReducers({
 	query,
 	isFetching,
 	usersByID,
+	bggByID,
+	bggList,
 });
 
 
@@ -154,3 +180,7 @@ export const getGames = (state) => {
 		.filter(matchesFilter)	// search
 		.slice(0, n);  					// pagination
 };
+
+export const getBggGames = (state) => (
+	state.bggList.map(id => state.bggByID[id])
+);
