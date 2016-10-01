@@ -20,10 +20,23 @@ def auth_response(access_token, identity):
 	})
 
 
-@app.route('/api/games', methods=['GET'])
-def get_games():
-	games = Game.query.all()
-	result, errors = games_schema.dump(games)
+@app.route('/api/games', methods=['GET'], defaults={'filter_': 'all'})
+@app.route('/api/games/<filter_>', methods=['GET'])
+@jwt_required()
+def get_games(filter_):
+	errors = {}
+	games = Game.query
+	if filter_ == 'all':
+		pass
+	elif filter_ == 'iknow':
+		games = games.filter(Game.knowers.any(id=current_identity.id))
+	elif filter_ == 'iown':
+		games = games.filter(Game.owners.any(id=current_identity.id))
+	else:
+		errors['errors'] = ['invalid filter %s' % filter_ ]
+
+	result, dump_errors = games_schema.dump(games.all())
+	errors.update(dump_errors)
 
 	if errors:
 		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST

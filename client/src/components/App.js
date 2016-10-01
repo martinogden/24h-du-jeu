@@ -16,14 +16,18 @@ export class App extends React.Component {
 	}
 
 	render() {
-		const { store, isLoggedIn, authWithFacebook, filterGames, logoutFromFacebook } = this.props;
+		const { store, isLoggedIn, authWithFacebook, filterGames, logoutFromFacebook, fetchGamesIKnow, fetchGamesIOwn } = this.props;
 
 		if (!isLoggedIn)
 			return <Login success={ authWithFacebook }/>;
 
 		return (
 			<div>
-				<Navbar onSearch={ filterGames } onLogout={ logoutFromFacebook }/>
+				<Navbar 
+					onSearch={ filterGames } 
+					onLogout={ logoutFromFacebook } 
+					onFetchGamesIKnow={ fetchGamesIKnow } 
+					onFetchGamesIOwn={ fetchGamesIOwn }/>
 				<Provider store={ store }>
 					<GameListContainer />
 				</Provider>
@@ -37,6 +41,8 @@ App.PropTypes = {
 	store: PropTypes.object.isRequired,
 	authWithFacebook: PropTypes.func.isRequired,
 	filterGames: PropTypes.func.isRequired,
+	fetchGamesIKnow: PropTypes.func.isRequired,
+	fetchGamesIOwn: PropTypes.func.isRequired,
 };
 
 

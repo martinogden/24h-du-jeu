@@ -18,6 +18,35 @@ export const fetchGames = () => ({
 	}
 });
 
+export const fetchGamesIKnow = () => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/iknow`,
+		method: 'GET',
+		types: [
+			ActionTypes.FETCH_GAMES_I_KNOW_REQUEST,
+			{
+				type: ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS,
+				meta: { schema: Schemas.GAMES },
+			},
+			ActionTypes.FETCH_GAMES_I_KNOW_FAILURE,
+		],
+	}
+});
+
+export const fetchGamesIOwn = () => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/iown`,
+		method: 'GET',
+		types: [
+			ActionTypes.FETCH_GAMES_I_OWN_REQUEST,
+			{
+				type: ActionTypes.FETCH_GAMES_I_OWN_SUCCESS,
+				meta: { schema: Schemas.GAMES },
+			},
+			ActionTypes.FETCH_GAMES_I_OWN_FAILURE,
+		],
+	}
+});
 
 export const paginateGames = () => ({
 	type: ActionTypes.PAGINATE_GAMES,

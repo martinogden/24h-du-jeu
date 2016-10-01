@@ -12,7 +12,7 @@ const styles = {  // TODO extract inline styles
 
 // TODO : replace fixed image by user image
 
-const Userbar = ({onLogout}) => {
+const Userbar = ({ onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => {
 
 	return(
 		<li>
@@ -27,8 +27,14 @@ const Userbar = ({onLogout}) => {
 					}	
 				}>
 
-				<NavItem>J&#39;apporte</NavItem>
-				<NavItem>J&#39;explique</NavItem>
+				<NavItem
+					onClick={ onFetchGamesIOwn }>
+					J&#39;apporte
+				</NavItem>
+				<NavItem
+					onClick={ onFetchGamesIKnow }>
+					J&#39;explique
+				</NavItem>
 				<NavItem divider />
 				<NavItem 
 					onClick={ onLogout }>
@@ -41,6 +47,8 @@ const Userbar = ({onLogout}) => {
 
 Userbar.propTypes = {
 	 onLogout: PropTypes.func.isRequired,
+	 onFetchGamesIKnow: PropTypes.func.isRequired,
+	 onFetchGamesIOwn: PropTypes.func.isRequired,
 };
 
 export default Userbar;

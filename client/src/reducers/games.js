@@ -5,6 +5,8 @@ import { ActionTypes, PER_PAGE } from '../constants';
 const byID = (state={}, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_KNOWLEDGE_SUCCESS:
 			if (action.payload)
@@ -23,6 +25,8 @@ const byID = (state={}, action) => {
 const list = (state=[], action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 			return action.payload.result;
 
 		default:
@@ -60,9 +64,15 @@ const isFetching = (state=false, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
 		case ActionTypes.FETCH_GAMES_FAILURE:
+		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_KNOW_FAILURE:
+		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_OWN_FAILURE:
 			return false;
 
 		case ActionTypes.FETCH_GAMES_REQUEST:
+		case ActionTypes.FETCH_GAMES_I_KNOW_REQUEST:
+		case ActionTypes.FETCH_GAMES_I_OWN_REQUEST:
 			return true;
 
 		default:
