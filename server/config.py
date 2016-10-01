@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 DEBUG = True
 
@@ -19,4 +20,5 @@ SECRET_KEY = '5f7654d8bacaf957e4c5855206d1286805fe5bd938b51d1e'
 # use facebook response to sign in
 JWT_AUTH_USERNAME_KEY = 'id'
 JWT_AUTH_PASSWORD_KEY = 'signedRequest'
+JWT_EXPIRATION_DELTA = timedelta(days=1)
 # JWT_AUTH_URL_RULE = None
