@@ -34,7 +34,6 @@ export const toggleGameOwnership = (id) => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/games/${id}/owners`,
 		method: 'PATCH',
-		credentials: 'include',
 		types: [
 			ActionTypes.TOGGLE_GAME_OWNERSHIP_REQUEST,
 			{
@@ -51,7 +50,6 @@ export const toggleGameKnowledge = (id) => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/games/${id}/knowers`,
 		method: 'PATCH',
-		credentials: 'include',
 		types: [
 			ActionTypes.TOGGLE_GAME_KNOWLEDGE_REQUEST,
 			{
@@ -67,7 +65,6 @@ export const fetchBGGGames = (query) => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/bgg-games?q=${encodeURIComponent(query)}`,
 		method: 'GET',
-		credentials: 'include',
 		types: [
 			ActionTypes.FETCH_BGG_GAMES_REQUEST,
 			{
