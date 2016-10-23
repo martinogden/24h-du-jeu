@@ -29,7 +29,7 @@ const Userbar = ({ onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => {
 
 				<NavItem
 					onClick={ onFetchGamesIOwn }>
-					J&#39;apporte
+					Je possède
 				</NavItem>
 				<NavItem
 					onClick={ onFetchGamesIKnow }>

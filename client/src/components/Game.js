@@ -46,7 +46,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 			<p className="divider" style={{ margin: '1rem 0' }}></p>
 			<div className="row">
 				<div className="col s6 m6">
-					<strong>{ pluralize(owners, 'apporte', 'apportent') }</strong>
+					<strong>{ pluralize(owners, 'possède', 'possèdent') }</strong>
 					<ul className="owner-list">{ li(owners) }</ul>
 				</div>
 				<div className="col s6 m6">
@@ -75,7 +75,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 				<div>
 					<p className={ `toggle-own ${own ? active : inactive}` } onClick={ onOwnClick }>
 						<Icon className="tiny">done</Icon>{ ' ' }
-						<a href="#" key="own" className={ own ? active : inactive }>j&#39;apporte</a>
+						<a href="#" key="own" className={ own ? active : inactive }>je possède</a>
 					</p>
 					<p className={ `toggle-know ${know ? active : inactive}` } onClick={ onKnowClick }>
 						<Icon className="tiny">done_all</Icon>{ ' ' }
