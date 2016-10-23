@@ -2,12 +2,13 @@ import React, { PropTypes } from 'react';
 import Masonry from 'react-masonry-component';
 
 import Game from './Game';
+import FilterMessage from './FilterMessage';
 
 
 const contains = (array, element) => array.indexOf(element) > -1;
 
 
-const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs }) => {
+const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, fetchGames, isFiltered }) => {
 
 	var children = games.map(game =>
 		<Game
@@ -24,8 +25,15 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs }
 		transitionDuration: 0
 	};
 
+	const getMessage = () => {
+		if (isFiltered) {
+			return (<FilterMessage fetchGames={ fetchGames } />)
+		}
+	};
+
 	return (
 		<div className="container" style={{ width: '960px' }}>
+			{ getMessage() }
 			<div className="row">
 				<Masonry
 					options={ masonryOptions }
@@ -41,6 +49,8 @@ GameList.propTypes = {
 	onKnowClick: PropTypes.func.isRequired,
 	ownedGameIDs: PropTypes.array.isRequired,
 	knownGameIDs: PropTypes.array.isRequired,
+	fetchGames: PropTypes.func.isRequired,
+	isFiltered: PropTypes.bool.isRequired,
 };
 
 

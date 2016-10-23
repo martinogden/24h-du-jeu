@@ -81,6 +81,24 @@ const isFetching = (state=false, action) => {
 }
 
 
+const isFiltered = (state=false, action) => {
+	switch(action.type) {
+		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
+			return true;
+
+		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_FAILURE:
+		case ActionTypes.FETCH_GAMES_I_OWN_FAILURE:
+		case ActionTypes.FETCH_GAMES_I_KNOW_FAILURE:
+			return false;
+
+		default:
+			return state;
+	}
+}
+
+
 const usersByID = (state={}, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
@@ -130,6 +148,7 @@ export default combineReducers({
 	page,
 	query,
 	isFetching,
+	isFiltered,
 	usersByID,
 	bggByID,
 	bggList,

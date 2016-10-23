@@ -31,10 +31,10 @@ export class GameListContainer extends React.Component {
 		const { isFetching } = this.props;
 		if (isFetching) {
 			return (
-				<div className="row">
-				  <div className="col m4 offset-m4 center s4 offset-s4">
-				    <Preloader size="big" flashing/>
-				  </div>
+				<div style={{ position: 'fixed', top: 0, left: 0, background: 'rgba(255, 255, 255, 0.8)', width: '100%', height: '100%', textAlign: 'center', zIndex: 100 }}>
+					<div style={{ margin: '240px auto' }}>
+						<Preloader style={{ display: 'block', margin: '50px auto' }} size="big" flashing/>
+					</div>
 				</div>
 			);
 		}
@@ -52,6 +52,8 @@ export class GameListContainer extends React.Component {
 					onKnowClick={ props.toggleGameKnowledge }
 					ownedGameIDs={ props.ownedGameIDs }
 					knownGameIDs={ props.knownGameIDs }
+					fetchGames={ props.fetchGames }
+					isFiltered={ props.isFiltered }
 				/>
 				{ this.getWaypoint() }
 				{ this.getLoader() }
@@ -71,6 +73,7 @@ GameListContainer.propTypes = {
 	knownGameIDs: PropTypes.array.isRequired,
 	fetchBGGGames: PropTypes.func.isRequired,
 	bggGames: PropTypes.func.isRequired,
+	isFiltered: PropTypes.bool.isRequired,
 };
 
 
@@ -79,6 +82,7 @@ const mapStateToProps = (state) => ({
 	ownedGameIDs: getOwnedGameIDs(state),
 	knownGameIDs: getKnownGameIDs(state),
 	isFetching: state.games.isFetching,
+	isFiltered: state.games.isFiltered,
 	bggGames: getBggGames(state),
 });
 

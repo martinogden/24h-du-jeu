@@ -35,7 +35,7 @@ const li = iter => iter.map(item => {
 
 const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowClick }) => {
 	const inactive = 'inactive grey-text text-lighten-2';
-	const active = 'active green-text';
+	const active = 'active teal-text';
 
 	const reveal = (
 		<div>
