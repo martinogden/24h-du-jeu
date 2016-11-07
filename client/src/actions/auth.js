@@ -7,8 +7,8 @@ export const authWithFacebook = (payload) => ({
 		endpoint: '/auth',
 		method: 'POST',
 		body: JSON.stringify({
-			id: payload.id,
 			signedRequest: payload.signedRequest,
+			accessToken: payload.accessToken,
 		}),
 		types: [
 			ActionTypes.AUTH_USER_REQUEST,

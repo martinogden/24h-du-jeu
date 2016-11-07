@@ -63,8 +63,12 @@ class Player(db.Model):
 		instance.id = user['id']
 		instance.facebook_id = user['id']
 		instance.email = user['email']
-		instance.name = user['name']
-		instance.picture_url = user['picture']['data']['url']
+		instance.name = '%s %s' % (user['first_name'], user['last_name'])
+
+		# TODO shouldn't need to check this if we request picture from facebook
+		if user['picture']:
+			instance.picture_url = user['picture']['data']['url']
+
 		return instance
 
 
