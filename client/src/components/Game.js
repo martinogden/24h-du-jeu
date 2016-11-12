@@ -14,11 +14,7 @@ const pluralize = (iterable, singular, plural) => {
 }
 
 
-const randInt = (a, b) => a + parseInt((b - a) * Math.random(), 10);
 const li = iter => iter.map(item => {
-	const n = randInt(1, 100);
-	// TODO remove dummy image
-	const url = `https://randomuser.me/api/portraits/women/${n}.jpg`;
 	const iconStyle = {
 		verticalAlign: 'sub',
 		paddingRight: '5px',
@@ -26,7 +22,7 @@ const li = iter => iter.map(item => {
 
 	return (
 		<li key={ item.id }>
-			<img src={ url } className="circle" width="20" style={ iconStyle }/>
+			<img src={ item.picture_url } className="circle" width="20" style={ iconStyle }/>
 			{ item.pseudo }
 		</li>
 	);
