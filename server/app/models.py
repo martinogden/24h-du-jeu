@@ -1,6 +1,10 @@
 from . import db
 from . import app
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 knowers = db.Table('knower',
 	db.Column('FK_PLAYER_ID', db.Unicode(80), db.ForeignKey('PLAYER.ID')),
@@ -63,11 +67,13 @@ class Player(db.Model):
 		instance.id = user['id']
 		instance.facebook_id = user['id']
 		instance.email = user['email']
+		instance.pseudo = user['first_name']
 		instance.name = '%s %s' % (user['first_name'], user['last_name'])
 
-		# TODO shouldn't need to check this if we request picture from facebook
-		if user['picture']:
+		try:
 			instance.picture_url = user['picture']['data']['url']
+		except KeyError as e:
+			logger.debug("from_facebook_user missing picture: %s", e)
 
 		return instance
 

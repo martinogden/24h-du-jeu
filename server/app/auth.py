@@ -144,7 +144,7 @@ def authenticate(access_token, signed_request):
 
 	if not player:
 		player = Player.from_facebook_user(fb_user)
-		db.session.add(game)
+		db.session.add(player)
 		db.session.commit()
 
 	return player
