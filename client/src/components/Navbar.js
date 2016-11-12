@@ -12,7 +12,7 @@ const styles = {  // TODO extract inline styles
 };
 
 
-const Navbar = ({ onSearch, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => (
+const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => (
 	<span>
 	<div className="navbar-fixed">
 		<nav>
@@ -27,7 +27,7 @@ const Navbar = ({ onSearch, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => 
 				    <Col s={2} m={2}>
 					    <ul className="right">
 					    	<DisplayMode />
-					    	<Userbar onLogout={ onLogout } onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
+					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
 					    </ul>
 					</Col>
 				</Row>
@@ -42,6 +42,7 @@ Navbar.propTypes = {
 	onLogout: PropTypes.func.isRequired,
 	onFetchGamesIKnow: PropTypes.func.isRequired,
 	onFetchGamesIOwn: PropTypes.func.isRequired,
+	loggedInUser: PropTypes.object.isRequired,
 };
 
 

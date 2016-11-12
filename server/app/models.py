@@ -53,10 +53,11 @@ class Player(db.Model):
 	picture_url = db.Column(db.UnicodeText)
 	pseudo = db.Column('PSEUDO', db.Unicode(80))
 
-	connections = db.relationship('Connection',
-		backref='player',
-		lazy='dynamic'
-	)
+	# See Connection class. We don't need it.
+	# connections = db.relationship('Connection',
+	# 	backref='player',
+	# 	lazy='dynamic'
+	# )
 
 	def __unicode__(self):
 		return u'<Player %s>' % (self.pseudo or self.name)
@@ -77,13 +78,13 @@ class Player(db.Model):
 
 		return instance
 
+# We don't need it: 
+# class Connection(db.Model):
+# 	__tablename__ = 'CONNECTION'
 
-class Connection(db.Model):
-	__tablename__ = 'CONNECTION'
+# 	id = db.Column(db.Integer, primary_key=True)
+# 	player_id = db.Column(db.Integer, db.ForeignKey('PLAYER.ID'))
 
-	id = db.Column(db.Integer, primary_key=True)
-	player_id = db.Column(db.Integer, db.ForeignKey('PLAYER.ID'))
-
-	user_id = db.Column(db.Unicode(80))
-	code = db.Column(db.UnicodeText)
-	issued_at = db.Column(db.DateTime)
+# 	user_id = db.Column(db.Unicode(80))
+# 	code = db.Column(db.UnicodeText)
+# 	issued_at = db.Column(db.DateTime)

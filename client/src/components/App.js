@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react';
 import { Provider, connect } from 'react-redux';
 
 import * as gameActions from '../actions/games';
+import { getLoggedInUser } from '../reducers';
 import * as authActions from '../actions/auth';
+
 import Login from './Login';
 import Navbar from './Navbar';
 import GameListContainer from './GameListContainer';
@@ -16,7 +18,7 @@ export class App extends React.Component {
 	}
 
 	render() {
-		const { store, isLoggedIn, authWithFacebook, filterGames, logoutFromFacebook, fetchGamesIKnow, fetchGamesIOwn } = this.props;
+		const { store, isLoggedIn, authWithFacebook, filterGames, logoutFromFacebook, fetchGamesIKnow, fetchGamesIOwn, loggedInUser } = this.props;
 
 		if (!isLoggedIn)
 			return <Login success={ authWithFacebook }/>;
@@ -24,6 +26,7 @@ export class App extends React.Component {
 		return (
 			<div>
 				<Navbar 
+					loggedInUser={ loggedInUser }
 					onSearch={ filterGames } 
 					onLogout={ logoutFromFacebook } 
 					onFetchGamesIKnow={ fetchGamesIKnow } 
@@ -39,6 +42,7 @@ export class App extends React.Component {
 App.PropTypes = {
 	isLoggedIn: PropTypes.bool.isRequired,
 	store: PropTypes.object.isRequired,
+	loggedInUser: PropTypes.object.isRequired,
 	authWithFacebook: PropTypes.func.isRequired,
 	filterGames: PropTypes.func.isRequired,
 	fetchGamesIKnow: PropTypes.func.isRequired,
@@ -48,6 +52,7 @@ App.PropTypes = {
 
 const mapStateToProps = (state) => ({
 	isLoggedIn: state.auth.isLoggedIn,
+	loggedInUser: getLoggedInUser(state),
 });
 
 const actions = {

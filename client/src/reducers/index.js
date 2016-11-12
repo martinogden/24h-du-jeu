@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import games, * as fromGames from './games';
 import auth from './auth';
+import users, * as fromUsers from './users';
 
 
 /**
@@ -29,6 +30,7 @@ const filterGameIDs = (by, state) => {
 export default combineReducers({
 	games,
 	auth,
+	users,
 });
 
 
@@ -37,3 +39,4 @@ export const getGames = (state) => fromGames.getGames(state.games);
 export const getOwnedGameIDs = (state) => filterGameIDs('owners', state);
 export const getKnownGameIDs = (state) => filterGameIDs('knowers', state);
 export const getBggGames = (state) => fromGames.getBggGames(state.games);
+export const getLoggedInUser = (state) => fromUsers.getLoggedInUser(state.users);

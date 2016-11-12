@@ -3,8 +3,8 @@ from flask import jsonify, request, abort
 from flask_jwt import jwt_required, current_identity
 
 from . import app, db
-from .models import Game
-from .schemas import game_schema, games_schema
+from .models import Game, Player
+from .schemas import game_schema, games_schema, player_schema
 
 
 HTTP_STATUS_CODE_BAD_REQUEST = 400
@@ -14,10 +14,15 @@ BGG_MAX_ITEMS = 15
 
 
 def auth_response(access_token, identity):
-	return jsonify({
-		'access_token': access_token.decode('utf-8'),
-		'user_id': identity.id,
-	})
+	player_id = identity.id
+	player = Player.query.filter_by(id=player_id).first()
+	result, _ = player_schema.dump(player)
+
+	return jsonify(dict(
+		access_token=access_token.decode('utf-8'),
+		user_id=identity.id,
+		**result
+	))
 
 
 @app.route('/api/games', methods=['GET'], defaults={'filter_': 'all'})

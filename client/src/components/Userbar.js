@@ -12,13 +12,13 @@ const styles = {  // TODO extract inline styles
 
 // TODO : replace fixed image by user image
 
-const Userbar = ({ onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => {
+const Userbar = ({ loggedInUser, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => {
 
 	return(
 		<li>
 			<Dropdown 
 				trigger={
-					<a href='#'><img src='/static/img/celine.jpg' className="circle" style={ styles.img }/></a>
+					<a href='#'><img src={ loggedInUser.picture_url } className="circle" style={ styles.img }/></a>
 				}
 				options={
 					{
@@ -49,6 +49,7 @@ Userbar.propTypes = {
 	 onLogout: PropTypes.func.isRequired,
 	 onFetchGamesIKnow: PropTypes.func.isRequired,
 	 onFetchGamesIOwn: PropTypes.func.isRequired,
+	 loggedInUser: PropTypes.object.isRequired,
 };
 
 export default Userbar;
