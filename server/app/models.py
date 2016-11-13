@@ -78,6 +78,13 @@ class Player(db.Model):
 
 		return instance
 
+class Invite(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	key = db.Column(db.Unicode(255))
+	player_id = db.Column(db.Integer, db.ForeignKey('PLAYER.ID'))
+	player = db.relationship('Player', backref='invite')
+	
+		
 # We don't need it: 
 # class Connection(db.Model):
 # 	__tablename__ = 'CONNECTION'

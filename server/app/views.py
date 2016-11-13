@@ -3,8 +3,8 @@ from flask import jsonify, request, abort
 from flask_jwt import jwt_required, current_identity
 
 from . import app, db
-from .models import Game, Player
-from .schemas import game_schema, games_schema, player_schema
+from .models import Game, Player, Invite
+from .schemas import game_schema, games_schema, player_schema, invite_schema
 
 
 HTTP_STATUS_CODE_BAD_REQUEST = 400
@@ -23,6 +23,17 @@ def auth_response(access_token, identity):
 		user_id=identity.id,
 		**result
 	))
+
+
+# @app.route('/invite/<key>')
+# def invite(key):
+# 	errors = {}
+# 	invite = Invite.query.filter_by(key=key)
+# 	if invite:
+# 		if invite.player and not player.facebook_id:
+
+# 	else:
+# 		errors['errors'] = ['invalid key %s' % key ]
 
 
 @app.route('/api/games', methods=['GET'], defaults={'filter_': 'all'})

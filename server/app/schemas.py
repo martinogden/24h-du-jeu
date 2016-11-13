@@ -1,5 +1,5 @@
 from . import ma
-from .models import Game, Player
+from .models import Game, Player, Invite
 
 
 class PlayerSchema(ma.ModelSchema):
@@ -16,7 +16,15 @@ class GameSchema(ma.ModelSchema):
 	owners = ma.Nested(PlayerSchema, many=True)
 	knowers = ma.Nested(PlayerSchema, many=True)
 
+class InviteSchema(ma.ModelSchema):
+	class Meta:
+		model = Invite
+		fields = ('key', 'player')
+
+	# player = ma.Nested(PlayerSchema)
+		
 
 game_schema = GameSchema()
 games_schema = GameSchema(many=True)
 player_schema = PlayerSchema()
+invite_schema = InviteSchema()
