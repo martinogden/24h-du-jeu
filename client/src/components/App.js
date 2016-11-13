@@ -18,10 +18,10 @@ export class App extends React.Component {
 	}
 
 	render() {
-		const { store, isLoggedIn, authWithFacebook, filterGames, logoutFromFacebook, fetchGamesIKnow, fetchGamesIOwn, loggedInUser } = this.props;
+		const { store, isLoggedIn, failedLogIn, authWithFacebook, filterGames, logoutFromFacebook, fetchGamesIKnow, fetchGamesIOwn, loggedInUser } = this.props;
 
 		if (!isLoggedIn)
-			return <Login success={ authWithFacebook }/>;
+			return <Login failedLogIn={ failedLogIn } success={ authWithFacebook }/>;
 
 		return (
 			<div>
@@ -41,6 +41,7 @@ export class App extends React.Component {
 
 App.PropTypes = {
 	isLoggedIn: PropTypes.bool.isRequired,
+	failedLogIn: PropTypes.bool.isRequired,
 	store: PropTypes.object.isRequired,
 	loggedInUser: PropTypes.object.isRequired,
 	authWithFacebook: PropTypes.func.isRequired,
@@ -52,6 +53,7 @@ App.PropTypes = {
 
 const mapStateToProps = (state) => ({
 	isLoggedIn: state.auth.isLoggedIn,
+	failedLogIn: state.auth.failedLogIn,
 	loggedInUser: getLoggedInUser(state),
 });
 

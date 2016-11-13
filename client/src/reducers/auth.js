@@ -16,6 +16,20 @@ const isLoggedIn = (state=false, action) => {
 	}
 }
 
+const failedLogIn = (state=false, action) => {
+	switch(action.type) {
+		case ActionTypes.AUTH_USER_FAILURE:
+			return true;
+
+		case ActionTypes.AUTH_USER_SUCCESS:
+		case ActionTypes.AUTH_USER_LOGOUT:
+			return false;
+
+		default:
+			return state;
+	}
+}
+
 const token = (state=null, action) => {
 	switch(action.type) {
 		case ActionTypes.AUTH_USER_SUCCESS:
@@ -39,6 +53,7 @@ const userID = (state=null, action) => {
 
 export default combineReducers({
 	isLoggedIn,
+	failedLogIn,
 	token,
 	userID,
 });

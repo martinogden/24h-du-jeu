@@ -143,9 +143,12 @@ def authenticate(access_token, signed_request):
 	player = Player.query.filter_by(facebook_id=fb_user_id).first()
 
 	if not player:
-		player = Player.from_facebook_user(fb_user)
-		db.session.add(player)
-		db.session.commit()
+		# here we check first the invite before adding the player to the db
+		player = None
+		# adding new player to db:
+		# player = Player.from_facebook_user(fb_user)
+		# db.session.add(player)
+		# db.session.commit()
 
 	return player
 

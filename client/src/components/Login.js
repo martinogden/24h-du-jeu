@@ -24,15 +24,23 @@ const fb_props = {
 };
 
 
-const Login = ({ success }) => {
+const Login = ({ failedLogIn, success }) => {
 
 	const callback = (response) => {
 		if (!response.status)  // todo both failure states
 			success(response);  // we're connected
-	}
+	};
+
+	const failedLogInMessage = (failedLogIn) => {
+		if (failedLogIn)
+			return(
+				<span className="red-text">Vous n&#39;êtes pas authorisé.</span>
+			);
+	};
 
 	return (
 		<div style={ centerStyles }>
+			{ failedLogInMessage(failedLogIn) }
 			<Card className="brown lighten-5"
 				header={<CardTitle image={"/static/img/logo-login.png"} className="responsive-img"/>}
 				title="Bienvenue aux 24h du Jeu !"
@@ -44,6 +52,7 @@ const Login = ({ success }) => {
 
 Login.PropTypes = {
 	success: PropTypes.func.isRequired,
+	failedLogIn: PropTypes.bool.isRequired,
 };
 
 
