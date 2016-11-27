@@ -35,13 +35,14 @@ def download_bgg_img(g_id, name, uri_t):
 	else:
 		# we don't have a bgg thumbnail uri
 		# see if we can find image on bgg using id
-		try:
-			bgg_id = int(g_id.replace('bgg', ''))
-		except ValueError:
-			return show_error(g_id, name)
+		# try:
+		# 	bgg_id = int(g_id.replace('bgg', ''))
+		# except ValueError:
+		# 	return show_error(g_id, name)
 
 		try:
-			game = bgg.game(game_id=bgg_id)
+			# game = bgg.game(game_id=bgg_id)
+			game = bgg.game(game_id=g_id)
 		except BoardGameGeekError:
 			return show_error(g_id, name)
 
@@ -62,7 +63,7 @@ def download_bgg_img(g_id, name, uri_t):
 def run():
 	conn = sqlite3.connect(DATABASE)
 	cur = conn.cursor()
-	q = cur.execute('SELECT ID, NAME, THUMBNAIL_URI FROM GAME')
+	q = cur.execute('SELECT ID_BGG, NAME, THUMBNAIL_URI FROM GAME')
 
 	for g_id, name, uri_t in q.fetchall():
 		download_bgg_img(g_id, name, uri_t)

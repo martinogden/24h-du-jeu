@@ -55,6 +55,7 @@ def get_games(filter_):
 	errors.update(dump_errors)
 
 	if errors:
+		import ipdb; ipdb.set_trace()
 		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
 
 	return jsonify(result)
