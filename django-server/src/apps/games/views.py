@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 import requests
 
-from .models import Game, User
+from .models import Game, User, Knower, Owner
 
 
 AC_MIN_LENGTH = 3
@@ -38,35 +38,28 @@ def list_games(request, filter_='all'):
 
 @login_required
 def owners(request, game_id):
-	return _owner_knower_helper(game_id, 'owners', request.user)
+	return _owner_knower_helper(game_id, 'owners', Owner, request.user)
 
 
 @login_required
 def knowers(request, game_id):
-	return _owner_knower_helper(game_id, 'knowers', request.user)
+	return _owner_knower_helper(game_id, 'knowers', Knower, request.user)
 
 
-def _owner_knower_helper(game_id, attr, current_user):
+def _owner_knower_helper(game_id, attr, model_name, current_user):
+	""" Remove or add from the knowers or owners list,
+		depending if it's there or not.
+		Toggle ownership/knowledge
+	"""
 	game = get_object_or_404(Game, pk=game_id)
 
-	rel = getattr(game, attr)
+	kwargs = {'fk_game': game, 'fk_player': current_user}
+	game_player, created = model_name.objects.get_or_create(**kwargs)
+	if not created:
+		game_player.delete()
 
-	if current_user in rel:
-		rel.remove(current_user)
-	else:
-		rel.add(current_user)
-    
-    # TODO djangoify
-	rel.save()
-	# db.session.add(game)
-	# db.session.commit()
-
-	result, errors = game_schema.dump(game)
-
-	if errors:
-		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
-
-	return jsonify(result)
+	data = game.as_json()
+	return JsonResponse(data)
 
 
 @login_required
@@ -75,7 +68,6 @@ def bgg_games(request):
 	if not q or len(q) < AC_MIN_LENGTH:
 		return JsonResponse({})
 
-	# TODO refactor
 	url = 'https://boardgamegeek.com/search/boardgame'
 	headers = { 'Accept': 'application/json' }
 	params = { 'q': q , 'showcount': BGG_MAX_ITEMS }
