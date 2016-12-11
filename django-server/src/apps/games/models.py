@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.forms.models import model_to_dict
 from django.contrib.auth.models import AbstractUser
 
 import logging
@@ -12,6 +13,12 @@ class User(AbstractUser):
 
     class Meta:
         db_table = 'player'
+
+    def as_json(self):
+        fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 
+                   'first_name', 'last_name', 'is_staff', 'last_login',
+                   'is_active']
+        return model_to_dict(self, fields)
 
 class Game(models.Model):
     name = models.TextField()
@@ -37,6 +44,12 @@ class Game(models.Model):
     class Meta:
         db_table = 'game'
 
+    def as_json(self):
+        fields = ['id', 'name', 'type_genre', 'themes', 'mechanisms', 
+                   'families', 'min_player', 'max_player', 'min_age',
+                   'max_age', 'duration', 'description', 'image_uri',
+                   'thumbnail_uri', 'sort_name', 'id_trictrac', 'id_bgg']
+        return model_to_dict(self, fields)
 
 class Invite(models.Model):
     key = models.TextField()

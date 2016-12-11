@@ -1,4 +1,5 @@
-from django.http import Http404, HttpResponseServerError, JsonResponse
+from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest, JsonResponse
+from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 import requests
@@ -8,30 +9,31 @@ from .models import Game, User
 
 AC_MIN_LENGTH = 3
 BGG_MAX_ITEMS = 15
+HTTP_STATUS_CODE_OK = 200
+HTTP_STATUS_CODE_BAD_REQUEST = 400
+HTTP_STATUS_CODE_SERVER_ERROR = 500
 
 
 @login_required
 def list_games(request, filter_='all'):
-	errors = {}
+	data = {}
 	player = get_object_or_404(User, pk=request.user.id)
 
 	if filter_ == 'all':
-		pass
+		games = Game.objects.all()
 	elif filter_ == 'iknow':
-		games = player.know_games.all()
+		games = player.known_games.all()
 	elif filter_ == 'iown':
 		games = player.owned_games.all()
 	else:
-		errors['errors'] = ['invalid filter %s' % filter_ ]
+		data['errors'] = ['invalid filter %s' % filter_ ]
 
-	# TODO djangoify
-	result, dump_errors = games_schema.dump(games.all())
-	errors.update(dump_errors)
-
-	if errors:
-		return jsonify(errors), HTTP_STATUS_CODE_BAD_REQUEST
-
-	return jsonify(result)
+	if 'errors' in data:
+		status = HTTP_STATUS_CODE_BAD_REQUEST
+	else:
+		data = [game.as_json() for game in games]
+		status = HTTP_STATUS_CODE_OK
+	return JsonResponse(data, status=status, safe=False)
 
 
 @login_required
