@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source ./bin/activate
+printf "Create an admin user to access the ohwonder backend:\n\n"
+python src/manage.py createsuperuser

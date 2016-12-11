@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+export DJANGO_USE_S3=True
+source ./bin/activate
+python src/manage.py minifystatics
+python src/manage.py collectstatic --noinput -v3 \
+	-i "*.less" \
+	-i "*.scss" \
+	-i "*.sass" \
+	-i "*.map"

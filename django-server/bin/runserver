@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+source ./bin/activate
+python src/manage.py runserver

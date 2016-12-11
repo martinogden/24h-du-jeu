@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e  # fail on error
+# http://stackoverflow.com/a/5947802
+GREEN='\033[0;32m'
+GREY='\033[1;30m'
+NC='\033[0m' # No Color
+
+
+# install requirements
+# easy_install pip virtualenv
+
+virtualenv "env"
+source "./env/bin/activate"
+
+pip install -r requirements-dev.txt
+
+# output dev environment variables to file
+SECRET_KEY=`python -c "import os; print os.urandom(24).encode('hex')"`
+printf "DJANGO_DEBUG=True\n" >> ".env"
+printf "DJANGO_SECRET_KEY=${SECRET_KEY}\n" >> ".env"
+printf "DJANGO_LOG_FILE=./django.log\n" >> ".env"
+
+# create database and load initial fixture data
+# python src/manage.py migrate
+
+# success!
+echo
+echo "========================"
+printf "${GREEN}Installation successful!${NC}\n"
+printf "Get started by running ${GREY}./bin/runserver${NC} and going to ${GREY}http://127.0.0.1:8000${NC} in a web browser.\n"
