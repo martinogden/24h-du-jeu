@@ -14,6 +14,9 @@ class User(AbstractUser):
     class Meta:
         db_table = 'player'
 
+    def __unicode__(self):
+        return self.pseudo
+
     def as_json(self):
         fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 
                    'first_name', 'last_name', 'is_staff', 'last_login',
@@ -21,7 +24,7 @@ class User(AbstractUser):
         return model_to_dict(self, fields)
 
 class Game(models.Model):
-    name = models.TextField()
+    name = models.TextField(verbose_name ='Titre')
     type_genre = models.TextField('Type', db_column='type', blank=True, null=True)
     themes = models.TextField(blank=True, null=True)
     mechanisms = models.TextField(blank=True, null=True)
@@ -44,12 +47,16 @@ class Game(models.Model):
     class Meta:
         db_table = 'game'
 
+    def __unicode__(self):
+        return self.name
+
     def as_json(self):
         fields = ['id', 'name', 'type_genre', 'themes', 'mechanisms', 
                    'families', 'min_player', 'max_player', 'min_age',
                    'max_age', 'duration', 'description', 'image_uri',
                    'thumbnail_uri', 'sort_name', 'id_trictrac', 'id_bgg']
         return model_to_dict(self, fields)
+
 
 class Invite(models.Model):
     key = models.TextField()
@@ -60,19 +67,24 @@ class Invite(models.Model):
 
 
 class Knower(models.Model):
-    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    fk_player = models.ForeignKey(User, on_delete=models.CASCADE)
+    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name ='Jeu')
+    fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name ='Joueur')
 
     class Meta:
         db_table = 'knower'
         unique_together = (('fk_game', 'fk_player'),)
 
+    def __unicode__(self):
+        return '%s - %s' % (self.fk_player.pseudo, self.fk_game.name)
+
 
 class Owner(models.Model):
-    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    fk_player = models.ForeignKey(User, on_delete=models.CASCADE)
+    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name ='Jeu')
+    fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name ='Joueur')
 
     class Meta:
         db_table = 'owner'
         unique_together = (('fk_game', 'fk_player'),)
 
+    def __unicode__(self):
+        return '%s - %s' % (self.fk_player.pseudo, self.fk_game.name)

@@ -43,6 +43,12 @@ if not DEBUG:
 
 # Application definition
 INSTALLED_APPS = [
+	'solo',
+	'backend',
+	'health',
+	'socialauth',
+	'games',
+
 	'jet.dashboard',
 	'jet',
 
@@ -53,10 +59,6 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 
-	'solo',
-	'backend',
-	'health',
-	'games',
 ]
 
 MIDDLEWARE_CLASSES = [
