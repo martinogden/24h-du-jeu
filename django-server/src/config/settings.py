@@ -219,17 +219,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
+	'socialauth.backends.FacebookBackend',
 )
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = False
 
@@ -266,6 +267,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 
 AUTH_USER_MODEL = 'games.User'
+
+
+FACEBOOK_CLIENT_ID = os.environ['FACEBOOK_CLIENT_ID']
+FACEBOOK_CLIENT_SECRET = os.environ['FACEBOOK_CLIENT_SECRET']
 
 
 try:
