@@ -251,11 +251,16 @@ JET_HEADER_DATE_FORMAT = global_settings.DATE_FORMAT
 JET_HEADER_TIME_FORMAT = global_settings.TIME_FORMAT
 LIST_PER_PAGE = 10
 SITE_ID = 1
-SITE_TITLE = u'24hduJeu Backend'
-SITE_HEADER = 'Dashboard'
+SITE_TITLE = u'24h du Jeu'
+SITE_HEADER = 'Administration'
 JET_SIDE_MENU_COMPACT = True
 JET_SIDE_MENU_CUSTOM_APPS = [
-	('auth', ['User', 'Group']),
+	('games', [
+		'User',
+		'Game',
+		'Owner',
+		'Knower'
+	]),
 ]
 
 
