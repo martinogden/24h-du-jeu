@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import models
@@ -13,6 +14,7 @@ class User(AbstractUser):
 
     class Meta:
         db_table = 'player'
+        verbose_name = 'joueur'
 
     def __unicode__(self):
         return self.pseudo
@@ -46,6 +48,8 @@ class Game(models.Model):
 
     class Meta:
         db_table = 'game'
+        verbose_name = 'jeu'
+        verbose_name_plural = 'jeux'
 
     def __unicode__(self):
         return self.name
@@ -73,6 +77,7 @@ class Knower(models.Model):
     class Meta:
         db_table = 'knower'
         unique_together = (('fk_game', 'fk_player'),)
+        verbose_name = 'connaisseur'
 
     def __unicode__(self):
         return '%s - %s' % (self.fk_player.pseudo, self.fk_game.name)
@@ -85,6 +90,7 @@ class Owner(models.Model):
     class Meta:
         db_table = 'owner'
         unique_together = (('fk_game', 'fk_player'),)
+        verbose_name = 'propriétaire'
 
     def __unicode__(self):
         return '%s - %s' % (self.fk_player.pseudo, self.fk_game.name)
