@@ -86,6 +86,7 @@ class Knower(models.Model):
 class Owner(models.Model):
     fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name ='Jeu')
     fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name ='Joueur')
+    is_bringing = models.BooleanField(blank=True, default=False, verbose_name='Apporte')
 
     class Meta:
         db_table = 'owner'

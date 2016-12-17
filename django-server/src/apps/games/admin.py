@@ -15,6 +15,7 @@ class GameAdmin(admin.ModelAdmin):
 	inlines = (OwnerInline, KnowerInline, )
 	list_display = ('name',)
 	list_filter = ('name',)
+	ordering = ('name',)
 	search_fields = ('name','id_bgg')
 	formfield_overrides = {
 		models.TextField: {'widget': TextInput(attrs={'size':'20'})},
@@ -22,6 +23,7 @@ class GameAdmin(admin.ModelAdmin):
 
 class UserAdmin(admin.ModelAdmin):
 	inlines = (OwnerInline, KnowerInline,)
+	ordering = ('pseudo',)
 	# to select multiple owners/knowers at once
 	# NOT WORKING :-(
 	# filter_horizontal = ('known_games', 'owned_games',)
@@ -33,13 +35,16 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class OwnerAdmin(admin.ModelAdmin):
-    list_display = ('fk_player', 'fk_game')
+    list_display = ('fk_player', 'fk_game', 'is_bringing')
+    list_editable = ('is_bringing',)
+    ordering = ('fk_game__name', 'fk_player__pseudo')
     # raise TypeError('Related Field got invalid lookup: %s' % lookup_name)
     # search_fields = ('fk_game')
     list_filter = ('fk_player', 'fk_game')
 
 class KnowerAdmin(admin.ModelAdmin):
     list_display = ('fk_player', 'fk_game')
+    ordering = ('fk_game__name', 'fk_player__pseudo')
     # raise TypeError('Related Field got invalid lookup: %s' % lookup_name)
     # search_fields = ('fk_game')
     list_filter = ('fk_player', 'fk_game')
