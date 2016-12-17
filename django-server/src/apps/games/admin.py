@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.forms import TextInput
+from django.db import models
 from .models import Game, Knower, Owner, User
 
 class OwnerInline(admin.TabularInline):
@@ -14,10 +16,21 @@ class GameAdmin(admin.ModelAdmin):
 	list_display = ('name',)
 	list_filter = ('name',)
 	search_fields = ('name','id_bgg')
+	formfield_overrides = {
+		models.TextField: {'widget': TextInput(attrs={'size':'20'})},
+	}
 
 class UserAdmin(admin.ModelAdmin):
 	inlines = (OwnerInline, KnowerInline,)
+	# to select multiple owners/knowers at once
+	# NOT WORKING :-(
+	# filter_horizontal = ('known_games', 'owned_games',)
 	list_display = ('pseudo',)
+	exclude = ('password',)
+	formfield_overrides = {
+		models.TextField: {'widget': TextInput(attrs={'size':'20'})},
+	}
+
 
 class OwnerAdmin(admin.ModelAdmin):
     list_display = ('fk_player', 'fk_game')

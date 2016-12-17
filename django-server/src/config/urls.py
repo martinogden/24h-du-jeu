@@ -4,12 +4,12 @@ from django.conf.urls.static import static
 from django.shortcuts import redirect
 
 from django.contrib import admin
+from jwt_auth.views import obtain_jwt_token
 
 urlpatterns = [
-	url(r'^jet/', include('jet.urls', 'jet')),
-	url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
 	url(r'^health/', include('health.urls')),
-	url(r'^auth/', include('socialauth.urls')),
+	# url(r'^auth/', include('socialauth.urls')),
+	url(r'^auth/api-token/', obtain_jwt_token),
 	url(r'^admin/', admin.site.urls),
 	url(r'^api/games/', include('games.urls')),
 ]
