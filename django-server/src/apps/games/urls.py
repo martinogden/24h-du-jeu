@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
 	url(r'^bgg/$', views.bgg_games, name='bgg-games'),
 
+	url(r'^pdf/recap/$', views.pdf_recap, name='pdf-recap'),
+
 	url(r'(?P<game_id>\d+)/owners/$', views.owners, name='owners'),
 	url(r'(?P<game_id>\d+)/knowers/$', views.knowers, name='knowers'),
 

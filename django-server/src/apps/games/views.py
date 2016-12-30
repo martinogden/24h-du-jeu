@@ -1,4 +1,7 @@
-from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest, JsonResponse
+from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest, JsonResponse, HttpResponse
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import landscape, A4
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -81,3 +84,49 @@ def bgg_games(request):
 		raise Http404
 
 	return JsonResponse(data['items'], safe=False)
+
+@login_required
+def pdf_recap(request):
+    # # Create the HttpResponse object with the appropriate PDF headers.
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'inline; filename="RECAP.pdf"'
+
+	doc = SimpleDocTemplate(response, rightMargin=0,leftMargin=4, topMargin=10,bottomMargin=10)
+	doc.pagesize = landscape(A4)
+	elements = []
+	 
+	data = [
+	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
+	["A", "01", "ABCD", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"],
+	["B", "02", "CDEF", "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"],
+	["C", "03", "SDFSDF", "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"],
+	["D", "04", "SDFSDF", "DDDDDDDDDDDDDDDDDDDDDDDD DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"],
+	["E", "05", "GHJGHJGHJ", "EEEEEEEEEEEEEE EEEEEEEEEEEEEEEEE EEEEEEEEEEEEEEEEEEEE"],
+	]
+
+	t=Table(data)
+
+	# Styling the titles and the grid
+	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
+	                    ('VALIGN',(0,0),(-1,0),'MIDDLE'),
+	                    ('ALIGN',(0,0),(-1,0),'CENTER'),
+	                    ('INNERGRID', (0,0), (-1,-1), 0.25, colors.grey),
+	                    ('BOX', (0,0), (-1,-1), 0.25, colors.grey),
+	                    ])
+	
+	t.setStyle(style)
+
+	# we color lines alternatively
+	for each in range(len(data)):
+		if each % 2 == 0:
+			bg_color = colors.white
+		else:
+			bg_color = colors.lightblue
+
+		t.setStyle(TableStyle([('BACKGROUND', (0, each), (-1, each), bg_color)]))
+	
+
+	#Send the data and build the file
+	elements.append(t)
+	doc.build(elements)
+	return response

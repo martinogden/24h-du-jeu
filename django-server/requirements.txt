@@ -4,4 +4,5 @@ django-solo==1.1.2
 sorl-thumbnail==12.3
 django-dotenv==1.4.1
 coloredlogs==5.0
+reportlab==3.3.0
 https://github.com/martinogden/django-jet/archive/master.zip
