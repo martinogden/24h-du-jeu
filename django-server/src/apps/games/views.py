@@ -1,7 +1,8 @@
 from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest, JsonResponse, HttpResponse
 from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import landscape, A4
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -91,20 +92,33 @@ def pdf_recap(request):
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'inline; filename="RECAP.pdf"'
 
-	doc = SimpleDocTemplate(response, rightMargin=0,leftMargin=4, topMargin=10,bottomMargin=10)
+	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
 	doc.pagesize = landscape(A4)
 	elements = []
+
+	# Get data
+	games = Game.objects.all()
 	 
 	data = [
 	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
-	["A", "01", "ABCD", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"],
-	["B", "02", "CDEF", "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"],
-	["C", "03", "SDFSDF", "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"],
-	["D", "04", "SDFSDF", "DDDDDDDDDDDDDDDDDDDDDDDD DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"],
-	["E", "05", "GHJGHJGHJ", "EEEEEEEEEEEEEE EEEEEEEEEEEEEEEEE EEEEEEEEEEEEEEEEEEEE"],
 	]
 
-	t=Table(data)
+	styles = getSampleStyleSheet()
+	
+	# We build the data
+	for game in games:
+
+		game_owners = ""
+		for owner in game.owners.all():
+			game_owners = owner.pseudo + " " + game_owners
+
+		game_knowers = ""
+		for knower in game.knowers.all():
+			game_knowers = knower.pseudo + " " + game_knowers
+
+		data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
+
+	t=Table(data, colWidths=(None,None,None,60))
 
 	# Styling the titles and the grid
 	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),

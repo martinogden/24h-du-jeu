@@ -50,6 +50,7 @@ class Game(models.Model):
         db_table = 'game'
         verbose_name = 'jeu'
         verbose_name_plural = 'jeux'
+        ordering = ('name',)
 
     def __unicode__(self):
         return self.name
