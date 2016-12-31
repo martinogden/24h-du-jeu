@@ -97,7 +97,7 @@ def pdf_recap(request):
 	elements = []
 
 	# Get data
-	games = Game.objects.all()
+	games = Game.objects.filter(owner__is_bringing = True).distinct()
 	 
 	data = [
 	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
@@ -118,7 +118,7 @@ def pdf_recap(request):
 
 		data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
 
-	t=Table(data, colWidths=(None,None,None,60))
+	t=Table(data, colWidths=(None,None,300,60))
 
 	# Styling the titles and the grid
 	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
