@@ -144,3 +144,59 @@ def pdf_recap(request):
 	elements.append(t)
 	doc.build(elements)
 	return response
+
+@login_required
+def pdf_jeu_genre(request):
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'inline; filename="jeu_genre.pdf"'
+
+	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
+	doc.pagesize = A4
+	elements = []
+
+	# Get data
+	games = Game.objects.filter(owner__is_bringing = True).distinct()
+	 
+	data = [
+	["JEU", "GENRE", "", "JEU", "GENRE"],
+	]
+
+	styles = getSampleStyleSheet()
+	
+	# We build the data
+	for i in xrange(0, len(games), 2):
+		# when the number of games is odd, the last row contains only 1 element
+		if i+1 == len(games):
+			data.append([Paragraph(games[i].name, styles['BodyText']), games[i].type_genre, "", "", ""])
+		else:
+			data.append([Paragraph(games[i].name, styles['BodyText']), games[i].type_genre, "", Paragraph(games[i+1].name, styles['BodyText']), games[i+1].type_genre])
+
+	t=Table(data, colWidths=(None,60, 50, None, 60))
+
+	# Styling the titles and the grid
+	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
+	                    ('VALIGN',(0,0),(-1,0),'MIDDLE'),
+	                    ('ALIGN',(0,0),(-1,0),'CENTER'),
+	                    ('INNERGRID', (0,0), (1,-1), 0.25, colors.grey),
+	                    ('INNERGRID', (3,0), (-1,-1), 0.25, colors.grey),
+	                    ('BOX', (0,0), (1,-1), 0.25, colors.grey),
+	                    ('BOX', (3,0), (-1,-1), 0.25, colors.grey),
+	                    ])
+	
+	t.setStyle(style)
+
+	# we color lines alternatively
+	for each in range(len(data)):
+		if each % 2 == 0:
+			bg_color = colors.white
+		else:
+			bg_color = colors.lightblue
+
+		t.setStyle(TableStyle([('BACKGROUND', (0, each), (1, each), bg_color)]))
+		t.setStyle(TableStyle([('BACKGROUND', (3, each), (-1, each), bg_color)]))
+	
+
+	#Send the data and build the file
+	elements.append(t)
+	doc.build(elements)
+	return response
