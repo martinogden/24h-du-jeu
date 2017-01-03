@@ -6,6 +6,7 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from itertools import izip_longest as zip_longest
 import requests
 
 from .models import Game, User, Knower, Owner
@@ -194,6 +195,66 @@ def pdf_jeu_genre(request):
 
 		t.setStyle(TableStyle([('BACKGROUND', (0, each), (1, each), bg_color)]))
 		t.setStyle(TableStyle([('BACKGROUND', (3, each), (-1, each), bg_color)]))
+	
+
+	#Send the data and build the file
+	elements.append(t)
+	doc.build(elements)
+	return response
+
+@login_required
+def pdf_par_genre(request):
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'inline; filename="par_genre.pdf"'
+
+	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
+	doc.pagesize = landscape(A4)
+	elements = []
+
+	# Get data
+	placement_games = Game.objects.filter(type_genre = "Placement", owner__is_bringing = True).distinct()
+	enfants_games = Game.objects.filter(type_genre = "Enfants", owner__is_bringing = True).distinct()
+	 
+	data = [
+	["PLACEMENT", "", "", "ENFANTS", ""],
+	]
+
+	styles = getSampleStyleSheet()
+	
+	# We build the data
+	# We display all the combinaison depending which list is shorter than the other
+	# and depending if the number of elements in the list is odd or even
+	# There are 8 possible combinations.
+	for i, j in zip_longest(xrange(0, len(placement_games), 2), xrange(0, len(enfants_games), 2), fillvalue=-1):
+		col1 = col2 = col3 = col4 = ""
+		if i >= 0:
+			col1 = Paragraph(placement_games[i].name, styles['BodyText'])
+		if i >= 0 and i+1 < len(placement_games):
+			col2 = Paragraph(placement_games[i+1].name, styles['BodyText'])
+		if j >= 0:
+			col3 = Paragraph(enfants_games[j].name, styles['BodyText'])
+		if j >= 0 and j+1 < len(enfants_games):
+			col4 = Paragraph(enfants_games[j+1].name, styles['BodyText'])
+
+		data.append([col1, col2, "", col3, col4])
+
+	t=Table(data, colWidths=(None, None, 50, None, None))
+
+	# Styling the titles and the grid
+	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
+	                    ('VALIGN',(0,0),(-1,0),'MIDDLE'),
+	                    ('ALIGN',(0,0),(-1,0),'CENTER'),
+	                    ('BACKGROUND',(0,0),(1,0), colors.lightblue),
+	                    ('BACKGROUND',(3,0),(-1,0), colors.lightblue),
+	                    ('INNERGRID', (0,0), (1,-1), 0.25, colors.grey),
+	                    ('INNERGRID', (3,0), (-1,-1), 0.25, colors.grey),
+	                    ('BOX', (0,0), (1,-1), 0.25, colors.grey),
+	                    ('BOX', (3,0), (-1,-1), 0.25, colors.grey),
+	                    ('SPAN',(0,0),(1,0)),
+	                    ('SPAN',(3,0),(-1,0)),
+	                    ])
+	
+	t.setStyle(style)
 	
 
 	#Send the data and build the file
