@@ -214,9 +214,17 @@ def pdf_par_genre(request):
 	# Get data
 	placement_games = Game.objects.filter(type_genre = "Placement", owner__is_bringing = True).distinct()
 	enfants_games = Game.objects.filter(type_genre = "Enfants", owner__is_bringing = True).distinct()
+	gestion_games = Game.objects.filter(type_genre = "Gestion", owner__is_bringing = True).distinct()
+	ambiance_games = Game.objects.filter(type_genre = "Ambiance", owner__is_bringing = True).distinct()
 	 
-	data = [
+	data1 = [
 	["PLACEMENT", "", "", "ENFANTS", ""],
+	]
+	data2 = [
+	["GESTION", "", ""]
+	]
+	data3 = [
+	["AMBIANCE", "", "", ""]
 	]
 
 	styles = getSampleStyleSheet()
@@ -236,15 +244,43 @@ def pdf_par_genre(request):
 		if j >= 0 and j+1 < len(enfants_games):
 			col4 = Paragraph(enfants_games[j+1].name, styles['BodyText'])
 
-		data.append([col1, col2, "", col3, col4])
+		data1.append([col1, col2, "", col3, col4])
 
-	t=Table(data, colWidths=(None, None, 50, None, None))
+
+	for i in xrange(0, len(gestion_games), 3):
+		if i+1 == len(gestion_games):
+			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), "", ""])
+		elif i+2 == len(gestion_games):
+			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), Paragraph(gestion_games[i+1].name, styles['BodyText']), ""])
+		else:
+			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), Paragraph(gestion_games[i+1].name, styles['BodyText']), Paragraph(gestion_games[i+2].name, styles['BodyText'])])
+
+
+	for i in xrange(0, len(ambiance_games), 4):
+		if i+1 == len(ambiance_games):
+			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), "", "", ""])
+		elif i+2 == len(gestion_games):
+			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), "", ""])
+		elif i+3 == len(gestion_games):
+			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), ""])
+		else:
+			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), Paragraph(ambiance_games[i+3].name, styles['BodyText'])])
+
+
+	t1=Table(data1, colWidths=(None, None, 50, None, None))
+	t2=Table(data2)
+	t3=Table(data3)
 
 	# Styling the titles and the grid
 	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
 	                    ('VALIGN',(0,0),(-1,0),'MIDDLE'),
 	                    ('ALIGN',(0,0),(-1,0),'CENTER'),
-	                    ('BACKGROUND',(0,0),(1,0), colors.lightblue),
+					   ])
+	t1.setStyle(style)
+	t2.setStyle(style)
+	t3.setStyle(style)
+
+	style1 = TableStyle([('BACKGROUND',(0,0),(1,0), colors.lightblue),
 	                    ('BACKGROUND',(3,0),(-1,0), colors.lightblue),
 	                    ('INNERGRID', (0,0), (1,-1), 0.25, colors.grey),
 	                    ('INNERGRID', (3,0), (-1,-1), 0.25, colors.grey),
@@ -253,11 +289,19 @@ def pdf_par_genre(request):
 	                    ('SPAN',(0,0),(1,0)),
 	                    ('SPAN',(3,0),(-1,0)),
 	                    ])
+	style2 = TableStyle([('BACKGROUND',(0,0),(-1,0), colors.lightblue),
+	                    ('INNERGRID', (0,0), (-1,-1), 0.25, colors.grey),
+	                    ('BOX', (0,0), (-1,-1), 0.25, colors.grey),
+	                    ('SPAN',(0,0),(-1,0)),
+	                    ])
 	
-	t.setStyle(style)
-	
+	t1.setStyle(style1)
+	t2.setStyle(style2)
+	t3.setStyle(style2)
 
 	#Send the data and build the file
-	elements.append(t)
+	elements.append(t1)
+	elements.append(t3)
+	elements.append(t2)
 	doc.build(elements)
 	return response

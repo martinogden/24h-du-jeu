@@ -13,8 +13,8 @@ class KnowerInline(admin.TabularInline):
 
 class GameAdmin(admin.ModelAdmin):
 	inlines = (OwnerInline, KnowerInline, )
-	list_display = ('name',)
-	list_filter = ('name',)
+	list_display = ('name', 'type_genre')
+	list_filter = ('name', 'type_genre')
 	ordering = ('name',)
 	search_fields = ('name','id_bgg')
 	formfield_overrides = {
