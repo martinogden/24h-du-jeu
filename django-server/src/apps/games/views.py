@@ -111,7 +111,7 @@ def pdf_recap(request):
 	for game in games:
 
 		game_owners = ""
-		for owner in game.owners.all():
+		for owner in game.owners.filter(owner__is_bringing = True):
 			game_owners = owner.pseudo + " " + game_owners
 
 		game_knowers = ""
