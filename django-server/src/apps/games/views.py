@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import landscape, A4
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle, PageBreak
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -259,9 +259,9 @@ def pdf_par_genre(request):
 	for i in xrange(0, len(ambiance_games), 4):
 		if i+1 == len(ambiance_games):
 			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), "", "", ""])
-		elif i+2 == len(gestion_games):
+		elif i+2 == len(ambiance_games):
 			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), "", ""])
-		elif i+3 == len(gestion_games):
+		elif i+3 == len(ambiance_games):
 			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), ""])
 		else:
 			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), Paragraph(ambiance_games[i+3].name, styles['BodyText'])])
@@ -301,7 +301,10 @@ def pdf_par_genre(request):
 
 	#Send the data and build the file
 	elements.append(t1)
-	elements.append(t3)
+	elements.append(PageBreak())
 	elements.append(t2)
+	elements.append(PageBreak())
+	elements.append(t3)
+	
 	doc.build(elements)
 	return response
