@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest, JsonResponse, HttpResponse
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
@@ -216,6 +217,10 @@ def pdf_par_genre(request):
 	enfants_games = Game.objects.filter(type_genre = "Enfants", owner__is_bringing = True).distinct()
 	gestion_games = Game.objects.filter(type_genre = "Gestion", owner__is_bringing = True).distinct()
 	ambiance_games = Game.objects.filter(type_genre = "Ambiance", owner__is_bringing = True).distinct()
+	strategie_games = Game.objects.filter(type_genre = "Stratégie", owner__is_bringing = True).distinct()
+	cooperatif_games = Game.objects.filter(type_genre = "Coopératif", owner__is_bringing = True).distinct()
+	encheres_games = Game.objects.filter(type_genre = "Enchères", owner__is_bringing = True).distinct()
+	parcours_games = Game.objects.filter(type_genre = "Parcours", owner__is_bringing = True).distinct()
 	 
 	data1 = [
 	["PLACEMENT", "", "", "ENFANTS", ""],
@@ -226,10 +231,19 @@ def pdf_par_genre(request):
 	data3 = [
 	["AMBIANCE", "", "", ""]
 	]
+	data4 = [
+	["STRATEGIE", "", "", "COOPERATIF", ""]
+	]
+	data5 = [
+	["ENCHERES", "", "", "PARCOURS", ""]
+	]
 
 	styles = getSampleStyleSheet()
 	
 	# We build the data
+
+	# PLACEMENT AND ENFANTS
+
 	# We display all the combinaison depending which list is shorter than the other
 	# and depending if the number of elements in the list is odd or even
 	# There are 8 possible combinations.
@@ -246,6 +260,7 @@ def pdf_par_genre(request):
 
 		data1.append([col1, col2, "", col3, col4])
 
+	# GESTION
 
 	for i in xrange(0, len(gestion_games), 3):
 		if i+1 == len(gestion_games):
@@ -255,6 +270,7 @@ def pdf_par_genre(request):
 		else:
 			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), Paragraph(gestion_games[i+1].name, styles['BodyText']), Paragraph(gestion_games[i+2].name, styles['BodyText'])])
 
+	# AMBIANCE
 
 	for i in xrange(0, len(ambiance_games), 4):
 		if i+1 == len(ambiance_games):
@@ -266,10 +282,42 @@ def pdf_par_genre(request):
 		else:
 			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), Paragraph(ambiance_games[i+3].name, styles['BodyText'])])
 
+	# STRATEGIE AND COOPERATIF
+
+	for i, j in zip_longest(xrange(0, len(strategie_games), 2), xrange(0, len(cooperatif_games), 2), fillvalue=-1):
+		col1 = col2 = col3 = col4 = ""
+		if i >= 0:
+			col1 = Paragraph(strategie_games[i].name, styles['BodyText'])
+		if i >= 0 and i+1 < len(strategie_games):
+			col2 = Paragraph(strategie_games[i+1].name, styles['BodyText'])
+		if j >= 0:
+			col3 = Paragraph(cooperatif_games[j].name, styles['BodyText'])
+		if j >= 0 and j+1 < len(cooperatif_games):
+			col4 = Paragraph(cooperatif_games[j+1].name, styles['BodyText'])
+
+		data4.append([col1, col2, "", col3, col4])
+
+	# ENCHERES AND PARCOURS
+
+	for i, j in zip_longest(xrange(0, len(encheres_games), 2), xrange(0, len(parcours_games), 2), fillvalue=-1):
+		col1 = col2 = col3 = col4 = ""
+		if i >= 0:
+			col1 = Paragraph(encheres_games[i].name, styles['BodyText'])
+		if i >= 0 and i+1 < len(encheres_games):
+			col2 = Paragraph(encheres_games[i+1].name, styles['BodyText'])
+		if j >= 0:
+			col3 = Paragraph(parcours_games[j].name, styles['BodyText'])
+		if j >= 0 and j+1 < len(parcours_games):
+			col4 = Paragraph(parcours_games[j+1].name, styles['BodyText'])
+
+		data5.append([col1, col2, "", col3, col4])
+
 
 	t1=Table(data1, colWidths=(None, None, 50, None, None))
 	t2=Table(data2)
 	t3=Table(data3)
+	t4=Table(data4, colWidths=(None, None, 50, None, None))
+	t5=Table(data5, colWidths=(None, None, 50, None, None))
 
 	# Styling the titles and the grid
 	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
@@ -279,6 +327,8 @@ def pdf_par_genre(request):
 	t1.setStyle(style)
 	t2.setStyle(style)
 	t3.setStyle(style)
+	t4.setStyle(style)
+	t5.setStyle(style)
 
 	style1 = TableStyle([('BACKGROUND',(0,0),(1,0), colors.lightblue),
 	                    ('BACKGROUND',(3,0),(-1,0), colors.lightblue),
@@ -298,6 +348,8 @@ def pdf_par_genre(request):
 	t1.setStyle(style1)
 	t2.setStyle(style2)
 	t3.setStyle(style2)
+	t4.setStyle(style1)
+	t5.setStyle(style1)
 
 	#Send the data and build the file
 	elements.append(t1)
@@ -305,6 +357,10 @@ def pdf_par_genre(request):
 	elements.append(t2)
 	elements.append(PageBreak())
 	elements.append(t3)
-	
+	elements.append(PageBreak())
+	elements.append(t4)
+	elements.append(PageBreak())
+	elements.append(t5)
+
 	doc.build(elements)
 	return response
