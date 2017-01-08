@@ -12,6 +12,9 @@ class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
     picture_url = models.TextField(blank=True, null=True)
 
+    known_games = models.ManyToManyField('Game', through='Knower', related_name='knowers', verbose_name='Jeux connus')
+    owned_games = models.ManyToManyField('Game', through='Owner', related_name='owners', verbose_name='Jeux possédés')
+
     class Meta:
         db_table = 'player'
         verbose_name = 'joueur'
@@ -42,9 +45,6 @@ class Game(models.Model):
     sort_name = models.TextField(blank=True, null=True)
     id_trictrac = models.IntegerField(blank=True, null=True)
     id_bgg = models.IntegerField(blank=True, null=True)
-
-    knowers = models.ManyToManyField(User, through='Knower', related_name='known_games')
-    owners = models.ManyToManyField(User, through='Owner', related_name='owned_games')
 
     class Meta:
         db_table = 'game'
