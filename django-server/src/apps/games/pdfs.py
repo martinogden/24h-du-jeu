@@ -284,3 +284,17 @@ def pdf_par_genre(request):
 
 	doc.build(elements)
 	return response
+
+@login_required
+def pdf_a_apporter(request):
+	""" display the games to bring for one user """
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'inline; filename="a_apporter.pdf"'
+
+	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
+	doc.pagesize = landscape(A4)
+	elements = []
+
+	doc.build(elements)
+	return response
+
