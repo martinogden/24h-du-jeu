@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Card, CardTitle } from 'react-materialize';
+import { FACEBOOK_PARAMS } from '../constants';
 
 
 // todo move to stylesheet
@@ -12,21 +13,11 @@ const centerStyles = {
 	textAlign: 'center'
 };
 
-// todo move to config file
-const fb_props = {
-	key: 'fb_login',
-	size: 'small',
-	appId: '322217561499723',
-	autoLoad: true,
-	fields: 'name,email,picture',
-	icon: 'fa-facebook',
-	textButton: 'Connexion avec Facebook',
-};
-
 
 const Login = ({ failedLogIn, success }) => {
 
 	const callback = (response) => {
+		console.log(response);
 		if (!response.status)  // todo both failure states
 			success(response);  // we're connected
 	};
@@ -38,13 +29,15 @@ const Login = ({ failedLogIn, success }) => {
 			);
 	};
 
+	const fb = <FacebookLogin callback={ callback } { ...FACEBOOK_PARAMS } />;
+
 	return (
 		<div style={ centerStyles }>
 			{ failedLogInMessage(failedLogIn) }
 			<Card className="brown lighten-5"
 				header={<CardTitle image={"/static/img/logo-login.png"} className="responsive-img"/>}
 				title="Bienvenue aux 24h du Jeu !"
-				actions={ [<FacebookLogin callback={ callback } { ...fb_props } />] }>
+				actions={ [fb] }>
 			</Card>
 		</div>
 	);

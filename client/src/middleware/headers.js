@@ -18,9 +18,9 @@ export default store => next => action => {
 		'content-type': 'application/json',
 	};
 
-	const auth = store.getState().auth;
-	if (auth.token)
-		action[CALL_API].headers['Authorization'] = getAuthHeader(auth.token);
+	// const auth = store.getState().auth;
+	// if (auth.token)
+	// 	action[CALL_API].headers['Authorization'] = getAuthHeader(auth.token);
 
 	next(action);
 }

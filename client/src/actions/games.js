@@ -5,8 +5,9 @@ import { ActionTypes, API_ENDPOINT_URL, Schemas } from '../constants';
 
 export const fetchGames = () => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games`,
+		endpoint: `${API_ENDPOINT_URL}/games/`,
 		method: 'GET',
+		credentials: 'include',
 		types: [
 			ActionTypes.FETCH_GAMES_REQUEST,
 			{
@@ -20,8 +21,9 @@ export const fetchGames = () => ({
 
 export const fetchGamesIKnow = () => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games/iknow`,
+		endpoint: `${API_ENDPOINT_URL}/games/iknow/`,
 		method: 'GET',
+		credentials: 'include',
 		types: [
 			ActionTypes.FETCH_GAMES_I_KNOW_REQUEST,
 			{
@@ -35,8 +37,9 @@ export const fetchGamesIKnow = () => ({
 
 export const fetchGamesIOwn = () => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games/iown`,
+		endpoint: `${API_ENDPOINT_URL}/games/iown/`,
 		method: 'GET',
+		credentials: 'include',
 		types: [
 			ActionTypes.FETCH_GAMES_I_OWN_REQUEST,
 			{
@@ -61,8 +64,9 @@ export const filterGames = (query) => ({
 
 export const toggleGameOwnership = (id) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games/${id}/owners`,
+		endpoint: `${API_ENDPOINT_URL}/games/${id}/owners/`,
 		method: 'PATCH',
+		credentials: 'include',
 		types: [
 			ActionTypes.TOGGLE_GAME_OWNERSHIP_REQUEST,
 			{
@@ -77,8 +81,9 @@ export const toggleGameOwnership = (id) => ({
 
 export const toggleGameKnowledge = (id) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games/${id}/knowers`,
+		endpoint: `${API_ENDPOINT_URL}/games/${id}/knowers/`,
 		method: 'PATCH',
+		credentials: 'include',
 		types: [
 			ActionTypes.TOGGLE_GAME_KNOWLEDGE_REQUEST,
 			{
@@ -92,8 +97,9 @@ export const toggleGameKnowledge = (id) => ({
 
 export const fetchBGGGames = (query) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/bgg-games?q=${encodeURIComponent(query)}`,
+		endpoint: `${API_ENDPOINT_URL}/bgg-games/?q=${encodeURIComponent(query)}`,
 		method: 'GET',
+		credentials: 'include',
 		types: [
 			ActionTypes.FETCH_BGG_GAMES_REQUEST,
 			{

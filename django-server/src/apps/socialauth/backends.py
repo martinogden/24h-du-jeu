@@ -191,4 +191,4 @@ def get_auth_headers(access_token):
 
 
 def get_username(facebook_user_id):
-	return 'facebook::%s' % facebook_user_id
+	return 'facebook--%s' % facebook_user_id

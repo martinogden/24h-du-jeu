@@ -8,8 +8,8 @@ from jwt_auth.views import obtain_jwt_token
 
 urlpatterns = [
 	url(r'^health/', include('health.urls')),
-	# url(r'^auth/', include('socialauth.urls')),
-	url(r'^auth/api-token/', obtain_jwt_token),
+	url(r'^auth/', include('socialauth.urls')),
+	# url(r'^auth/api-token/', obtain_jwt_token),
 	url(r'^admin/', admin.site.urls),
 	url(r'^api/games/', include('games.urls')),
 ]

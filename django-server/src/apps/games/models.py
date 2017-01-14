@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import AbstractUser
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 import logging
 logger = logging.getLogger(__name__)
@@ -55,13 +56,20 @@ class Game(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
+    def img_uri(self):
+        if not self.id_bgg:
+            return ""
+        return static("img/%d.jpg" % self.id_bgg)
+
     def as_json(self):
         fields = ['id', 'name', 'type_genre', 'themes', 'mechanisms', 
                    'families', 'min_player', 'max_player', 'min_age',
-                   'max_age', 'duration', 'description', 'image_uri',
+                   'max_age', 'duration', 'description',
                    'thumbnail_uri', 'sort_name', 'id_trictrac', 'id_bgg']
-        return model_to_dict(self, fields)
-
+        data = model_to_dict(self, fields)
+        data['img_uri'] = self.img_uri
+        return data
 
 class Invite(models.Model):
     key = models.TextField()

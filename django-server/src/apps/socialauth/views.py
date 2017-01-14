@@ -1,16 +1,20 @@
+import json
 from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.middleware import csrf
 
 
+@csrf_exempt
 @require_http_methods(['POST'])
 def facebook_login(request):
 	try:
-		access_token = request.POST['access_token']
-		signed_request = request.POST['signed_request']
-	except KeyError:
+		creds = json.loads(request.body)
+		access_token = creds['access_token']
+		signed_request = creds['signed_request']
+	except (ValueError, KeyError):
 		raise PermissionDenied
 
 	user = authenticate(
@@ -22,4 +26,7 @@ def facebook_login(request):
 		raise PermissionDenied
 
 	login(request, user, backend='socialauth.backends.FacebookBackend')
-	return JsonResponse({ 'token': csrf.get_token(request) })
+	return JsonResponse({
+		'access_token': access_token,
+		'user_id': user.id,
+	})

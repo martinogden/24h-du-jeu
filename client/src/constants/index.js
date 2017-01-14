@@ -58,3 +58,13 @@ export const API_ENDPOINT_URL = `${isTest ? 'http://localhost' : ''}/api`;
 export const AUTH_HEADER_PREFIX = 'JWT ';
 
 export const PER_PAGE = 20;
+
+export const FACEBOOK_PARAMS = {
+	key: 'fb_login',
+	size: 'small',
+	appId: '322217561499723',
+	autoLoad: true,
+	fields: 'name,email,picture',
+	icon: 'fa-facebook',
+	textButton: 'Connexion avec Facebook',
+};
