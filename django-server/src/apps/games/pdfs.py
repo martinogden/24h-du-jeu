@@ -292,8 +292,39 @@ def pdf_a_apporter(request):
 	response['Content-Disposition'] = 'inline; filename="a_apporter.pdf"'
 
 	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
-	doc.pagesize = landscape(A4)
+	doc.pagesize = A4
 	elements = []
+
+	games = request.user.owned_games.filter(owner__is_bringing = True)
+
+	data = [
+	["Nombre de jeux: {}".format(len(games)), "", "", "", "", ""],
+	["", "", "", "", "", ""]
+	]
+
+	styles = getSampleStyleSheet()
+	
+	# We build the data
+	for i in xrange(0, len(games), 2):
+		# when the number of games is odd, the last row contains only 1 element
+		if i+1 == len(games):
+			data.append([Paragraph(games[i].name, styles['BodyText']), "", "", "", "", ""])
+		else:
+			data.append([Paragraph(games[i].name, styles['BodyText']), "", "", Paragraph(games[i+1].name, styles['BodyText']), "", ""])
+
+	t=Table(data, colWidths=(None,40, 40, None, 40, 40))
+
+	# Styling the titles and the grid
+	style = TableStyle([('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
+	                    ('INNERGRID', (0,2), (-1,-1), 0.25, colors.grey),
+	                    ('BOX', (0,2), (-1,-1), 0.25, colors.grey)
+	                    ])
+	
+	t.setStyle(style)
+	
+
+	#Send the data and build the file
+	elements.append(t)
 
 	doc.build(elements)
 	return response
