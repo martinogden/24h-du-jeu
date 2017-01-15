@@ -21,7 +21,7 @@ First install imagemagick, then:
 
 ## Running
 
-	$ python server/manage.py run
+	$ django-server/bin/runserver
 
 then, in another window:
 
