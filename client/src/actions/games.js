@@ -97,7 +97,7 @@ export const toggleGameKnowledge = (id) => ({
 
 export const fetchBGGGames = (query) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/bgg-games/?q=${encodeURIComponent(query)}`,
+		endpoint: `${API_ENDPOINT_URL}/games/bgg/?q=${encodeURIComponent(query)}`,
 		method: 'GET',
 		credentials: 'include',
 		types: [
