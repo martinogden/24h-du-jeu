@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.shortcuts import redirect
 
 from django.contrib import admin
-from jwt_auth.views import obtain_jwt_token
+# from jwt_auth.views import obtain_jwt_token
 
 urlpatterns = [
 	url(r'^health/', include('health.urls')),

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { NavItem, Dropdown } from 'react-materialize';
+import { NavItem, Dropdown, Icon } from 'react-materialize';
 
 const styles = {  // TODO extract inline styles
 	img: {
@@ -10,7 +10,12 @@ const styles = {  // TODO extract inline styles
 };
 
 
-// TODO : replace fixed image by user image
+const user_image = (user) => {
+	if (!user.picture_url)
+		return (<Icon>perm_identity</Icon>);
+	else
+		return (<img src={ user.picture_url } className="circle" style={ styles.img }/>);
+}
 
 const Userbar = ({ loggedInUser, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => {
 
@@ -18,7 +23,7 @@ const Userbar = ({ loggedInUser, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }
 		<li>
 			<Dropdown 
 				trigger={
-					<a href='#'><img src={ loggedInUser.picture_url } className="circle" style={ styles.img }/></a>
+					<a href='#'>{ user_image(loggedInUser) }</a>
 				}
 				options={
 					{

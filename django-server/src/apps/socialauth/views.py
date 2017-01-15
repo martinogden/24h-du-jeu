@@ -26,7 +26,8 @@ def facebook_login(request):
 		raise PermissionDenied
 
 	login(request, user, backend='socialauth.backends.FacebookBackend')
-	return JsonResponse({
-		'access_token': access_token,
-		'user_id': user.id,
-	})
+	return JsonResponse(dict(
+		access_token=access_token,
+		user_id=user.id,
+		**user.as_json()
+	))

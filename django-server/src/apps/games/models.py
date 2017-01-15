@@ -21,7 +21,7 @@ class User(AbstractUser):
         verbose_name = 'joueur'
 
     def __unicode__(self):
-        return self.pseudo
+        return self.pseudo or self.username
 
     def as_json(self):
         fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 

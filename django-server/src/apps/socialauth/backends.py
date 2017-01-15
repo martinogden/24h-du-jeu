@@ -55,6 +55,7 @@ class FacebookBackend(object):
 				first_name=fb_user.get('first_name'),
 				last_name=fb_user.get('last_name'),
 				email=fb_user['email'],
+				picture_url=fb_user['picture_url'],
 			)
 
 			user.set_unusable_password()
@@ -179,6 +180,7 @@ def get_facebook_user(access_token):
 		# make up a valid unique email
 		data['email'] = '%s@facebook.com' % data['id']
 
+	data['picture_url'] = get_picture_url(data['id'])
 	return data
 
 
@@ -192,3 +194,11 @@ def get_auth_headers(access_token):
 
 def get_username(facebook_user_id):
 	return 'facebook--%s' % facebook_user_id
+
+
+def get_picture_url(facebook_user_id):
+	url = "https://graph.facebook.com/v2.8/%s/picture" % facebook_user_id
+	response = requests.get(url, allow_redirects=True)
+
+	if response.ok:
+		return response.url
