@@ -1,8 +1,14 @@
-from django.http import Http404, HttpResponseServerError, HttpResponseBadRequest, JsonResponse, HttpResponse
+from django.http import (
+	Http404,
+	HttpResponseServerError,
+	HttpResponseBadRequest,
+	JsonResponse,
+	HttpResponse,
+)
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from itertools import izip_longest as zip_longest
+from django.views.decorators.http import require_http_methods
 import requests
 
 from .models import Game, User, Knower, Owner
@@ -36,13 +42,14 @@ def list_games(request, filter_='all'):
 		status = HTTP_STATUS_CODE_OK
 	return JsonResponse(data, status=status, safe=False)
 
-
 @login_required
+@require_http_methods(['PATCH'])
 def owners(request, game_id):
 	return _owner_knower_helper(game_id, 'owners', Owner, request.user)
 
 
 @login_required
+@require_http_methods(['PATCH'])
 def knowers(request, game_id):
 	return _owner_knower_helper(game_id, 'knowers', Knower, request.user)
 

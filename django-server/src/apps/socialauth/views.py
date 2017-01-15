@@ -27,6 +27,7 @@ def facebook_login(request):
 
 	login(request, user, backend='socialauth.backends.FacebookBackend')
 	return JsonResponse(dict(
+		csrf_token=csrf.get_token(request),
 		access_token=access_token,
 		user_id=user.id,
 		**user.as_json()
