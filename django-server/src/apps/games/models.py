@@ -68,6 +68,29 @@ class Game(models.Model):
                    'max_age', 'duration', 'description',
                    'thumbnail_uri', 'sort_name', 'id_trictrac', 'id_bgg']
         data = model_to_dict(self, fields)
+        
+        # in the frontend, we also need the list of owners and knowers
+        # We display the owners even if they don't bring the game 
+        #   as the owners need to specify they own it even if the admin doesn't
+        #   want him to bring it.
+        owners = []
+        for owner in self.owners.all():
+            owners.append({
+                'id': owner.id,
+                'picture_url': owner.picture_url,
+                'pseudo': owner.pseudo
+            })
+        # we add the list of owners to the data
+        data['owners'] = owners
+        knowers = []
+        for knower in self.knowers.all():
+            knowers.append({
+                'id': knower.id,
+                'picture_url': knower.picture_url,
+                'pseudo': knower.pseudo
+            })
+        data['knowers'] = knowers
+
         data['img_uri'] = self.img_uri
         return data
 
