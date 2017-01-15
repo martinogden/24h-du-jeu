@@ -20,9 +20,17 @@ const li = iter => iter.map(item => {
 		paddingRight: '5px',
 	};
 
+	/* Display icon if user doesn't have a picture */
+	const user_image = () => {
+	if (!item.picture_url)
+		return (<i className="material-icons tiny">person</i>);
+	else
+		return (<img src={ item.picture_url } className="circle" width="20" style={ iconStyle }/>);
+	}
+
 	return (
 		<li key={ item.id }>
-			<img src={ item.picture_url } className="circle" width="20" style={ iconStyle }/>
+			{ user_image() }
 			{ item.pseudo }
 		</li>
 	);

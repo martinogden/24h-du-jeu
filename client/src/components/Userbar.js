@@ -12,7 +12,7 @@ const styles = {  // TODO extract inline styles
 
 const user_image = (user) => {
 	if (!user.picture_url)
-		return (<Icon>perm_identity</Icon>);
+		return (<Icon>person</Icon>);
 	else
 		return (<img src={ user.picture_url } className="circle" style={ styles.img }/>);
 }
