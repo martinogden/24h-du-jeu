@@ -5,6 +5,7 @@ import SearchBox from './SearchBox';
 import Userbar from './Userbar';
 import DisplayMode from './DisplayMode';
 import Print from './Print';
+import Filter from './Filter';
 
 const styles = {  // TODO extract inline styles
 	img: {
@@ -22,14 +23,15 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGa
 					<Col s={1} m={1}>
 				    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
 				    </Col>
-				    <Col s={8} m={8} offset={'m2'}>
+				    <Col s={7} m={7} offset={'m2'}>
 				    	<SearchBox search={ onSearch } />
 				    </Col>
-				    <Col s={2} m={2}>
+				    <Col s={3} m={3}>
 					    <ul className="right">
 					    	<DisplayMode />
+					    	<Filter onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
 					    	<Print />
-					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
+					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
 					    </ul>
 					</Col>
 				</Row>

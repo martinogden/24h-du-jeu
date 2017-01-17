@@ -18,7 +18,7 @@ const user_image = (user) => {
 		return (<img src={ user.picture_url } className="circle" style={ styles.img }/>);
 };
 
-const Userbar = ({ loggedInUser, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => {
+const Userbar = ({ loggedInUser, onLogout }) => {
 
 	return(
 		<li>
@@ -33,15 +33,7 @@ const Userbar = ({ loggedInUser, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }
 					}	
 				}>
 
-				<NavItem
-					onClick={ onFetchGamesIOwn }>
-					Je possède
-				</NavItem>
-				<NavItem
-					onClick={ onFetchGamesIKnow }>
-					J&#39;explique
-				</NavItem>
-				<NavItem divider />
+
 				<NavItem 
 					onClick={ onLogout }>
 					Déconnexion
