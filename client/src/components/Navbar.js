@@ -4,6 +4,7 @@ import { Row, Col } from 'react-materialize';
 import SearchBox from './SearchBox';
 import Userbar from './Userbar';
 import DisplayMode from './DisplayMode';
+import Print from './Print';
 
 const styles = {  // TODO extract inline styles
 	img: {
@@ -27,6 +28,7 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGa
 				    <Col s={2} m={2}>
 					    <ul className="right">
 					    	<DisplayMode />
+					    	<Print />
 					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
 					    </ul>
 					</Col>

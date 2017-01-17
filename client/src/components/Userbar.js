@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { NavItem, Dropdown, Icon } from 'react-materialize';
 
-import { API_ENDPOINT_URL } from '../constants';
 
 const styles = {  // TODO extract inline styles
 	img: {
@@ -41,9 +40,6 @@ const Userbar = ({ loggedInUser, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }
 				<NavItem
 					onClick={ onFetchGamesIKnow }>
 					J&#39;explique
-				</NavItem>
-				<NavItem href={ API_ENDPOINT_URL + '/games/pdf/a_apporter/' } target='_blank'>
-					<span className="material-icons">print</span> A apporter
 				</NavItem>
 				<NavItem divider />
 				<NavItem 
