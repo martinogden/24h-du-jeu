@@ -18,9 +18,11 @@ const Print = () => {
 					}	
 				}>
 
-				<NavItem href={ API_ENDPOINT_URL + '/games/pdf/a_apporter/' } target='_blank'>
+				<li>
+				 <a href={ API_ENDPOINT_URL + '/games/pdf/a_apporter/' } target='_blank'>
 					A apporter
-				</NavItem>
+				 </a>
+				</li>
 			</Dropdown>
 		</li>
 	);		
