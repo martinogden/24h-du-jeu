@@ -56,6 +56,7 @@ class FacebookBackend(object):
 				last_name=fb_user.get('last_name'),
 				email=fb_user['email'],
 				picture_url=fb_user['picture_url'],
+				pseudo=fb_user.get('first_name'),
 			)
 
 			user.set_unusable_password()
