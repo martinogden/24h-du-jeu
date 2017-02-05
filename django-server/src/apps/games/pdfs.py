@@ -5,6 +5,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import landscape, A4
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle, PageBreak
+from itertools import izip_longest as zip_longest
 
 from .models import Game, User, Knower, Owner
 
