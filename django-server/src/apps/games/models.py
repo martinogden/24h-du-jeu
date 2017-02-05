@@ -94,14 +94,6 @@ class Game(models.Model):
         data['img_uri'] = self.img_uri
         return data
 
-class Invite(models.Model):
-    key = models.TextField()
-    player = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    is_expired = models.BooleanField(blank=False, default=False, verbose_name='Expiré')
-
-    class Meta:
-        db_table = 'invite'
-
 
 class Knower(models.Model):
     fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name ='Jeu')

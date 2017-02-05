@@ -2,7 +2,7 @@
 node_modules
 dist
 npm-debug.log
-static
+client/static
 *.pyc
 db/*
 env

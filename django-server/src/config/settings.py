@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 	'backend',
 	'health',
 	'socialauth',
+	'invite',
 	'games',
 
 	'django.contrib.admin',
@@ -82,6 +83,7 @@ TEMPLATES = [
 				'django.template.context_processors.request',
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
+				'config.context_processors.exposed_settings',
 			],
 			'loaders': [
 				'django.template.loaders.filesystem.Loader',
@@ -216,7 +218,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
-	'socialauth.backends.FacebookBackend',
+	'invite.backends.InviteFacebookBackend',
 )
 
 

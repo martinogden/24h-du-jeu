@@ -9,6 +9,7 @@ from django.contrib import admin
 urlpatterns = [
 	url(r'^health/', include('health.urls')),
 	url(r'^auth/', include('socialauth.urls')),
+	url(r'^invite/', include('invite.urls')),
 	# url(r'^auth/api-token/', obtain_jwt_token),
 	url(r'^admin/', admin.site.urls),
 	url(r'^api/games/', include('games.urls')),
