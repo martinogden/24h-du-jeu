@@ -27,26 +27,14 @@ class SignedRequestDecodeException(Exception):
 
 class FacebookBackend(object):
 
-	def authenticate(self, access_token=None, signed_request=None):
-		try:
-			payload = parse_signed_request(signed_request)
-		except SignedRequestDecodeException:
-			return None
-
-		logger.debug('facebook response: %s', payload)
-
-		if not verify_facebook_user(access_token, payload['user_id']):
-			return None
-
-		fb_user = get_facebook_user(access_token)
-		if not fb_user:
-			return None
+	def _get_or_create_django_user(self, fb_user, **kwargs):
 		username = get_username(fb_user['id'])
 
 		User = get_user_model()
 
 		try:
-			user = User.objects.get(username=username)
+			return User.objects.get(username=username)
+
 		except User.DoesNotExist:
 			user = User(
 				is_staff=False,
@@ -62,7 +50,26 @@ class FacebookBackend(object):
 			user.set_unusable_password()
 			user.save()
 
-		return user
+			return user
+
+
+	def authenticate(self, access_token=None, signed_request=None, **kwargs):
+		try:
+			payload = parse_signed_request(signed_request)
+		except SignedRequestDecodeException:
+			return None
+
+		logger.debug('facebook response: %s', payload)
+
+		if not verify_facebook_user(access_token, payload['user_id']):
+			return None
+
+		fb_user = get_facebook_user(access_token)
+		if not fb_user:
+			return None
+		
+		return self._get_or_create_django_user(fb_user, **kwargs)
+
 
 	def get_user(self, user_id):
 		User = get_user_model()
