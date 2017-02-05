@@ -97,6 +97,7 @@ class Game(models.Model):
 class Invite(models.Model):
     key = models.TextField()
     player = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    is_expired = models.BooleanField(blank=False, default=False, verbose_name='Expiré')
 
     class Meta:
         db_table = 'invite'
