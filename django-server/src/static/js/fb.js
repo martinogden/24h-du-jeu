@@ -57,6 +57,7 @@ var statusChangeHandler = function (response) {
 
 				// Add redirect
 				console.log('you are logged in via facebook <a href="javascript:FB.logout();">logout</a>');
+				window.location.href="/";
 			})
 			break;
 
@@ -85,8 +86,14 @@ window.fbAsyncInit = function() {
 		console.log('you logged out via facebook');
 	});
 
-	document.getElementById("fb-login").addEventListener('click', function() {
-		FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
-	})
+	// document.getElementById("fb-login").addEventListener('click', function() {
+	// 	debugger
+	// 	FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
+	// })
 }
+
+window.myFacebookLogin = function() {
+  FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
+}
+
 })();

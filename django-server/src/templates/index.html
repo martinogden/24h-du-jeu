@@ -34,7 +34,7 @@
 	<section class="page">
 
 		
-		<div id="fb-login" class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>
+		<button onclick="myFacebookLogin()">S'authentifier avec Facebook</button>
 
 		{% block content %}{% endblock content %}
 
@@ -48,7 +48,7 @@
 			FB_STATUS_CONNECTED: 'connected',
 			FB_SCOPE: 'public_profile,email',
 			INVITE_KEY: '{{ invite_key }}',
-			INVITE_PLAYER_ID: '{{ invite_player_id }}',
+			INVITE_PLAYER_ID: '{{ invite_player_id|default:"" }}' || null,
 
 			urls: {
 				'invite:facebook': '{% url 'invite:facebook' %}'

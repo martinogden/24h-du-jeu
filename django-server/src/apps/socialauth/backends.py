@@ -27,32 +27,6 @@ class SignedRequestDecodeException(Exception):
 
 class FacebookBackend(object):
 
-	def _get_or_create_django_user(self, fb_user, **kwargs):
-		username = get_username(fb_user['id'])
-
-		User = get_user_model()
-
-		try:
-			return User.objects.get(username=username)
-
-		except User.DoesNotExist:
-			user = User(
-				is_staff=False,
-				is_superuser=False,
-				username=username,
-				first_name=fb_user.get('first_name'),
-				last_name=fb_user.get('last_name'),
-				email=fb_user['email'],
-				picture_url=fb_user['picture_url'],
-				pseudo=fb_user.get('first_name'),
-			)
-
-			user.set_unusable_password()
-			user.save()
-
-			return user
-
-
 	def authenticate(self, access_token=None, signed_request=None, **kwargs):
 		try:
 			payload = parse_signed_request(signed_request)
@@ -67,8 +41,14 @@ class FacebookBackend(object):
 		fb_user = get_facebook_user(access_token)
 		if not fb_user:
 			return None
-		
-		return self._get_or_create_django_user(fb_user, **kwargs)
+
+		username = get_username(fb_user['id'])
+		User = get_user_model()
+
+		try:
+			return User.objects.get(username=username)
+		except User.DoesNotExist:
+			return django_user_from_fb_user(User(), fb_user)
 
 
 	def get_user(self, user_id):
@@ -210,3 +190,23 @@ def get_picture_url(facebook_user_id):
 
 	if response.ok:
 		return response.url
+
+
+def django_user_from_fb_user(dj_user, fb_user):
+	username = get_username(fb_user['id'])
+	
+	# always overwrite
+	dj_user.email = fb_user['email']
+	dj_user.username = username
+	dj_user.is_staff = False
+	dj_user.is_superuser = False
+
+	# never overwrite
+	dj_user.first_name = dj_user.first_name or fb_user.get('first_name')
+	dj_user.last_name = dj_user.last_name or fb_user.get('last_name')
+	dj_user.picture_url = dj_user.picture_url or fb_user['picture_url']
+	dj_user.pseudo = dj_user.pseudo or fb_user.get('first_name')
+
+	dj_user.set_unusable_password()
+	dj_user.save()
+	return dj_user
