@@ -23,7 +23,7 @@ else:
 	DEBUG = False
 
 
-ALLOWED_HOSTS = ['24hdujeu.fr', 'localhost']
+ALLOWED_HOSTS = ['ludotheque.24hdujeu.fr', 'localhost']
 if 'DJANGO_ALLOWED_HOST' in os.environ:
 	ALLOWED_HOSTS += [os.environ['DJANGO_ALLOWED_HOST']]
 
