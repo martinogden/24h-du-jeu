@@ -218,7 +218,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
-	'invite.backends.InviteFacebookBackend',
+	'games.backends.GameFacebookBackend',
 )
 
 
