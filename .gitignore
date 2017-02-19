@@ -8,3 +8,4 @@ db/*
 env
 flask.log
 *.ico
+*.png
