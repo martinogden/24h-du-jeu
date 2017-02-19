@@ -11,7 +11,7 @@ DEFAULT_BACKEND = 'socialauth.backends.FacebookBackend'
 
 @csrf_exempt
 @require_http_methods(['POST'])
-def facebook_login(request, backend=DEFAULT_BACKEND, **kwargs):
+def facebook_login(request, **kwargs):
 	try:
 		creds = json.loads(request.body)
 		access_token = creds['access_token']
@@ -28,7 +28,7 @@ def facebook_login(request, backend=DEFAULT_BACKEND, **kwargs):
 	if not user:
 		raise PermissionDenied
 
-	login(request, user, backend=backend)
+	login(request, user)
 
 	return JsonResponse(dict(
 		csrf_token=csrf.get_token(request),

@@ -26,9 +26,7 @@ HTTP_STATUS_CODE_SERVER_ERROR = 500
 @require_http_methods(['POST'])
 def facebook_login(request):
 	backend = 'games.backends.GameFacebookBackend'
-	return sa_facebook_login(request,
-		backend=backend
-	)
+	return sa_facebook_login(request)
 
 @login_required
 def list_games(request, filter_='all'):

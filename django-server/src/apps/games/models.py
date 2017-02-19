@@ -22,7 +22,7 @@ class User(AbstractUser):
         verbose_name = 'joueur'
 
     def __unicode__(self):
-        return unidecode(self.pseudo) or self.username
+        return unidecode(self.pseudo or '') or self.username
 
     def as_json(self):
         fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 

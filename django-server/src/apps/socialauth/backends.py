@@ -27,6 +27,9 @@ class SignedRequestDecodeException(Exception):
 
 class FacebookBackend(object):
 
+	def create_django_user(self, fb_user):
+		return django_user_from_fb_user(User(), fb_user)
+
 	def authenticate(self, access_token=None, signed_request=None, **kwargs):
 		try:
 			payload = parse_signed_request(signed_request)
@@ -48,7 +51,7 @@ class FacebookBackend(object):
 		try:
 			return User.objects.get(username=username)
 		except User.DoesNotExist:
-			return django_user_from_fb_user(User(), fb_user)
+			return self.create_django_user(fb_user)
 
 
 	def get_user(self, user_id):
