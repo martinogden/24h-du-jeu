@@ -6,4 +6,5 @@ django-dotenv==1.4.1
 coloredlogs==5.0
 django-jwt-auth==0.0.2
 reportlab==3.3.0
+unidecode==0.04.20
 https://github.com/martinogden/django-jet/archive/master.zip

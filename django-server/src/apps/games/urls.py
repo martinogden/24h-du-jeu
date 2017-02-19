@@ -2,6 +2,8 @@ from django.conf.urls import url
 from . import views, pdfs
 
 urlpatterns = [
+	url(r'^facebook-login/$', views.facebook_login, name='facebook'),
+
 	url(r'^bgg/$', views.bgg_games, name='bgg-games'),
 
 	url(r'^pdf/recap/$', pdfs.pdf_recap, name='pdf-recap'),

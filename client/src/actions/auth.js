@@ -4,7 +4,7 @@ import { ActionTypes } from '../constants';
 
 export const authWithFacebook = (payload) => ({
 	[CALL_API]: {
-		endpoint: '/auth/facebook-login/',
+		endpoint: '/api/games/facebook-login/',
 		method: 'POST',
 		credentials: 'include',
 		body: JSON.stringify({

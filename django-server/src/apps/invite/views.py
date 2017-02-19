@@ -12,7 +12,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.middleware import csrf
 
 from socialauth.backends import get_username, django_user_from_fb_user, get_facebook_user
-# from socialauth.views import facebook_login as sa_facebook_login
 from games.models import User
 from .models import Invite
 
@@ -36,7 +35,6 @@ def invite(request, key, player=None):
 
 @require_http_methods(['POST'])
 def facebook_login(request):
-	# backend = 'invite.backends.InviteFacebookBackend'
 	payload = json.loads(request.body)
 	invite_key=payload['invite_key']
 	invite_player_id=payload['invite_player_id']
@@ -66,9 +64,3 @@ def facebook_login(request):
 		))
 	else:
 		return HttpResponseForbidden('Player already associated with this Facebook user')
-
-	# return sa_facebook_login(request,
-	# 	backend=backend,
-	# 	invite_key=payload['invite_key'],
-	# 	invite_player_id=payload['invite_player_id'],
-	# )

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from unidecode import unidecode
 
 from django.db import models
 from django.forms.models import model_to_dict
@@ -21,7 +22,7 @@ class User(AbstractUser):
         verbose_name = 'joueur'
 
     def __unicode__(self):
-        return self.pseudo or self.username
+        return unidecode(self.pseudo) or self.username
 
     def as_json(self):
         fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 
