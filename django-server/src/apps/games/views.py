@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from boardgamegeek import BoardGameGeek
+from boardgamegeek.exceptions import BoardGameGeekError
 import requests
 
 from socialauth.views import facebook_login as sa_facebook_login
@@ -96,3 +98,42 @@ def bgg_games(request):
 		raise Http404
 
 	return JsonResponse(data['items'], safe=False)
+
+@login_required
+def bgg_game(request, game_id):
+
+	bgg = BoardGameGeek()
+
+	# we return error if game already in DB
+	try:
+		game = Game.objects.get(id_bgg=game_id)
+	except Game.DoesNotExist:
+		# the game is not in the DB. All fine
+		# fetch game data from BGG
+		try:
+			bgg_game = bgg.game(game_id=game_id)
+		except BoardGameGeekError:
+			# TODO: error
+			pass
+
+		type_genre = None #TODO (use mechanics or categories?)
+
+		# TODO see with Martin if easier way to build this
+		data = {
+			'id': game_id, 
+			'type_genre': type_genre,
+			'min_player': bgg_game.min_players,
+			'max_player': bgg_game.max_players,
+			'min_age': bgg_game.min_age,
+			'duration': bgg_game.playing_time,
+			'description': bgg_game.description,
+			'thumbnail': bgg_game.thumbnail
+		}
+
+		return JsonResponse(data)
+		
+	else:
+		# Game is already in DB
+		# TODO: display error message in Frontend. Maybe need to change this JsonResponse...
+		return JsonResponse({'game_id': game_id, 'name': game.name, 'status': 'exist'})
+

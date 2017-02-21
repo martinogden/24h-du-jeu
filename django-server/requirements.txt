@@ -7,4 +7,5 @@ coloredlogs==5.0
 django-jwt-auth==0.0.2
 reportlab==3.3.0
 unidecode==0.04.20
+boardgamegeek==0.13.2
 https://github.com/martinogden/django-jet/archive/master.zip

@@ -5,6 +5,7 @@ urlpatterns = [
 	url(r'^facebook-login/$', views.facebook_login, name='facebook'),
 
 	url(r'^bgg/$', views.bgg_games, name='bgg-games'),
+	url(r'^bgg/(?P<game_id>\d+)/$', views.bgg_game, name='bgg-game'),
 
 	url(r'^pdf/recap/$', pdfs.pdf_recap, name='pdf-recap'),
 	url(r'^pdf/jeu_genre/$', pdfs.pdf_jeu_genre, name='pdf-jeu-genre'),
