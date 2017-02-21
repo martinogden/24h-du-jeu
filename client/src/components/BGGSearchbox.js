@@ -25,7 +25,7 @@ class BGGSearchbox extends BaseSearchbox {
 
 		return (
 			<li
-				key={ game.id }
+				value={ game.objectid }
 				onClick={ this.close.bind(this) }
 			>
 				{ game.name }
