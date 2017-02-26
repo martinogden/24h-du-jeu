@@ -36,6 +36,7 @@
     "isomorphic-fetch": "^2.2.1",
     "normalizr": "^2.2.1",
     "react": "^15.2.1",
+    "react-autocomplete": "^1.4.0",
     "react-dom": "^15.2.1",
     "react-facebook-login": "3.4.3",
     "react-masonry-component": "^4.2.1",

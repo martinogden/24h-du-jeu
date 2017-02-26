@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Autocomplete from 'react-autocomplete';
 import { Input, Icon } from 'react-materialize';
 
 import BaseSearchbox from './BaseSearchbox';
@@ -11,6 +12,14 @@ const styles = {  // TODO extract inline styles
 		left: '11.25px', 
 		opacity: '1',
 		display: 'block',
+	},
+	wrapper: {
+		width: '75%',
+		marginLeft: 'auto',
+		right: 'auto',
+		float: 'left',
+		boxSizing: 'border-box',
+		padding: '0 0.75rem',
 	},
 };
 
@@ -62,6 +71,29 @@ class BGGSearchbox extends BaseSearchbox {
 					<Icon>mode_edit</Icon>
 				</Input>
 				{ this.renderAutocomplete() }
+
+
+				
+				<Icon>mode_edit</Icon>
+				<label htmlFor="games-autocomplete">Titre</label>
+				<Autocomplete
+					inputProps={{name: "Titre", id: "games-autocomplete"}}
+					ref="autocomplete"
+					value={this.state.q}
+					items={this.props.autocomplete}
+					getItemValue={(item) => item.name}
+					onChange={ this.update }
+					renderItem={(item, isHighlighted) => (
+						<div
+							style={isHighlighted ? styles.highlightedItem : styles.item}
+							key={item.objectid}
+							id={item.objectid}
+						>{item.name}</div>
+					)}
+					wrapperStyle = { styles.wrapper }
+					menuStyle={ styles.autodropdown }
+				/>
+				
 			</div>
 
 		);
