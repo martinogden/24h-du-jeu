@@ -22,9 +22,9 @@ const AddGame = ({ onSearch, autocomplete }) => (
 			    </div>
 			}>
 				<Row>
-					<BGGSearchbox search={ onSearch } autocomplete={ autocomplete }/>
+					<BGGSearchbox id="id_bgg" search={ onSearch } autocomplete={ autocomplete }/>
 					<Input s={3} label="ID BoardGameGeek" defaultValue="" disabled />
-					<Input s={12} m={4} type='select' label="Genre">
+					<Input id="type_genre" s={12} m={4} type='select' label="Genre">
 					    <option value="" disabled selected>Sélectionner le genre</option>
 					    <option value='1'>Ambiance</option>
 					    <option value='2'>Coopératif</option>
@@ -36,10 +36,10 @@ const AddGame = ({ onSearch, autocomplete }) => (
 					    <option value='8'>Placement</option>
 					    <option value='9'>Stratégie</option>
 					</Input>
-					<Input s={6} m={2} label="Joueurs min." />
-					<Input s={6} m={2} label="Joueurs max." />
-					<Input s={6} m={2} label="Durée (mins)" />
-					<Input s={6} m={2} label="Age min." />
+					<Input id="min_player" s={6} m={2} label="Joueurs min." />
+					<Input id="max_player" s={6} m={2} label="Joueurs max." />
+					<Input id="duration" s={6} m={2} label="Durée (mins)" />
+					<Input id="min_age" s={6} m={2} label="Age min." />
 					<div className="input-field col s12">
 						<textarea id="description" className="materialize-textarea"></textarea>
 	          			<label for="description">Description</label>

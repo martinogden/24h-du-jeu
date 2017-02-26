@@ -24,11 +24,11 @@ class BGGSearchbox extends BaseSearchbox {
 	renderSuggestion(game) {
 
 		return (
-			<li
+			<li className="ac-item"
 				value={ game.objectid }
-				onClick={ this.close.bind(this) }
+				key={ game.objectid }
 			>
-				{ game.name }
+				<a href='javascript:void(0)'>{ game.name }</a>
 			</li>
 		);
 	}
@@ -40,7 +40,8 @@ class BGGSearchbox extends BaseSearchbox {
 			return;
 
 		return (
-			<ul className="dropdown-content select-dropdown active"
+			<ul id="singleDropdown"
+				className="dropdown-content select-dropdown"
 			    style={ styles.autodropdown }>
 				{ games.map( this.renderSuggestion.bind(this) ) }
 			</ul>

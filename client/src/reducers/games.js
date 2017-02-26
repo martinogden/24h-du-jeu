@@ -210,6 +210,6 @@ export const getGames = (state) => {
 		.slice(0, n);  					// pagination
 };
 
-export const getBggGames = (state) => (
-	state.bggList.map(id => state.bggByID[id])
-);
+export const getBggGames = (state) => {
+	return state.bggList.map(id => state.bggByID[id])
+};

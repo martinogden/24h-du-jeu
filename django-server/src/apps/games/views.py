@@ -83,7 +83,7 @@ def _owner_knower_helper(game_id, attr, model_name, current_user):
 def bgg_games(request):
 	q = request.GET.get('q')
 	if not q or len(q) < AC_MIN_LENGTH:
-		return JsonResponse({})
+		return JsonResponse([], safe=False)
 
 	url = 'https://boardgamegeek.com/search/boardgame'
 	headers = { 'Accept': 'application/json' }
@@ -113,14 +113,12 @@ def bgg_game(request, game_id):
 		try:
 			bgg_game = bgg.game(game_id=game_id)
 		except BoardGameGeekError:
-			# TODO: error
 			pass
 
 		type_genre = None #TODO (use mechanics or categories?)
 
-		# TODO see with Martin if easier way to build this
 		data = {
-			'id': game_id, 
+			'id_bgg': game_id, 
 			'type_genre': type_genre,
 			'min_player': bgg_game.min_players,
 			'max_player': bgg_game.max_players,
@@ -133,7 +131,6 @@ def bgg_game(request, game_id):
 		return JsonResponse(data)
 		
 	else:
-		# Game is already in DB
-		# TODO: display error message in Frontend. Maybe need to change this JsonResponse...
-		return JsonResponse({'game_id': game_id, 'name': game.name, 'status': 'exist'})
+		# Game is already in DB - return 400
+		return HttpResponseBadRequest('Ce jeu existe d&eacute;j&agrave;. Nom du jeu: %s (ID BGG: %s)' % (game.name, game_id))
 
