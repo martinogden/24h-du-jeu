@@ -12,6 +12,8 @@ const styles = {  // TODO extract inline styles
 		left: '11.25px', 
 		opacity: '1',
 		display: 'block',
+		backgroundColor: '#fff',
+		zIndex: '1',
 	},
 	wrapper: {
 		width: '75%',
@@ -20,6 +22,10 @@ const styles = {  // TODO extract inline styles
 		float: 'left',
 		boxSizing: 'border-box',
 		padding: '0 0.75rem',
+	},
+	item: {
+		padding: '2px 6px', 
+		cursor: 'default',
 	},
 };
 
@@ -85,7 +91,7 @@ class BGGSearchbox extends BaseSearchbox {
 					onChange={ this.update }
 					renderItem={(item, isHighlighted) => (
 						<div
-							style={isHighlighted ? styles.highlightedItem : styles.item}
+							style={styles.item}
 							key={item.objectid}
 							id={item.objectid}
 						>{item.name}</div>
