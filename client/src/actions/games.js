@@ -110,3 +110,19 @@ export const fetchBGGGames = (query) => ({
 		],
 	}
 });
+
+export const fetchBGGGame = (bgg_id) => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/bgg/${encodeURIComponent(bgg_id)}/`,
+		method: 'GET',
+		credentials: 'include',
+		types: [
+			ActionTypes.FETCH_BGG_GAME_REQUEST,
+			{
+				type: ActionTypes.FETCH_BGG_GAME_SUCCESS,
+				meta: { schema: Schemas.BGG_GAME },
+			},
+			ActionTypes.FETCH_BGG_GAME_FAILURE,
+		],
+	}
+});

@@ -18,6 +18,10 @@ export const ActionTypes = {
 	FETCH_BGG_GAMES_SUCCESS: 'FETCH_BGG_GAMES_SUCCESS',
 	FETCH_BGG_GAMES_FAILURE: 'FETCH_BGG_GAMES_FAILURE',
 
+	FETCH_BGG_GAME_REQUEST: 'FETCH_BGG_GAME_REQUEST',
+	FETCH_BGG_GAME_SUCCESS: 'FETCH_BGG_GAME_SUCCESS',
+	FETCH_BGG_GAME_FAILURE: 'FETCH_BGG_GAME_FAILURE',
+
 	TOGGLE_GAME_OWNERSHIP_REQUEST: 'TOGGLE_GAME_OWNERSHIP_REQUEST',
 	TOGGLE_GAME_OWNERSHIP_SUCCESS: 'TOGGLE_GAME_OWNERSHIP_SUCCESS',
 	TOGGLE_GAME_OWNERSHIP_FAILURE: 'TOGGLE_GAME_OWNERSHIP_FAILURE',
@@ -37,6 +41,7 @@ export const ActionTypes = {
 
 
 const bggGame = new Schema('bggGames', { idAttribute: 'objectid' });
+const bggGameDetailed = new Schema('bggGamesDetailed');
 const user = new Schema('users');
 const game = new Schema('games');
 game.define({
@@ -49,6 +54,7 @@ export const Schemas = {
 	GAME: game,
 	GAMES: arrayOf(game),
 	BGG_GAMES: arrayOf(bggGame),
+	BGG_GAME: bggGameDetailed,
 }
 
 

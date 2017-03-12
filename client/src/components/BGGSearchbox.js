@@ -94,7 +94,10 @@ class BGGSearchbox extends BaseSearchbox {
 					items={this.props.autocomplete}
 					getItemValue={(item) => item.name}
 					onChange={ this.update }
-					onSelect={(value, item) => this.setState({ value, unitedStates: [item] }) }
+					onSelect={(value, item) => {
+						this.setState({ q: value })
+						
+					}}
 					renderItem={(item, isHighlighted) => (
 						<div
 							style={isHighlighted ? styles.highlightedItem : styles.item}
