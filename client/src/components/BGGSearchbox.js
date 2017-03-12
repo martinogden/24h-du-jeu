@@ -27,6 +27,12 @@ const styles = {  // TODO extract inline styles
 		padding: '2px 6px', 
 		cursor: 'default',
 	},
+	highlightedItem: {
+		padding: '2px 6px', 
+		cursor: 'default',
+		color: 'white',
+		background: 'rgb(63, 149, 191)',
+	},
 };
 
 
@@ -65,7 +71,8 @@ class BGGSearchbox extends BaseSearchbox {
 
 	render() {
 		return (
-			<div style={{position: "relative"}}>
+			<div>
+{/* 				Nice Materialize Dropdown. TODO: Copy styling
 				<Input 
 					s={9}
 					label="Titre"
@@ -77,11 +84,9 @@ class BGGSearchbox extends BaseSearchbox {
 					<Icon>mode_edit</Icon>
 				</Input>
 				{ this.renderAutocomplete() }
+*/}
 
-
-				
-				<Icon>mode_edit</Icon>
-				<label htmlFor="games-autocomplete">Titre</label>
+			
 				<Autocomplete
 					inputProps={{name: "Titre", id: "games-autocomplete"}}
 					ref="autocomplete"
@@ -89,9 +94,10 @@ class BGGSearchbox extends BaseSearchbox {
 					items={this.props.autocomplete}
 					getItemValue={(item) => item.name}
 					onChange={ this.update }
+					onSelect={(value, item) => this.setState({ value, unitedStates: [item] }) }
 					renderItem={(item, isHighlighted) => (
 						<div
-							style={styles.item}
+							style={isHighlighted ? styles.highlightedItem : styles.item}
 							key={item.objectid}
 							id={item.objectid}
 						>{item.name}</div>
