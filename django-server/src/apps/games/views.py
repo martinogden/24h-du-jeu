@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import (
 	Http404,
 	HttpResponseServerError,
@@ -99,6 +100,16 @@ def bgg_games(request):
 
 	return JsonResponse(data['items'], safe=False)
 
+# The possible game types are: 
+# 1 Ambiance
+# 2 Coopératif
+# 3 Enchères
+# 4 Enfants
+# 5 Gestion
+# 6 Parcours
+# 7 Placement
+# 8 Stratégie
+
 @login_required
 def bgg_game(request, game_id):
 
@@ -116,6 +127,7 @@ def bgg_game(request, game_id):
 			pass
 
 		type_genre = None #TODO (use mechanics or categories?)
+		# if 
 
 		data = {
 			'id_bgg': game_id, 

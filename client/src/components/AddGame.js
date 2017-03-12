@@ -31,10 +31,9 @@ const AddGame = ({ onSearch, autocomplete }) => (
 					    <option value='3'>Enchères</option>
 					    <option value='4'>Enfants</option>
 					    <option value='5'>Gestion</option>
-					    <option value='6'>Logique</option>
-					    <option value='7'>Parcours</option>
-					    <option value='8'>Placement</option>
-					    <option value='9'>Stratégie</option>
+					    <option value='6'>Parcours</option>
+					    <option value='7'>Placement</option>
+					    <option value='8'>Stratégie</option>
 					</Input>
 					<Input id="min_player" s={6} m={2} label="Joueurs min." />
 					<Input id="max_player" s={6} m={2} label="Joueurs max." />
