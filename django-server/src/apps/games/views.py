@@ -119,6 +119,7 @@ def bgg_game(request, game_id):
 
 		data = {
 			'id_bgg': game_id, 
+			'name': bgg_game.name,
 			'type_genre': type_genre,
 			'min_player': bgg_game.min_players,
 			'max_player': bgg_game.max_players,

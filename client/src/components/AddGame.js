@@ -22,8 +22,8 @@ const AddGame = ({ onSearch, autocomplete }) => (
 			    </div>
 			}>
 				<Row>
-					<BGGSearchbox id="id_bgg" search={ onSearch } autocomplete={ autocomplete }/>
-					<Input s={3} label="ID BoardGameGeek" defaultValue="" disabled />
+					<BGGSearchbox id="name" search={ onSearch } autocomplete={ autocomplete }/>
+					<Input id="id_bgg" s={3} label="ID BoardGameGeek" defaultValue="" disabled />
 					<Input id="type_genre" s={12} m={4} type='select' label="Genre">
 					    <option value="" disabled selected>Sélectionner le genre</option>
 					    <option value='1'>Ambiance</option>
