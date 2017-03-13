@@ -47,6 +47,7 @@ class Game(models.Model):
     sort_name = models.TextField(blank=True, null=True)
     id_trictrac = models.IntegerField(blank=True, null=True)
     id_bgg = models.IntegerField(blank=True, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'game'
