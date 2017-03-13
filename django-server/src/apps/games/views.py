@@ -126,8 +126,25 @@ def bgg_game(request, game_id):
 		except BoardGameGeekError:
 			pass
 
-		type_genre = None #TODO (use mechanics or categories?)
-		# if 
+		# We try to guess the game type - for suggestion to the user
+		if "Children's Game" in bgg_game.categories:
+			type_genre = 'Enfants'
+		elif 'Abstract Strategy' in bgg_game.categories:
+			type_genre = 'Stratégie'
+		elif 'Area Control / Area Influence' in bgg_game.mechanics:
+			type_genre = 'Placement'
+		elif 'Worker Placement' in bgg_game.mechanics:
+			type_genre = 'Gestion'
+		elif 'Racing' in bgg_game.mechanics:
+			type_genre = 'Parcours'
+		elif 'Auction/Bidding' in bgg_game.mechanics:
+			type_genre = 'Enchères'
+		elif 'Co-operative Play' in bgg_game.mechanics:
+			type_genre = 'Coopératif'
+		elif 'Party Game' in bgg_game.categories:
+			type_genre = 'Ambiance'
+		else:
+			type_genre = None
 
 		data = {
 			'id_bgg': game_id, 
