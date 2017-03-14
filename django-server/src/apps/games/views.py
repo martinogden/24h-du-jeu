@@ -131,7 +131,7 @@ def bgg_game(request, game_id):
 			type_genre = 'Enfants'
 		elif 'Abstract Strategy' in bgg_game.categories:
 			type_genre = 'Stratégie'
-		elif 'Area Control / Area Influence' in bgg_game.mechanics:
+		elif 'Area Control / Area Influence' in bgg_game.mechanics or 'Tile Placement' in bgg_game.mechanics:
 			type_genre = 'Placement'
 		elif 'Worker Placement' in bgg_game.mechanics:
 			type_genre = 'Gestion'

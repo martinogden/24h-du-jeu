@@ -6,6 +6,7 @@ from django.db import models
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import AbstractUser
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.utils import timezone
 
 import logging
 logger = logging.getLogger(__name__)
@@ -47,7 +48,7 @@ class Game(models.Model):
     sort_name = models.TextField(blank=True, null=True)
     id_trictrac = models.IntegerField(blank=True, null=True)
     id_bgg = models.IntegerField(blank=True, null=True)
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'game'
