@@ -43,7 +43,7 @@ def list_games(request, filter_='all'):
 	player = get_object_or_404(User, pk=request.user.id)
 
 	if filter_ == 'all':
-		games = Game.objects.all()
+		games = Game.objects.all().order_by('-date_added')
 	elif filter_ == 'iknow':
 		games = player.known_games.all()
 	elif filter_ == 'iown':
