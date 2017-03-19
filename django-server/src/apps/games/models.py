@@ -33,7 +33,7 @@ class User(AbstractUser):
 
 class Game(models.Model):
     name = models.TextField(verbose_name ='Titre')
-    type_genre = models.TextField('Type', db_column='type', blank=True, null=True)
+    type_genre = models.TextField('Type', db_column='type', default='Gestion')
     themes = models.TextField(blank=True, null=True)
     mechanisms = models.TextField(blank=True, null=True)
     families = models.TextField(blank=True, null=True)
