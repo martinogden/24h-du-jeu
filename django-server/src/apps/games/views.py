@@ -186,6 +186,14 @@ def add_game(request):
 	max_player = request.POST.get('max_player')
 	min_age = request.POST.get('min_age')
 	duration = request.POST.get('duration')
+	if (
+		not is_integer_or_none(min_player) 
+		or not is_integer_or_none(max_player) 
+		or not is_integer_or_none(min_age) 
+	 	or not is_integer_or_none(duration)
+	 ):
+		return HttpResponseBadRequest('Joueurs min., Joueurs max., Age min et Durée doivent etre des nombres entiers')
+
 	description = request.POST.get('description')
 	uri = request.POST.get('image')
 
@@ -232,3 +240,13 @@ def add_game(request):
 		else:
 			game = Game.objects.filter(id_bgg=id_bgg).first()
 		return HttpResponseBadRequest('Ce jeu existe d&eacute;j&agrave;. Nom du jeu: %s (ID BGG: %s)' % (game.name, game.id_bgg))
+
+
+# Useful functions
+
+def is_integer_or_none(x):
+	try:
+		return not x or int(x)
+	except ValueError:
+		return False
+
