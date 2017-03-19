@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.text import slugify
 from boardgamegeek import BoardGameGeek
 from boardgamegeek.exceptions import BoardGameGeekError
 from wand.image import Image
@@ -227,7 +228,7 @@ def add_game(request):
 			min_age=min_age,
 			duration=duration,
 			description=description,
-			sort_name=name,
+			sort_name=canon(name),
 			image_uri=image_uri
 		)
 		game.save()
@@ -250,3 +251,5 @@ def is_integer_or_none(x):
 	except ValueError:
 		return False
 
+def canon(text):
+	return slugify(text).replace('-', ' ')
