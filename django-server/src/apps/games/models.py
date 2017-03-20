@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
     picture_url = models.TextField(blank=True, null=True)
+    is_animajoueur = models.BooleanField(blank=True, default=True, verbose_name='Animajoeur')
 
     known_games = models.ManyToManyField('Game', through='Knower', related_name='knowers', verbose_name='Jeux connus', blank=True)
     owned_games = models.ManyToManyField('Game', through='Owner', related_name='owners', verbose_name='Jeux possédés', blank=True)
@@ -27,7 +28,7 @@ class User(AbstractUser):
     def as_json(self):
         fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 
                    'first_name', 'last_name', 'is_staff', 'last_login',
-                   'is_active']
+                   'is_active', 'is_animajoueur']
         return model_to_dict(self, fields)
 
 class Game(models.Model):
