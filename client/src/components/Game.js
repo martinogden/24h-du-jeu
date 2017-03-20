@@ -81,9 +81,9 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 						<Icon className="tiny">done</Icon>{ ' ' }
 						<a href="#" key="own" className={ own ? active : inactive } onClick={ (e) => { onOwnClick(); e.preventDefault() }}>je possède</a>
 					</p>
-					<p className={ `toggle-know ${know ? active : inactive}` }>
+					<p className={ `toggle-know ${know || own ? active : inactive}` }>
 						<Icon className="tiny">done_all</Icon>{ ' ' }
-						<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}>j&#39;explique</a>
+						<a href="#" key="know" className={ know || own ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}>j&#39;explique</a>
 					</p>
 				</div>
 
