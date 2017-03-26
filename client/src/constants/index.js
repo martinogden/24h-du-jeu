@@ -41,7 +41,7 @@ export const ActionTypes = {
 
 
 const bggGame = new Schema('bggGames', { idAttribute: 'objectid' });
-const bggGameDetailed = new Schema('bggGamesDetailed');
+const bggGameDetailed = new Schema('bggGameDetailed', { idAttribute: 'id_bgg' });
 const user = new Schema('users');
 const game = new Schema('games');
 game.define({

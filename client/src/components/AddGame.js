@@ -7,7 +7,7 @@ import BGGSearchbox from './BGGSearchbox';
 //TODO Get genre lists directly from DB? (type column)
 //TODO Use Range for durée??
 
-const AddGame = ({ onSearch, autocomplete }) => (
+const AddGame = ({ onSearch, autocomplete, onSelect, bggGame }) => (
 	<div>
 		<Modal
 			//header='Nouveau jeu'
@@ -22,7 +22,7 @@ const AddGame = ({ onSearch, autocomplete }) => (
 			    </div>
 			}>
 				<Row>
-					<BGGSearchbox id="name" search={ onSearch } autocomplete={ autocomplete }/>
+					<BGGSearchbox id="name" search={ onSearch } select={ onSelect } autocomplete={ autocomplete }/>
 					<Input id="id_bgg" s={3} label="ID BoardGameGeek" defaultValue="" disabled />
 					<Input id="type_genre" s={12} m={4} type='select' label="Genre">
 					    <option value="" disabled selected>Sélectionner le genre</option>
@@ -35,7 +35,7 @@ const AddGame = ({ onSearch, autocomplete }) => (
 					    <option value='7'>Placement</option>
 					    <option value='8'>Stratégie</option>
 					</Input>
-					<Input id="min_player" s={6} m={2} label="Joueurs min." />
+					<Input id="min_player" s={6} m={2} label="Joueurs min." value={ bggGame.min_player }/>
 					<Input id="max_player" s={6} m={2} label="Joueurs max." />
 					<Input id="duration" s={6} m={2} label="Durée (mins)" />
 					<Input id="min_age" s={6} m={2} label="Age min." />
@@ -50,7 +50,9 @@ const AddGame = ({ onSearch, autocomplete }) => (
 
 AddGame.PropTypes = {
 	onSearch: PropTypes.func.isRequired,
+	onSelect: PropTypes.func.isRequired,
 	autocomplete: PropTypes.func.isRequired,
+	bggGame: PropTypes.object,
 };
 
 export default AddGame;

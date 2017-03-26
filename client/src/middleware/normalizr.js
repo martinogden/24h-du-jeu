@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr';
+import { Schemas } from '../constants';
 
 
 const ERROR_MSG = 'If action.meta.schema is set, you must provide action.payload.';

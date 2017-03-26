@@ -95,6 +95,7 @@ class BGGSearchbox extends BaseSearchbox {
 					getItemValue={(item) => item.name}
 					onChange={ this.update }
 					onSelect={(value, item) => {
+						this.props.select(item.objectid);
 						this.setState({ q: value })
 						
 					}}
@@ -115,5 +116,9 @@ class BGGSearchbox extends BaseSearchbox {
 	}
 
 }
+
+BGGSearchbox.propTypes = {
+	select: PropTypes.func.isRequired,
+};
 
 export default BGGSearchbox;

@@ -141,11 +141,13 @@ const bggList = (state=[], action) => {
 	}
 }
 
-const bggGameDetailedByID = (state={}, action) => {
+const bggGameDetailedLatest = (state={}, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_BGG_GAME_SUCCESS:
-			if (action.payload)
-				return action.payload.entities.bggGamesDetailed || {};
+			if (action.payload) {
+				const id = action.payload.result;
+				return action.payload.entities.bggGameDetailed[id] || {};
+			}
 			break;
 
 		default:
@@ -164,7 +166,7 @@ export default combineReducers({
 	usersByID,
 	bggByID,
 	bggList,
-	bggGameDetailedByID,
+	bggGameDetailedLatest,
 });
 
 
@@ -227,6 +229,6 @@ export const getBggGames = (state) => {
 	return state.bggList.map(id => state.bggByID[id])
 };
 
-export const getBggGameDetailed = (state, id) => {
-	return state.bggGameDetailedByID[id]
+export const getBggGameDetailedLatest = (state) => {
+	return state.bggGameDetailedLatest;
 }

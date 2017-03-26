@@ -113,7 +113,7 @@ export const fetchBGGGames = (query) => ({
 
 export const fetchBGGGame = (bgg_id) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games/bgg/${encodeURIComponent(bgg_id)}/`,
+		endpoint: `${API_ENDPOINT_URL}/games/bgg/${bgg_id}/`,
 		method: 'GET',
 		credentials: 'include',
 		types: [

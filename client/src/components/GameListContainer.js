@@ -4,7 +4,7 @@ import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
 import * as actions from '../actions/games';
-import { getGames, getOwnedGameIDs, getKnownGameIDs, getBggGames } from '../reducers';
+import { getGames, getOwnedGameIDs, getKnownGameIDs, getBggGames, getBggGameDetailedLatest } from '../reducers';
 import GameList from './GameList';
 import AddGame from './AddGame';
 
@@ -45,7 +45,7 @@ export class GameListContainer extends React.Component {
 
 		return (
 			<div>
-				<AddGame onSearch={ props.fetchBGGGames } autocomplete={ props.bggGames }/>
+				<AddGame onSearch={ props.fetchBGGGames } onSelect={ props.fetchBGGGame } autocomplete={ props.bggGames } bggGame={ props.bggGame }/>
 				<GameList
 					games= { props.games }
 					onOwnClick={ props.toggleGameOwnership }
@@ -72,6 +72,7 @@ GameListContainer.propTypes = {
 	ownedGameIDs: PropTypes.array.isRequired,
 	knownGameIDs: PropTypes.array.isRequired,
 	fetchBGGGames: PropTypes.func.isRequired,
+	fetchBGGGame: PropTypes.func.isRequired,
 	bggGames: PropTypes.func.isRequired,
 	isFiltered: PropTypes.bool.isRequired,
 };
@@ -84,6 +85,7 @@ const mapStateToProps = (state) => ({
 	isFetching: state.games.isFetching,
 	isFiltered: state.games.isFiltered,
 	bggGames: getBggGames(state),
+	bggGame: getBggGameDetailedLatest(state),
 });
 
 export default connect(mapStateToProps, actions)(GameListContainer);
