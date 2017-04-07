@@ -23,7 +23,7 @@ const AddGame = ({ onSearch, autocomplete, onSelect, bggGame }) => (
 			}>
 				<Row>
 					<BGGSearchbox id="name" search={ onSearch } select={ onSelect } autocomplete={ autocomplete }/>
-					<Input id="id_bgg" s={3} label="ID BoardGameGeek" defaultValue="" value={ bggGame.id } disabled />
+					<Input id="id_bgg" s={3} label="ID BoardGameGeek" defaultValue=" " value={ bggGame.id_bgg } disabled />
 					<Input id="type_genre" s={12} m={4} type='select' label="Genre">
 					    <option value="" disabled selected={ bggGame.type_genre || 'selected' }>Sélectionner le genre</option>
 					    <option value='Ambiance' selected={bggGame.type_genre == 'Ambiance' ? 'selected' : '' }>Ambiance</option>
@@ -35,12 +35,12 @@ const AddGame = ({ onSearch, autocomplete, onSelect, bggGame }) => (
 					    <option value='Placement' selected={bggGame.type_genre == 'Placement' ? 'selected' : '' }>Placement</option>
 					    <option value='Stratégie' selected={bggGame.type_genre == 'Stratégie' ? 'selected' : '' }>Stratégie</option>
 					</Input>
-					<Input id="min_player" s={6} m={2} label="Joueurs min." value={ bggGame.min_player }/>
-					<Input id="max_player" s={6} m={2} label="Joueurs max." value={ bggGame.max_player }/>
-					<Input id="duration" s={6} m={2} label="Durée (mins)" value={ bggGame.duration }/>
-					<Input id="min_age" s={6} m={2} label="Age min." value={ bggGame.min_age }/>
+					<Input id="min_player" s={6} m={2} label="Joueurs min." defaultValue=" " value={ bggGame.min_player }/>
+					<Input id="max_player" s={6} m={2} label="Joueurs max." defaultValue=" " value={ bggGame.max_player }/>
+					<Input id="duration" s={6} m={2} label="Durée (mins)" defaultValue=" " value={ bggGame.duration }/>
+					<Input id="min_age" s={6} m={2} label="Age min." defaultValue=" " value={ bggGame.min_age }/>
 					<div className="input-field col s12">
-						<textarea id="description" className="materialize-textarea" value={ bggGame.description }></textarea>
+						<textarea id="description" className="materialize-textarea" defaultValue=" " value={ bggGame.description }></textarea>
 	          			<label for="description">Description</label>
           			</div>
 				</Row>
