@@ -35,9 +35,15 @@ def pdf_recap(request):
 		for owner in game.owners.filter(owner__is_bringing = True):
 			game_owners = owner.pseudo + " " + game_owners
 
-		game_knowers = ""
-		for knower in game.knowers.all():
-			game_knowers = knower.pseudo + " " + game_knowers
+		game_knowers_set = set([])
+		# we don't display people that are not animajoueur this year
+		for knower in game.knowers.filter(is_animajoueur = True):
+			game_knowers_set.add(knower.pseudo)
+		# the owners that are animajoueurs are automatically considered as knower
+		for owner in game.owners.filter(is_animajoueur = True):
+			game_knowers_set.add(owner.pseudo)
+		# we create the string: 
+		game_knowers = " ".join(game_knowers_set)
 
 		data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
 
