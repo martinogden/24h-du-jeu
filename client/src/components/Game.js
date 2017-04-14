@@ -67,6 +67,13 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 		</div>
 	);
 
+	const knowText = () => {
+		if (own)
+			return("j'explique")
+		else
+			return(<a href="#" key="know" className={ know || own ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}>j&#39;explique</a>)
+	}
+
 	return (
 		<div className="col s6 m3">
 			<Card header={ <Header/> } reveal={ reveal }>
@@ -83,7 +90,8 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 					</p>
 					<p className={ `toggle-know ${know || own ? active : inactive}` }>
 						<Icon className="tiny">done_all</Icon>{ ' ' }
-						<a href="#" key="know" className={ know || own ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}>j&#39;explique</a>
+						{ knowText() }
+						
 					</p>
 				</div>
 
