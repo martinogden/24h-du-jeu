@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
     picture_url = models.TextField(blank=True, null=True)
-    is_animajoueur = models.BooleanField(blank=True, default=True, verbose_name='Animajoeur')
+    is_animajoueur = models.BooleanField(blank=True, default=True, verbose_name='Animajoueur')
 
     known_games = models.ManyToManyField('Game', through='Knower', related_name='knowers', verbose_name='Jeux connus', blank=True)
     owned_games = models.ManyToManyField('Game', through='Owner', related_name='owners', verbose_name='Jeux possédés', blank=True)
