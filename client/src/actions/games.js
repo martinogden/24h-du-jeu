@@ -126,3 +126,18 @@ export const fetchBGGGame = (bgg_id) => ({
 		],
 	}
 });
+
+export const addGame = () => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/game`,
+		method: 'POST',
+		credentials: 'include',
+		types: [
+			ActionTypes.ADD_GAME_REQUEST,
+			{
+				type: ActionTypes.ADD_GAME_SUCCESS,
+			},
+			ActionTypes.ADD_GAME_FAILURE,
+		],
+	}
+});
