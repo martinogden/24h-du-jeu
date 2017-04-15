@@ -41,6 +41,10 @@ export class AddGame extends React.Component {
 						<div className="fixed-action-btn" style={{bottom: '45px', right: '24px',}}>
 							<Button floating large className='teal' waves='light' icon='add'/>
 						</div>
+					}
+					// no actions button (using custom button inside form)
+					actions= {
+						<span></span>
 					}>
 						<form onSubmit={ this.handleSubmit.bind(this) } method="post" action="http://localhost:8000/api/games/game/">
 						<Row>
@@ -68,7 +72,7 @@ export class AddGame extends React.Component {
 							<Input name="image_bgg" s={3} value={ this.state.bggGame.image } type='hidden' />
 						</Row>
 						<div>
-							<Button modal="close" waves="light" type="submit" className="teal">Ajouter</Button>
+							<Button modal="close" waves="light" type="submit" className="teal right">Ajouter</Button>
 						</div>
 						</form>
 				</Modal>
