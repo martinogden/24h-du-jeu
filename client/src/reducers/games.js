@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { union } from 'lodash';
 import { ActionTypes, PER_PAGE } from '../constants';
 
 
@@ -213,7 +214,8 @@ export const getGames = (state) => {
 		return {
 			...game,
 			owners: getUsers(state, game.owners || []),
-			knowers: getUsers(state, game.knowers || []),
+			// owners are also knowers
+			knowers: _.union(getUsers(state, game.knowers || []), getUsers(state, game.owners || [])),
 		};
 	}
 

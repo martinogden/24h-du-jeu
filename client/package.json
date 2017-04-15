@@ -34,6 +34,7 @@
   "dependencies": {
     "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4",
     "normalizr": "^2.2.1",
     "react": "^15.2.1",
     "react-autocomplete": "^1.4.0",
