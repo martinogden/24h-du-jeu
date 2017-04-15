@@ -88,7 +88,7 @@ class BGGSearchbox extends BaseSearchbox {
 
 			
 				<Autocomplete
-					inputProps={{name: "Titre", id: "games-autocomplete"}}
+					inputProps={{name: "name", id: "games-autocomplete"}}
 					ref="autocomplete"
 					value={this.state.q}
 					items={this.props.autocomplete}

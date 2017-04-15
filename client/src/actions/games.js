@@ -127,17 +127,27 @@ export const fetchBGGGame = (bgg_id) => ({
 	}
 });
 
-export const addGame = () => ({
+export const addGame = (formData) => ({
 	[CALL_API]: {
-		endpoint: `${API_ENDPOINT_URL}/games/game`,
+		endpoint: `${API_ENDPOINT_URL}/games/game/`,
 		method: 'POST',
+		body: formData2JSON(formData),
+		headers: {
+			'Content-Type': 'application/json; charset=utf-8',
+		},
 		credentials: 'include',
 		types: [
 			ActionTypes.ADD_GAME_REQUEST,
-			{
-				type: ActionTypes.ADD_GAME_SUCCESS,
-			},
+			ActionTypes.ADD_GAME_SUCCESS,
 			ActionTypes.ADD_GAME_FAILURE,
 		],
 	}
 });
+
+
+const formData2JSON = (formData) => {
+	const data = {};
+	for (const kv of formData.entries())
+		data[ kv[0] ] = kv[1].trim();
+	return JSON.stringify(data);
+};

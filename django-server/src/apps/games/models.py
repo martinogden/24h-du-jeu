@@ -6,10 +6,18 @@ from django.db import models
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import AbstractUser
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.utils.text import slugify
 from django.utils import timezone
 
+from wand.image import Image
+import requests
+import os
 import logging
 logger = logging.getLogger(__name__)
+
+IMG_DIR = os.path.realpath('../client/static/img')
+IMG_WIDTH = 223
+IMG_URI = 'https://ichenil.com/24hdujeu/images/'
 
 class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
@@ -33,8 +41,18 @@ class User(AbstractUser):
         return model_to_dict(self, fields)
 
 class Game(models.Model):
-    name = models.TextField(verbose_name ='Titre')
-    type_genre = models.TextField('Type', db_column='type', default='Gestion')
+    GENRE_CHOICES = (
+        ('Ambiance', 'Ambiance'),
+        ('Coopératif', 'Coopératif'),
+        ('Stratégie', 'Stratégie'),
+        ('Placement', 'Placement'),
+        ('Parcours', 'Parcours'),
+        ('Gestion','Gestion'),
+        ('Enfants','Enfants'),
+        ('Enchères','Enchères'),
+    )
+    name = models.TextField(verbose_name ='Titre', unique=True)
+    type_genre = models.TextField('Type', db_column='type', default='Gestion', choices=GENRE_CHOICES)
     themes = models.TextField(blank=True, null=True)
     mechanisms = models.TextField(blank=True, null=True)
     families = models.TextField(blank=True, null=True)
@@ -44,11 +62,12 @@ class Game(models.Model):
     max_age = models.IntegerField(blank=True, null=True)
     duration = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    image_bgg = models.TextField(blank=True, null=True)
     image_uri = models.TextField(blank=True, null=True)
     thumbnail_uri = models.TextField(blank=True, null=True)
     sort_name = models.TextField(blank=True, null=True)
     id_trictrac = models.IntegerField(blank=True, null=True)
-    id_bgg = models.IntegerField(blank=True, null=True)
+    id_bgg = models.IntegerField(blank=True, null=True, unique=True)
     date_added = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -59,6 +78,23 @@ class Game(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.image_bgg and self.id_bgg:
+            # don't download if image already exists
+            fn = os.path.join(IMG_DIR, "%s.jpg" % self.id_bgg)
+            if not os.path.exists(fn):
+
+                response = requests.get(self.image_bgg, stream=True)
+
+                if response.ok:
+                    with Image(file=response.raw) as img:
+                        img.transform(resize=str(IMG_WIDTH))
+                        img.save(filename=fn)
+                    self.image_uri = IMG_URI + str(self.id_bgg) + '.jpg'
+        if not self.sort_name:
+            self.sort_name = slugify(self.name).replace('-', ' ')
+        super(Game, self).save(*args, **kwargs)
 
     @property
     def img_uri(self):
