@@ -144,12 +144,14 @@ const bggList = (state=[], action) => {
 
 const bggGameDetailedLatest = (state={}, action) => {
 	switch(action.type) {
+		case ActionTypes.ADD_GAME_SUCCESS:
+			return {};
+
 		case ActionTypes.FETCH_BGG_GAME_SUCCESS:
 			if (action.payload) {
 				const id = action.payload.result;
 				return action.payload.entities.bggGameDetailed[id] || {};
 			}
-			break;
 
 		default:
 			return state;
@@ -158,12 +160,14 @@ const bggGameDetailedLatest = (state={}, action) => {
 
 const gameErrors = (state=[], action) => {
 	switch(action.type) {
+		case ActionTypes.ADD_GAME_SUCCESS:
+			return [];
+
 		case ActionTypes.ADD_GAME_FAILURE:
 		case ActionTypes.FETCH_BGG_GAME_FAILURE:
 			if (action.payload) {
 				return action.payload;
 			}
-			break;
 
 		default:
 			return state;

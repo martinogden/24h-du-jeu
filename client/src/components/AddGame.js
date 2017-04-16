@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Button, Modal, Row, Input, Icon } from 'react-materialize';
+import { isEmpty } from 'lodash';
 
 import BGGSearchbox from './BGGSearchbox';
 
@@ -35,12 +36,28 @@ export class AddGame extends React.Component {
 	constructor(props) {
 	  super(props);
 
-	  this.state = { 'bggGame': {} };
+	  this.state = { 'bggGame': {}, 'successMessage': '' };
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (this.props.bggGame && prevState.bggGame.id_bgg !== this.props.bggGame.id_bgg)
+		if (!_.isEmpty(this.props.bggGame) && prevState.bggGame.id_bgg !== this.props.bggGame.id_bgg){
 			this.setState({ 'bggGame': this.props.bggGame });
+		}
+		// empty state after a game successfully entered
+		if (_.isEmpty(this.props.bggGame) && prevProps.bggGame.name) {
+			var new_bggGame = _.clone(prevState.bggGame);
+        	new_bggGame['min_age'] = '';
+        	new_bggGame['min_player'] = '';
+        	new_bggGame['max_player'] = '';
+        	new_bggGame['duration'] = '';
+        	new_bggGame['description'] = '';
+        	new_bggGame['id_bgg'] = '';
+        	new_bggGame['image_bgg'] = '';
+        	new_bggGame['type_genre'] = '';
+        	new_bggGame['name'] = '';
+        	var message = 'Le jeu ' + prevProps.bggGame.name + ' a bien été ajouté.'
+			this.setState({ 'bggGame': new_bggGame, 'successMessage': message });
+		}
 	}
 
 	handleInput(name, e) {
@@ -72,7 +89,7 @@ export class AddGame extends React.Component {
 						<form onSubmit={ this.handleSubmit.bind(this) } method="post" action="http://localhost:8000/api/games/game/">
 
 						<Row>
-
+							<span className='green-text'>{ this.state.successMessage }</span>
 							{ displayErrors(this.props.errors) }
 						</Row>
 
