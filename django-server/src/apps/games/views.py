@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import JsonResponse
 
 from boardgamegeek import BoardGameGeek
@@ -168,11 +167,22 @@ def bgg_game(request, game_id):
 		
 	else:
 		# Game is already in DB - return 400
-		return HttpResponseBadRequest('Ce jeu existe d&eacute;j&agrave;. Nom du jeu: %s (ID BGG: %s)' % (game.name, game_id))
+		return JsonResponse({"__errors__": [{'field': 'ID BGG', 'errors': ['Ce jeu existe deja. Nom du jeu: %s (ID BGG: %s)' % (game.name, game_id)]}]}, status=400)
 
 
-# for now we accept requests from different origin - to remove after deployment
-@xframe_options_exempt
+
+def _format_errors(form):
+	errors = []
+
+	for field_name, error_list in form.errors.iteritems():
+		errors.append({
+			'field': form.fields[field_name].label,
+			'errors': error_list,
+		})
+
+	return {"__errors__": errors}
+
+
 @login_required
 @require_http_methods(['POST'])
 def add_game(request):
@@ -180,7 +190,7 @@ def add_game(request):
 	form = GameForm(payload)
 	if form.is_valid():
 		form.save()
-		return 201
+		return HttpResponse(status=201)
 	else:
-		return JsonResponse(form.errors, status=400)
+		return JsonResponse(_format_errors(form), status=400)
 

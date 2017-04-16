@@ -4,7 +4,7 @@ import Waypoint from 'react-waypoint';
 import { Preloader } from 'react-materialize';
 
 import * as actions from '../actions/games';
-import { getGames, getOwnedGameIDs, getKnownGameIDs, getBggGames, getBggGameDetailedLatest } from '../reducers';
+import { getGames, getOwnedGameIDs, getKnownGameIDs, getBggGames, getBggGameDetailedLatest, getGameErrors } from '../reducers';
 import GameList from './GameList';
 import AddGame from './AddGame';
 
@@ -45,7 +45,7 @@ export class GameListContainer extends React.Component {
 
 		return (
 			<div>
-				<AddGame onSearch={ props.fetchBGGGames } onSelect={ props.fetchBGGGame } onAddGame={ props.addGame } autocomplete={ props.bggGames } bggGame={ props.bggGame } />
+				<AddGame onSearch={ props.fetchBGGGames } onSelect={ props.fetchBGGGame } onAddGame={ props.addGame } autocomplete={ props.bggGames } bggGame={ props.bggGame } errors={ props.gameErrors } />
 				<GameList
 					games= { props.games }
 					onOwnClick={ props.toggleGameOwnership }
@@ -87,6 +87,7 @@ const mapStateToProps = (state) => ({
 	isFiltered: state.games.isFiltered,
 	bggGames: getBggGames(state),
 	bggGame: getBggGameDetailedLatest(state),
+	gameErrors: getGameErrors(state),
 });
 
 export default connect(mapStateToProps, actions)(GameListContainer);

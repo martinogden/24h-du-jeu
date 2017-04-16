@@ -48,6 +48,7 @@ const bggGame = new Schema('bggGames', { idAttribute: 'objectid' });
 const bggGameDetailed = new Schema('bggGameDetailed', { idAttribute: 'id_bgg' });
 const user = new Schema('users');
 const game = new Schema('games');
+const error = new Schema('errors')
 game.define({
 	owners: arrayOf(user),
 	knowers: arrayOf(user),
@@ -59,6 +60,7 @@ export const Schemas = {
 	GAMES: arrayOf(game),
 	BGG_GAMES: arrayOf(bggGame),
 	BGG_GAME: bggGameDetailed,
+	ERRORS: error,
 }
 
 

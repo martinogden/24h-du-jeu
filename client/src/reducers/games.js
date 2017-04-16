@@ -156,6 +156,20 @@ const bggGameDetailedLatest = (state={}, action) => {
 	}
 }
 
+const gameErrors = (state=[], action) => {
+	switch(action.type) {
+		case ActionTypes.ADD_GAME_FAILURE:
+		case ActionTypes.FETCH_BGG_GAME_FAILURE:
+			if (action.payload) {
+				return action.payload;
+			}
+			break;
+
+		default:
+			return state;
+	}
+}
+
 
 export default combineReducers({
 	byID,
@@ -168,6 +182,7 @@ export default combineReducers({
 	bggByID,
 	bggList,
 	bggGameDetailedLatest,
+	gameErrors,
 });
 
 
@@ -233,4 +248,8 @@ export const getBggGames = (state) => {
 
 export const getBggGameDetailedLatest = (state) => {
 	return state.bggGameDetailedLatest;
-}
+};
+
+export const getGameErrors = (state) => {
+	return state.gameErrors;
+};

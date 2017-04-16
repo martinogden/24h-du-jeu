@@ -20,6 +20,13 @@ export default store => next => action => {
 			payload: new Error(ERROR_MSG),
 		});
 
+	// special case to catch api errors
+	if (action.payload.status === 400 && action.payload.response.__errors__)
+		return next({
+			...action,
+			payload: action.payload.response.__errors__,
+		});
+
 	next({
 		...action,
 		payload: normalize(action.payload, action.meta.schema),

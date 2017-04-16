@@ -122,7 +122,10 @@ export const fetchBGGGame = (bgg_id) => ({
 				type: ActionTypes.FETCH_BGG_GAME_SUCCESS,
 				meta: { schema: Schemas.BGG_GAME },
 			},
-			ActionTypes.FETCH_BGG_GAME_FAILURE,
+			{
+				type: ActionTypes.FETCH_BGG_GAME_FAILURE,
+				meta: { schema: Schemas.ERRORS },
+			},
 		],
 	}
 });
@@ -139,7 +142,10 @@ export const addGame = (formData) => ({
 		types: [
 			ActionTypes.ADD_GAME_REQUEST,
 			ActionTypes.ADD_GAME_SUCCESS,
-			ActionTypes.ADD_GAME_FAILURE,
+			{
+				type: ActionTypes.ADD_GAME_FAILURE,
+				meta: { schema: Schemas.ERRORS },
+			},
 		],
 	}
 });
