@@ -141,7 +141,10 @@ export const addGame = (formData) => ({
 		credentials: 'include',
 		types: [
 			ActionTypes.ADD_GAME_REQUEST,
-			ActionTypes.ADD_GAME_SUCCESS,
+			{
+				type: ActionTypes.ADD_GAME_SUCCESS,
+				meta: { schema: Schemas.GAMES }
+			},
 			{
 				type: ActionTypes.ADD_GAME_FAILURE,
 				meta: { schema: Schemas.ERRORS },

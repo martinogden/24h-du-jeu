@@ -45,7 +45,7 @@ export class AddGame extends React.Component {
 		}
 		// empty state after a game successfully entered
 		if (_.isEmpty(this.props.bggGame) && prevProps.bggGame.name) {
-			var new_bggGame = _.clone(prevState.bggGame);
+			var new_bggGame = {}
         	new_bggGame['min_age'] = '';
         	new_bggGame['min_player'] = '';
         	new_bggGame['max_player'] = '';
@@ -55,8 +55,9 @@ export class AddGame extends React.Component {
         	new_bggGame['image_bgg'] = '';
         	new_bggGame['type_genre'] = '';
         	new_bggGame['name'] = '';
-        	var message = 'Le jeu ' + prevProps.bggGame.name + ' a bien été ajouté.'
-			this.setState({ 'bggGame': new_bggGame, 'successMessage': message });
+        	// var message = 'Le jeu ' + prevProps.bggGame.name + ' a bien été ajouté.'
+			// this.setState({ 'bggGame': new_bggGame, 'successMessage': message });
+			this.setState({ 'bggGame': new_bggGame });
 		}
 	}
 
@@ -89,7 +90,7 @@ export class AddGame extends React.Component {
 						<form onSubmit={ this.handleSubmit.bind(this) } method="post" action="http://localhost:8000/api/games/game/">
 
 						<Row>
-							<span className='green-text'>{ this.state.successMessage }</span>
+							{/* <span className='green-text'>{ this.state.successMessage }</span> */}
 							{ displayErrors(this.props.errors) }
 						</Row>
 
@@ -118,6 +119,7 @@ export class AddGame extends React.Component {
 							<Input name="image_bgg" s={3} value={ this.state.bggGame.image } type='hidden' />
 						</Row>
 						<div>
+							<Button modal="close" waves="light" type="reset" className="left grey">Fermer</Button>
 							<Button modal="confirm" waves="light" type="submit" className="teal right">Ajouter</Button>
 						</div>
 						</form>

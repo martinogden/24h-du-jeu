@@ -189,8 +189,9 @@ def add_game(request):
 	payload = json.loads(request.body)
 	form = GameForm(payload)
 	if form.is_valid():
-		form.save()
-		return HttpResponse(status=201)
+		new_game = form.save()
+		data = [new_game.as_json()]
+		return JsonResponse(data, status=201, safe=False)
 	else:
 		return JsonResponse(_format_errors(form), status=400)
 

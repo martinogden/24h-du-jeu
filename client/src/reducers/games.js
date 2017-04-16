@@ -10,6 +10,7 @@ const byID = (state={}, action) => {
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_KNOWLEDGE_SUCCESS:
+		case ActionTypes.ADD_GAME_SUCCESS:
 			if (action.payload)
 				return {
 					...state,
@@ -29,6 +30,13 @@ const list = (state=[], action) => {
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 			return action.payload.result;
+
+		case ActionTypes.ADD_GAME_SUCCESS:
+			if (action.payload)
+				return [
+					...action.payload.result,
+					...state
+				];
 
 		default:
 			return state;
