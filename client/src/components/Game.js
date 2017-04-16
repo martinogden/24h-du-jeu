@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Card, CardTitle, Icon } from 'react-materialize';
 
+const styles = {
+	cardTitle: {
+		lineHeight: '24px',
+		padding: '12px 0',
+		display: 'block',
+	},
+};
 
 const pluralize = (iterable, singular, plural) => {
 	const n = iterable.length;
@@ -11,7 +18,7 @@ const pluralize = (iterable, singular, plural) => {
 			<strong>{ n }</strong> { verb }
 		</span>
 	);
-}
+};
 
 
 const li = iter => iter.map(item => {
@@ -78,7 +85,7 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 		<div className="col s6 m3">
 			<Card header={ <Header/> } reveal={ reveal }>
 
-				<span className="card-title grey-text text-darken-4 activator">
+				<span className="card-title grey-text text-darken-4 activator" style={ styles.cardTitle }>
 					{ name }
 					<i className="material-icons right">group</i>
 				</span>

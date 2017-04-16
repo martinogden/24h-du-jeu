@@ -23,17 +23,17 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGa
 					<Col s={1} m={1}>
 				    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
 				    </Col>
-				    <Col s={7} m={7} offset={'m2'}>
+				    <Col s={6} m={6} offset={'m2'}>
 				    	<SearchBox search={ onSearch } />
 				    </Col>
-				    <Col s={3} m={3}>
-					    <ul className="right">
+				    
+					    <ul className="right hide-on-small-and-down">
 					    	<DisplayMode />
 					    	<Filter onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
 					    	<Print />
 					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
-					    </ul>
-					</Col>
+					   </ul>
+					
 				</Row>
 			</div>
 		</nav>
