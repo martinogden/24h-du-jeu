@@ -240,11 +240,13 @@ export const getGames = (state) => {
 
 	const getGame = (id) => {
 		const game = state.byID[id];
+		const owners = getUsers(state, game.owners || []);
+		const knowers = getUsers(state, game.knowers || []);
 		return {
 			...game,
-			owners: getUsers(state, game.owners || []),
+			owners: owners,
 			// owners are also knowers
-			knowers: _.union(getUsers(state, game.knowers || []), getUsers(state, game.owners || [])),
+			knowers: _.union(knowers, owners),
 		};
 	}
 
