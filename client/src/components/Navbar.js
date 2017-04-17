@@ -28,7 +28,7 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGa
 				    </Col>
 				    
 					    <ul className="right hide-on-small-and-down">
-					    	<DisplayMode />
+					    	{/*<DisplayMode />*/}
 					    	<Filter onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
 					    	<Print />
 					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
