@@ -8,7 +8,6 @@ from django.http import (
 	HttpResponseForbidden,
 )
 from django.shortcuts import get_object_or_404, render
-from django.views.decorators.csrf import csrf_exempt
 from django.middleware import csrf
 
 from socialauth.backends import get_username, django_user_from_fb_user, get_facebook_user
@@ -16,7 +15,6 @@ from games.models import User
 from .models import Invite
 
 
-@csrf_exempt
 def invite(request, key, player=None):
 	# we return 404 if the the invite_key isn't in DB
 	invitation = get_object_or_404(Invite, key=key, player=player)

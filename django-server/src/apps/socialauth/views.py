@@ -3,13 +3,11 @@ from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.middleware import csrf
 
 
 DEFAULT_BACKEND = 'socialauth.backends.FacebookBackend'
 
-@csrf_exempt
 @require_http_methods(['POST'])
 def facebook_login(request, **kwargs):
 	try:

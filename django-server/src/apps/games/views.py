@@ -10,7 +10,6 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 from boardgamegeek import BoardGameGeek
@@ -29,7 +28,6 @@ HTTP_STATUS_CODE_OK = 200
 HTTP_STATUS_CODE_BAD_REQUEST = 400
 HTTP_STATUS_CODE_SERVER_ERROR = 500
 
-@csrf_exempt
 @require_http_methods(['POST'])
 def facebook_login(request):
 	backend = 'games.backends.GameFacebookBackend'
