@@ -3,6 +3,7 @@ node_modules
 dist
 npm-debug.log
 client/static
+django-server/src/static/js/react-bundle.js
 *.pyc
 db/*
 env

@@ -26,7 +26,7 @@ def invite(request, key, player=None):
 		return HttpResponse(html)
 	else:
 		# Display FB login page
-		return render(request, 'index.html', {
+		return render(request, 'invitation.html', {
 			'invite_key': key,
 			'invite_player_id': player,
 		})
