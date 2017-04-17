@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.text import slugify
 from django.utils import timezone
+from django.conf import settings
 
 from wand.image import Image
 import requests
@@ -15,7 +16,6 @@ import os
 import logging
 logger = logging.getLogger(__name__)
 
-IMG_DIR = os.path.realpath('../client/static/img')
 IMG_WIDTH = 223
 IMG_URI = 'https://ichenil.com/24hdujeu/images/'
 
@@ -82,7 +82,7 @@ class Game(models.Model):
     def save(self, *args, **kwargs):
         if self.image_bgg and self.id_bgg:
             # don't download if image already exists
-            fn = os.path.join(IMG_DIR, "%s.jpg" % self.id_bgg)
+            fn = os.path.join(settings.IMG_DIR, "%s.jpg" % self.id_bgg)
             if not os.path.exists(fn):
 
                 response = requests.get(self.image_bgg, stream=True)

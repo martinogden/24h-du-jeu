@@ -240,8 +240,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-if not DEBUG:
+if DEBUG:
+	IMG_DIR = os.path.realpath('../client/static/img')
+else:
 	STATIC_ROOT= os.environ['STATIC_ROOT']
+	IMG_DIR=STATIC_ROOT + '/img'
 STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, "static"),
 ]
