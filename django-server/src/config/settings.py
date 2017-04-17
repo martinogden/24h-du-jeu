@@ -181,7 +181,7 @@ else:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.sqlite3',
-			'NAME': '../db/24hDuJeuReferentDb',
+			'NAME': '/var/www/ludotheque/db/24hDuJeuReferentDb',
 		}
 	}
 
