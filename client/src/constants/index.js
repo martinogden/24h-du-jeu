@@ -74,7 +74,7 @@ export const PER_PAGE = 20;
 export const FACEBOOK_PARAMS = {
 	key: 'fb_login',
 	size: 'small',
-	appId: '322217561499723',
+	appId: '529937220727755',
 	autoLoad: true,
 	fields: 'name,email,picture',
 	icon: 'fa-facebook',

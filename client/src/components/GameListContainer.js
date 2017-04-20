@@ -45,7 +45,7 @@ export class GameListContainer extends React.Component {
 
 		return (
 			<div>
-				<AddGame onSearch={ props.fetchBGGGames } onSelect={ props.fetchBGGGame } onAddGame={ props.addGame } autocomplete={ props.bggGames } bggGame={ props.bggGame } errors={ props.gameErrors } />
+				<AddGame onSearch={ props.fetchBGGGames } onSelect={ props.fetchBGGGame } onAddGame={ props.addGame } autocomplete={ props.bggGames } bggGame={ props.bggGame } errors={ props.gameErrors } isAddingGame={ props.isAddingGame } />
 				<GameList
 					games= { props.games }
 					onOwnClick={ props.toggleGameOwnership }
@@ -65,6 +65,7 @@ export class GameListContainer extends React.Component {
 GameListContainer.propTypes = {
 	games: PropTypes.array.isRequired,
 	isFetching: PropTypes.bool.isRequired,
+	isAddingGame: PropTypes.bool.isRequired,
 	fetchGames: PropTypes.func.isRequired,
 	paginateGames: PropTypes.func.isRequired,
 	toggleGameOwnership: PropTypes.func.isRequired,
@@ -84,6 +85,7 @@ const mapStateToProps = (state) => ({
 	ownedGameIDs: getOwnedGameIDs(state),
 	knownGameIDs: getKnownGameIDs(state),
 	isFetching: state.games.isFetching,
+	isAddingGame: state.games.isAddingGame,
 	isFiltered: state.games.isFiltered,
 	bggGames: getBggGames(state),
 	bggGame: getBggGameDetailedLatest(state),

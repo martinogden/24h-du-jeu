@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button, Modal, Row, Input, Icon } from 'react-materialize';
+import { Button, Modal, Row, Input, Icon, Preloader } from 'react-materialize';
 import { isEmpty } from 'lodash';
 
 import BGGSearchbox from './BGGSearchbox';
@@ -72,6 +72,17 @@ export class AddGame extends React.Component {
 		var fd = new FormData(e.target);
 		this.props.onAddGame(fd);
 	}
+	getLoader(isAddingGame) {
+		if (isAddingGame) {
+			return (
+				<div style={{ position: 'fixed', top: 0, left: 0, background: 'rgba(255, 255, 255, 0.8)', width: '100%', height: '100%', textAlign: 'center', zIndex: 100 }}>
+					<div style={{ margin: '240px auto' }}>
+						<Preloader style={{ display: 'block', margin: '50px auto' }} size="small" flashing/>
+					</div>
+				</div>
+			);
+		}
+	}
 
 	render() {
 		return (
@@ -92,6 +103,7 @@ export class AddGame extends React.Component {
 						<Row>
 							{/* <span className='green-text'>{ this.state.successMessage }</span> */}
 							{ displayErrors(this.props.errors) }
+							{ this.getLoader(this.props.isAddingGame) }
 						</Row>
 
 						<Row>
@@ -134,6 +146,7 @@ AddGame.PropTypes = {
 	onSelect: PropTypes.func.isRequired,
 	onAddGame: PropTypes.func.isRequired,
 	autocomplete: PropTypes.func.isRequired,
+	isAddingGame: PropTypes.bool.isRequired,
 	bggGame: PropTypes.object,
 	errors: PropTypes.object,
 };

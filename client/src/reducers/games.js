@@ -89,6 +89,20 @@ const isFetching = (state=false, action) => {
 	}
 }
 
+const isAddingGame = (state=false, action) => {
+	switch(action.type) {
+		case ActionTypes.ADD_GAME_SUCCESS:
+		case ActionTypes.ADD_GAME_FAILURE:
+			return false;
+
+		case ActionTypes.ADD_GAME_REQUEST:
+			return true;
+
+		default:
+			return state;
+	}
+}
+
 
 const isFiltered = (state=false, action) => {
 	switch(action.type) {
@@ -189,6 +203,7 @@ export default combineReducers({
 	page,
 	query,
 	isFetching,
+	isAddingGame,
 	isFiltered,
 	usersByID,
 	bggByID,
