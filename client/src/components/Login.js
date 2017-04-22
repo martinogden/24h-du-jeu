@@ -25,7 +25,7 @@ const Login = ({ failedLogIn, success }) => {
 	const failedLogInMessage = (failedLogIn) => {
 		if (failedLogIn)
 			return(
-				<span className="red-text">Vous n&#39;êtes pas authorisé.</span>
+				<span className="red-text">Vous n&#39;êtes pas autorisé.</span>
 			);
 	};
 
