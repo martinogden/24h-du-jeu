@@ -55,8 +55,8 @@ export class AddGame extends React.Component {
         	new_bggGame['image_bgg'] = '';
         	new_bggGame['type_genre'] = '';
         	new_bggGame['name'] = '';
-        	// var message = 'Le jeu ' + prevProps.bggGame.name + ' a bien été ajouté.'
-			// this.setState({ 'bggGame': new_bggGame, 'successMessage': message });
+        	var message = 'Le jeu ' + prevProps.bggGame.name + ' a bien été ajouté.'
+			this.setState({ 'bggGame': new_bggGame, 'successMessage': message });
 			this.setState({ 'bggGame': new_bggGame });
 		}
 	}
@@ -101,7 +101,7 @@ export class AddGame extends React.Component {
 						<form onSubmit={ this.handleSubmit.bind(this) } method="post" action="http://localhost:8000/api/games/game/">
 
 						<Row>
-							{/* <span className='green-text'>{ this.state.successMessage }</span> */}
+							<span className='green-text'>{ this.state.successMessage }</span>
 							{ displayErrors(this.props.errors) }
 							{ this.getLoader(this.props.isAddingGame) }
 						</Row>
