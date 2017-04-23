@@ -62,9 +62,13 @@ class Game(models.Model):
     max_age = models.IntegerField(blank=True, null=True, verbose_name='Age max.')
     duration = models.IntegerField(blank=True, null=True, verbose_name='Durée')
     description = models.TextField(blank=True, null=True)
+    # image_bgg is the original link to the bgg image
     image_bgg = models.TextField(blank=True, null=True)
+    # image_uri is only used by the Android App for now
     image_uri = models.TextField(blank=True, null=True)
     thumbnail_uri = models.TextField(blank=True, null=True)
+    image_width = models.IntegerField(blank=True, null=True)
+    image_height = models.IntegerField(blank=True, null=True)
     sort_name = models.TextField(blank=True, null=True)
     id_trictrac = models.IntegerField(blank=True, null=True)
     id_bgg = models.IntegerField(blank=True, null=True, unique=True)
@@ -91,6 +95,8 @@ class Game(models.Model):
                     with Image(file=response.raw) as img:
                         img.transform(resize=str(IMG_WIDTH))
                         img.save(filename=fn)
+                        self.image_height=img.height
+                    self.image_width=IMG_WIDTH
                     self.image_uri = IMG_URI + str(self.id_bgg) + '.jpg'
         if not self.sort_name:
             self.sort_name = slugify(self.name).replace('-', ' ')
