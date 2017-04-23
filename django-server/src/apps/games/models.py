@@ -105,7 +105,7 @@ class Game(models.Model):
     @property
     def img_uri(self):
         if not self.id_bgg:
-            return ""
+            return static("img/big_placeholder.png")
         return static("img/%d.jpg" % self.id_bgg)
 
     @property
