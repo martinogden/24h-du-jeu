@@ -68,10 +68,11 @@ const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick
 		</div>
 	);
 
+	// https://www.perpetual-beta.org/weblog/responsive-images-without-browser-reflow.html
 	const Header = () => (
 		<div className="card-image" onDoubleClick={ onKnowClick }>
 			<div style={{ position: "relative", width: "100%", paddingBottom: ( 100 * img_ratio ) + "%" }}>
-				<img src={ img_uri } style={{ width: "100%", height: "100%", position: "absolute" }}/>
+				<img src={ img_uri } style={{ width: "100%", height: "100%", position: "absolute", background: "#eff0f1", backgroundImage: "url('/static/img/placeholder.png')", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}/>
 			</div>
 		</div>
 	);
