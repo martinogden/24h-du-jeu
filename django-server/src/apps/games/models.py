@@ -108,6 +108,13 @@ class Game(models.Model):
             return ""
         return static("img/%d.jpg" % self.id_bgg)
 
+    @property
+    def img_ratio(self):
+        if self.image_width and self.image_height and not self.image_width == 0:
+            return float(self.image_height)/self.image_width
+        else:
+            return None
+
     def as_json(self):
         fields = ['id', 'name', 'type_genre', 'themes', 'mechanisms', 
                    'families', 'min_player', 'max_player', 'min_age',
@@ -138,6 +145,7 @@ class Game(models.Model):
         data['knowers'] = knowers
 
         data['img_uri'] = self.img_uri
+        data['img_ratio'] = self.img_ratio
         return data
 
 

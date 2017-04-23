@@ -44,7 +44,7 @@ const li = iter => iter.map(item => {
 });
 
 
-const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowClick }) => {
+const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick, onKnowClick }) => {
 	const inactive = 'inactive grey-text text-lighten-2';
 	const active = 'active teal-text';
 
@@ -70,7 +70,9 @@ const Game = ({ name, img_uri, own, know, owners, knowers, onOwnClick, onKnowCli
 
 	const Header = () => (
 		<div className="card-image" onDoubleClick={ onKnowClick }>
-			<img src={ img_uri } />
+			<div style={{ position: "relative", width: "100%", paddingBottom: ( 100 * img_ratio ) + "%" }}>
+				<img src={ img_uri } style={{ width: "100%", height: "100%", position: "absolute" }}/>
+			</div>
 		</div>
 	);
 
@@ -112,6 +114,7 @@ Game.PropTypes = {
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	img_uri: PropTypes.string.isRequired,
+	img_ratio: PropTypes.number.isRequired,
 	own: PropTypes.bool,
 	know: PropTypes.bool,
 	knowers: PropTypes.array.isRequired,
