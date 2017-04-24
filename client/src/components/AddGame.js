@@ -131,8 +131,8 @@ export class AddGame extends React.Component {
 							<Input name="image_bgg" s={3} value={ this.state.bggGame.image } type='hidden' />
 						</Row>
 						<div>
-							<Button modal="close" waves="light" type="reset" className="left grey">Fermer</Button>
-							<Button modal="confirm" waves="light" type="submit" className="teal right">Ajouter</Button>
+							<Button modal="close" waves="light" type="reset" className="left grey" style={{zIndex: 0,}}>Fermer</Button>
+							<Button modal="confirm" waves="light" type="submit" className="teal right" style={{zIndex: 0,}}>Ajouter</Button>
 						</div>
 						</form>
 				</Modal>
