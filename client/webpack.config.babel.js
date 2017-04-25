@@ -11,9 +11,15 @@ export default {
     loaders: [
     {
       test: /\.jsx?$/,
-      loaders: ['babel'],
+      loader: ['babel'],
       exclude: /node_modules/,
-      include: __dirname
+      include: __dirname,
+      query: {
+        "presets": [
+          "es2015",
+          "react"
+        ]
+      }
     }
     ],
   },
