@@ -38,8 +38,15 @@ def list_games(request, filter_='all'):
 	data = {}
 	player = get_object_or_404(User, pk=request.user.id)
 
+	# get the sort option ('alpha' or 'newest')
+	sort = request.GET.get('sort')
+
 	if filter_ == 'all':
-		games = Game.objects.all().order_by('-date_added')
+		if sort == 'alpha':
+			games = Game.objects.all().order_by('sort_name')
+		else:
+			# by default we sort by added date
+			games = Game.objects.all().order_by('-date_added')
 	elif filter_ == 'iknow':
 		games = list(set().union(player.known_games.all(),player.owned_games.all()))
 	elif filter_ == 'iown':

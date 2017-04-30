@@ -6,6 +6,7 @@ import { ActionTypes, PER_PAGE } from '../constants';
 const byID = (state={}, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS:
@@ -27,6 +28,7 @@ const byID = (state={}, action) => {
 const list = (state=[], action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 			return action.payload.result;
@@ -72,7 +74,9 @@ const query = (state=null, action) => {
 const isFetching = (state=false, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
 		case ActionTypes.FETCH_GAMES_FAILURE:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_KNOW_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
@@ -80,6 +84,7 @@ const isFetching = (state=false, action) => {
 			return false;
 
 		case ActionTypes.FETCH_GAMES_REQUEST:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_REQUEST:
 		case ActionTypes.FETCH_GAMES_I_KNOW_REQUEST:
 		case ActionTypes.FETCH_GAMES_I_OWN_REQUEST:
 			return true;
@@ -121,6 +126,22 @@ const isFiltered = (state=false, action) => {
 	}
 }
 
+const isSortedAlpha = (state=false, action) => {
+	switch(action.type) {
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_REQUEST:
+			return true;
+
+		case ActionTypes.FETCH_GAMES_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
+		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_FAILURE:
+			return false;
+
+		default:
+			return state;
+	}
+}
 
 const usersByID = (state={}, action) => {
 	switch(action.type) {
@@ -205,6 +226,7 @@ export default combineReducers({
 	isFetching,
 	isAddingGame,
 	isFiltered,
+	isSortedAlpha,
 	usersByID,
 	bggByID,
 	bggList,

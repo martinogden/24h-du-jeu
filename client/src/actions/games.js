@@ -19,6 +19,23 @@ export const fetchGames = () => ({
 	}
 });
 
+// the games can be sorted in alphabetical order or newest first
+export const sortAlpha = () => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/?sort=alpha`,
+		method: 'GET',
+		credentials: 'include',
+		types: [
+			ActionTypes.FETCH_GAMES_SORTED_ALPHA_REQUEST,
+			{
+				type: ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS,
+				meta: { schema: Schemas.GAMES },
+			},
+			ActionTypes.FETCH_GAMES_SORTED_ALPHA_FAILURE,
+		],
+	}
+});
+
 export const fetchGamesIKnow = () => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/games/iknow/`,

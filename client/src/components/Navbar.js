@@ -6,6 +6,7 @@ import Userbar from './Userbar';
 import DisplayMode from './DisplayMode';
 import Print from './Print';
 import Filter from './Filter';
+import Sort from './Sort';
 
 const styles = {  // TODO extract inline styles
 	img: {
@@ -14,7 +15,7 @@ const styles = {  // TODO extract inline styles
 };
 
 
-const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGamesIOwn }) => (
+const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, onFetchGames, onFetchGamesIKnow, onFetchGamesIOwn }) => (
 	<span>
 	<div className="navbar-fixed">
 		<nav>
@@ -29,6 +30,7 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onFetchGamesIKnow, onFetchGa
 				    
 					    <ul className="right hide-on-small-and-down">
 					    	{/*<DisplayMode />*/}
+					    	<Sort onSortAlpha={ onSortAlpha } onFetchGames={ onFetchGames } isSortedAlpha={ isSortedAlpha } />
 					    	<Filter onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
 					    	<Print />
 					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
@@ -46,7 +48,10 @@ Navbar.propTypes = {
 	onLogout: PropTypes.func.isRequired,
 	onFetchGamesIKnow: PropTypes.func.isRequired,
 	onFetchGamesIOwn: PropTypes.func.isRequired,
+	onFetchGames: PropTypes.func.isRequired,
+	onSortAlpha: PropTypes.func.isRequired,
 	loggedInUser: PropTypes.object.isRequired,
+	isSortedAlpha: PropTypes.bool.isRequired,
 };
 
 
