@@ -131,7 +131,6 @@ const isFiltered = (state=false, action) => {
 const isSortedAlpha = (state=false, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
-		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_REQUEST:
 			return true;
 
 		case ActionTypes.FETCH_GAMES_SUCCESS:
