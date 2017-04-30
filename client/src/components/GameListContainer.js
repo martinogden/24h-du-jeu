@@ -53,6 +53,8 @@ export class GameListContainer extends React.Component {
 					ownedGameIDs={ props.ownedGameIDs }
 					knownGameIDs={ props.knownGameIDs }
 					fetchGames={ props.fetchGames }
+					sortAlpha={ props.sortAlpha }
+					isSortedAlpha={ props.isSortedAlpha }
 					isFiltered={ props.isFiltered }
 				/>
 				{ this.getWaypoint() }
@@ -67,6 +69,7 @@ GameListContainer.propTypes = {
 	isFetching: PropTypes.bool.isRequired,
 	isAddingGame: PropTypes.bool.isRequired,
 	fetchGames: PropTypes.func.isRequired,
+	sortAlpha: PropTypes.func.isRequired,
 	paginateGames: PropTypes.func.isRequired,
 	toggleGameOwnership: PropTypes.func.isRequired,
 	toggleGameKnowledge: PropTypes.func.isRequired,
@@ -77,6 +80,7 @@ GameListContainer.propTypes = {
 	addGame: PropTypes.func.isRequired,
 	bggGames: PropTypes.func.isRequired,
 	isFiltered: PropTypes.bool.isRequired,
+	isSortedAlpha: PropTypes.bool.isRequired,
 };
 
 
@@ -87,6 +91,7 @@ const mapStateToProps = (state) => ({
 	isFetching: state.games.isFetching,
 	isAddingGame: state.games.isAddingGame,
 	isFiltered: state.games.isFiltered,
+	isSortedAlpha: state.games.isSortedAlpha,
 	bggGames: getBggGames(state),
 	bggGame: getBggGameDetailedLatest(state),
 	gameErrors: getGameErrors(state),

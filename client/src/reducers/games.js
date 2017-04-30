@@ -117,6 +117,8 @@ const isFiltered = (state=false, action) => {
 
 		case ActionTypes.FETCH_GAMES_SUCCESS:
 		case ActionTypes.FETCH_GAMES_FAILURE:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
+		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_OWN_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_KNOW_FAILURE:
 			return false;
@@ -133,8 +135,6 @@ const isSortedAlpha = (state=false, action) => {
 			return true;
 
 		case ActionTypes.FETCH_GAMES_SUCCESS:
-		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
-		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_FAILURE:
 			return false;
 

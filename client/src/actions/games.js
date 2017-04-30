@@ -19,7 +19,7 @@ export const fetchGames = () => ({
 	}
 });
 
-// the games can be sorted in alphabetical order or newest first
+// sort the games in alphabetical order
 export const sortAlpha = () => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/games/?sort=alpha`,

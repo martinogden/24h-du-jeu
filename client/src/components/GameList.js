@@ -8,7 +8,7 @@ import FilterMessage from './FilterMessage';
 const contains = (array, element) => array.indexOf(element) > -1;
 
 
-const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, fetchGames, isFiltered }) => {
+const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, fetchGames, sortAlpha, isFiltered, isSortedAlpha }) => {
 
 	var children = games.map(game =>
 		<Game
@@ -27,7 +27,12 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, 
 
 	const getMessage = () => {
 		if (isFiltered) {
-			return (<FilterMessage fetchGames={ fetchGames } />)
+			if (isSortedAlpha) {
+				return (<FilterMessage fetchGames={ sortAlpha } />);
+			}
+			else {
+				return (<FilterMessage fetchGames={ fetchGames } />);
+			}
 		}
 	};
 
@@ -50,7 +55,9 @@ GameList.propTypes = {
 	ownedGameIDs: PropTypes.array.isRequired,
 	knownGameIDs: PropTypes.array.isRequired,
 	fetchGames: PropTypes.func.isRequired,
+	sortAlpha: PropTypes.func.isRequired,
 	isFiltered: PropTypes.bool.isRequired,
+	isSortedAlpha: PropTypes.bool.isRequired,
 };
 
 
