@@ -34,6 +34,9 @@ class User(AbstractUser):
     def __unicode__(self):
         return unidecode(self.pseudo or '') or self.username
 
+    def known_and_owned_games(self):
+        return (self.known_games.all() | self.owned_games.all()).distinct()
+
     def as_json(self):
         fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 
                    'first_name', 'last_name', 'is_staff', 'last_login',

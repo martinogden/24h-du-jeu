@@ -40,17 +40,19 @@ def list_games(request, filter_='all'):
 
 	# get the sort option ('alpha' or 'newest')
 	sort = request.GET.get('sort')
+	if sort == 'alpha':
+		ordering_field='sort_name'
+	else:
+		# by default we sort by added date
+		ordering_field='-date_added'
 
 	if filter_ == 'all':
-		if sort == 'alpha':
-			games = Game.objects.all().order_by('sort_name')
-		else:
-			# by default we sort by added date
-			games = Game.objects.all().order_by('-date_added')
+		games = Game.objects.all().order_by(ordering_field)
 	elif filter_ == 'iknow':
-		games = list(set().union(player.known_games.all(),player.owned_games.all()))
+		games = player.known_and_owned_games().order_by(ordering_field)
 	elif filter_ == 'iown':
-		games = player.owned_games.all()
+		games = player.owned_games.all().order_by(ordering_field)
+
 	else:
 		data['errors'] = ['invalid filter %s' % filter_ ]
 
