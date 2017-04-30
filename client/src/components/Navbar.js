@@ -15,33 +15,41 @@ const styles = {  // TODO extract inline styles
 };
 
 
-const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, onFetchGames, onFetchGamesIKnow, onFetchGamesIOwn }) => (
-	<span>
-	<div className="navbar-fixed">
-		<nav>
-			<div className="nav-wrapper orange darken-3">
-				<Row>
-					<Col s={1} m={1}>
-				    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
-				    </Col>
-				    <Col s={6} m={6} offset={'m2'}>
-				    	<SearchBox search={ onSearch } />
-				    </Col>
-				    
-					    <ul className="right hide-on-small-and-down">
-					    	{/*<DisplayMode />*/}
-					    	<Sort onSortAlpha={ onSortAlpha } onFetchGames={ onFetchGames } isSortedAlpha={ isSortedAlpha } />
-					    	<Filter onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
-					    	<Print />
-					    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
-					   </ul>
-					
-				</Row>
-			</div>
-		</nav>
-	</div>
-	</span>
-);
+const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, isFiltered, onFetchGames, onFetchGamesIKnow, onFetchGamesIOwn }) => {
+	const sortItem = () => {
+		if (!isFiltered)
+			return(<Sort onSortAlpha={ onSortAlpha } onFetchGames={ onFetchGames } isSortedAlpha={ isSortedAlpha } />);
+	};
+
+	return (
+		<span>
+		<div className="navbar-fixed">
+			<nav>
+				<div className="nav-wrapper orange darken-3">
+					<Row>
+						<Col s={1} m={1}>
+					    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
+					    </Col>
+					    <Col s={6} m={6} offset={'m2'}>
+					    	<SearchBox search={ onSearch } />
+					    </Col>
+					    
+						    <ul className="right hide-on-small-and-down">
+						    	{/*<DisplayMode />*/}
+						    	{/* We don't display the sorting icon if we display the games we know/own */}
+						    	{ sortItem() }
+						    	<Filter onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } />
+						    	<Print />
+						    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
+						   </ul>
+						
+					</Row>
+				</div>
+			</nav>
+		</div>
+		</span>
+	);
+};
 
 Navbar.propTypes = {
 	onSearch: PropTypes.func.isRequired,
@@ -52,6 +60,7 @@ Navbar.propTypes = {
 	onSortAlpha: PropTypes.func.isRequired,
 	loggedInUser: PropTypes.object.isRequired,
 	isSortedAlpha: PropTypes.bool.isRequired,
+	isFiltered: PropTypes.bool.isRequired,
 };
 
 
