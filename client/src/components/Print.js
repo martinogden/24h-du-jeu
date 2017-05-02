@@ -6,7 +6,7 @@ import { API_ENDPOINT_URL } from '../constants';
 
 const Print = () => {
 	return(
-		<li>
+		<li className="hide-on-small-and-down">
 			<Dropdown 
 				trigger={
 					<a href='#' className="hide-on-small-only"><Icon>print</Icon></a>

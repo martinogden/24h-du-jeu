@@ -85,7 +85,7 @@ const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick
 	}
 
 	return (
-		<div className="col s6 m3">
+		<div className="col s12 m4 l3">
 			<Card header={ <Header/> } reveal={ reveal }>
 
 				<span className="card-title grey-text text-darken-4 activator" style={ styles.cardTitle }>

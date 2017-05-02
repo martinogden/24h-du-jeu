@@ -90,7 +90,7 @@ export class AddGame extends React.Component {
 				<Modal
 					//header='Nouveau jeu'
 					trigger={
-						<div className="fixed-action-btn" style={{bottom: '45px', right: '24px',}}>
+						<div className="fixed-action-btn hide-on-small-and-down" style={{bottom: '45px', right: '24px',}}>
 							<Button floating large className='teal' waves='light' icon='add'/>
 						</div>
 					}

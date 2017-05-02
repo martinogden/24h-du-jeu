@@ -21,7 +21,7 @@ const user_image = (user) => {
 const Userbar = ({ loggedInUser, onLogout }) => {
 
 	return(
-		<li>
+		<li className="hide-on-small-and-down">
 			<Dropdown 
 				trigger={
 					<a href='#'>{ user_image(loggedInUser) }</a>

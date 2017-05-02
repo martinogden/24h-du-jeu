@@ -37,7 +37,7 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, 
 	};
 
 	return (
-		<div className="container" style={{ width: '960px' }}>
+		<div className="container">
 			{ getMessage() }
 			<div className="row">
 				<Masonry
