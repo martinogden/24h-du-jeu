@@ -79,31 +79,33 @@ const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick
 
 	const knowText = () => {
 		if (own)
-			return("j'explique")
+			return("J'EXPLIQUE")
 		else
 			return(<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}>j&#39;explique</a>)
-	}
+	};
+
+	const actions = (
+		<div>
+			<div className={ `toggle-own ${own ? active : inactive}` }>
+				<Icon className="tiny">done</Icon>{ ' ' }
+				<a href="#" key="own" className={ own ? active : inactive } onClick={ (e) => { onOwnClick(); e.preventDefault() }}>je possède</a>
+			</div>
+			<div className={ `toggle-know ${know ? active : inactive}` }>
+							<Icon className="tiny">done_all</Icon>{ ' ' }
+							{ knowText() }
+							
+			</div>
+		</div>
+	);
 
 	return (
 		<div className="col s12 m4 l3">
-			<Card header={ <Header/> } reveal={ reveal }>
+			<Card header={ <Header/> } reveal={ reveal } actions={ actions } className="sticky-action">
 
 				<span className="card-title grey-text text-darken-4 activator" style={ styles.cardTitle }>
 					{ name }
 					<i className="material-icons right">group</i>
 				</span>
-
-				<div>
-					<p className={ `toggle-own ${own ? active : inactive}` }>
-						<Icon className="tiny">done</Icon>{ ' ' }
-						<a href="#" key="own" className={ own ? active : inactive } onClick={ (e) => { onOwnClick(); e.preventDefault() }}>je possède</a>
-					</p>
-					<p className={ `toggle-know ${know ? active : inactive}` }>
-						<Icon className="tiny">done_all</Icon>{ ' ' }
-						{ knowText() }
-						
-					</p>
-				</div>
 
 			</Card>
 		</div>
