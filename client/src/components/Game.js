@@ -7,6 +7,9 @@ const styles = {
 		padding: '12px 0',
 		display: 'block',
 	},
+	noSplit: {
+		whiteSpace: 'nowrap',
+	}
 };
 
 const pluralize = (iterable, singular, plural) => {
@@ -79,22 +82,20 @@ const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick
 
 	const knowText = () => {
 		if (own)
-			return("J'EXPLIQUE")
+			return(<span><Icon className="tiny">done_all</Icon>{ ' ' }J'EXPLIQUE</span>)
 		else
-			return(<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}>j&#39;explique</a>)
+			return(<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}><Icon className="tiny">done_all</Icon>{ ' ' }j&#39;explique</a>)
 	};
 
 	const actions = (
 		<div>
-			<div className={ `toggle-own ${own ? active : inactive}` }>
-				<Icon className="tiny">done</Icon>{ ' ' }
-				<a href="#" key="own" className={ own ? active : inactive } onClick={ (e) => { onOwnClick(); e.preventDefault() }}>je possède</a>
-			</div>
-			<div className={ `toggle-know ${know ? active : inactive}` }>
-							<Icon className="tiny">done_all</Icon>{ ' ' }
-							{ knowText() }
-							
-			</div>
+			<span className={ `toggle-own ${own ? active : inactive}` } style={ styles.noSplit }>
+				<a href="#" key="own" className={ own ? active : inactive } onClick={ (e) => { onOwnClick(); e.preventDefault() }}><Icon className="tiny">done</Icon>{ ' ' }je possède</a>
+			</span>
+			<span></span>
+			<span className={ `toggle-know ${know ? active : inactive}` } style={ styles.noSplit }>
+							{ knowText() }		
+			</span>
 		</div>
 	);
 
