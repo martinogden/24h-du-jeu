@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { CardPanel} from 'react-materialize';
 
-
+{/* the fetchGames fonction is passed in parameter. It can be equal to sortAlpha */}
 const FilterMessage = ({ fetchGames }) => (
 	<CardPanel className="center-align">
             <a href='#' className="teal-text" onClick={ fetchGames }>

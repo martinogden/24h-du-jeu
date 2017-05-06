@@ -52,7 +52,6 @@ App.PropTypes = {
 	filterGames: PropTypes.func.isRequired,
 	fetchGamesIKnow: PropTypes.func.isRequired,
 	fetchGamesIOwn: PropTypes.func.isRequired,
-	fetchGames: PropTypes.func.isRequired,
 	sortAlpha: PropTypes.func.isRequired,
 	isSortedAlpha: PropTypes.bool.isRequired,
 	isFiltered: PropTypes.bool.isRequired,
