@@ -305,7 +305,7 @@ def pdf_a_apporter(request):
 	games = request.user.owned_games.filter(owner__is_bringing = True)
 
 	data = [
-	["Nombre de jeux: {}".format(len(games)), "", "", "", "", ""],
+	["Nombre de jeux à apporter : {}".format(len(games)), "", "", "", "", ""],
 	["", "", "", "", "", ""]
 	]
 
