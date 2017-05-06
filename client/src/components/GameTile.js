@@ -14,7 +14,7 @@ const styles = {
 
 const pluralize = (iterable, singular, plural) => {
 	const n = iterable.length;
-	const verb = n === 1 ? singular : plural;
+	const verb = (n === 0 || n === 1) ? singular : plural;
 
 	return (
 		<span>
@@ -47,7 +47,7 @@ const li = iter => iter.map(item => {
 });
 
 
-const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick, onKnowClick }) => {
+const GameTile = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick, onKnowClick }) => {
 	const inactive = 'inactive grey-text text-lighten-2';
 	const active = 'active teal-text';
 
@@ -82,7 +82,7 @@ const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick
 
 	const knowText = () => {
 		if (own)
-			return(<span><Icon className="tiny">done_all</Icon>{ ' ' }J'EXPLIQUE</span>)
+			return(<span><Icon className="tiny">done_all</Icon>{ ' ' }J&#39;EXPLIQUE</span>)
 		else
 			return(<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}><Icon className="tiny">done_all</Icon>{ ' ' }j&#39;explique</a>)
 	};
@@ -114,7 +114,7 @@ const Game = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnClick
 };
 
 
-Game.PropTypes = {
+GameTile.PropTypes = {
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	img_uri: PropTypes.string.isRequired,
@@ -127,4 +127,4 @@ Game.PropTypes = {
 };
 
 
-export default Game;
+export default GameTile;

@@ -1,17 +1,29 @@
 import React, { PropTypes } from 'react';
 import Masonry from 'react-masonry-component';
 
-import Game from './Game';
+import GameTile from './GameTile';
+import GameLine from './GameLine';
 import FilterMessage from './FilterMessage';
 
 
 const contains = (array, element) => array.indexOf(element) > -1;
 
 
-const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, fetchGames, sortAlpha, isFiltered, isSortedAlpha }) => {
+const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, fetchGames, sortAlpha, isFiltered, isSortedAlpha, isTileDisplay }) => {
 
-	var children = games.map(game =>
-		<Game
+	var childrenTile = games.map(game =>
+		<GameTile
+			key={ game.id }
+			onOwnClick={ () => onOwnClick(game.id) }
+			onKnowClick={ () => onKnowClick(game.id) }
+			own={ contains(ownedGameIDs, game.id) }
+			know={ contains(knownGameIDs, game.id) }
+			{ ...game }
+		/>
+	);
+
+	var childrenLine = games.map(game =>
+		<GameLine
 			key={ game.id }
 			onOwnClick={ () => onOwnClick(game.id) }
 			onKnowClick={ () => onKnowClick(game.id) }
@@ -36,15 +48,33 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, 
 		}
 	};
 
+	const displayContent = (isTileDisplay) => {
+		if (isTileDisplay) {
+			return(
+				<div className="container">
+					{ getMessage() }
+					<div className="row">
+						<Masonry
+							options={ masonryOptions }
+						>{ childrenTile }</Masonry>
+					</div>
+				</div>
+			);
+		} else {
+			return(
+				<div className="container">
+					{ getMessage() }
+					<table className='bordered highlight'>
+						<tbody>{ childrenLine }</tbody>
+					</table>
+				</div>
+			);
+		};
+
+	};
+
 	return (
-		<div className="container">
-			{ getMessage() }
-			<div className="row">
-				<Masonry
-					options={ masonryOptions }
-				>{ children }</Masonry>
-			</div>
-		</div>
+		<div>{ displayContent(isTileDisplay) }</div>
 	);
 };
 
@@ -58,6 +88,7 @@ GameList.propTypes = {
 	sortAlpha: PropTypes.func.isRequired,
 	isFiltered: PropTypes.bool.isRequired,
 	isSortedAlpha: PropTypes.bool.isRequired,
+	isTileDisplay: PropTypes.bool.isRequired,
 };
 
 

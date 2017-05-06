@@ -56,6 +56,7 @@ export class GameListContainer extends React.Component {
 					sortAlpha={ props.sortAlpha }
 					isSortedAlpha={ props.isSortedAlpha }
 					isFiltered={ props.isFiltered }
+					isTileDisplay = { props.isTileDisplay }
 				/>
 				{ this.getWaypoint() }
 				{ this.getLoader() }
@@ -92,6 +93,7 @@ const mapStateToProps = (state) => ({
 	isAddingGame: state.games.isAddingGame,
 	isFiltered: state.games.isFiltered,
 	isSortedAlpha: state.games.isSortedAlpha,
+	isTileDisplay: state.games.isTileDisplay,
 	bggGames: getBggGames(state),
 	bggGame: getBggGameDetailedLatest(state),
 	gameErrors: getGameErrors(state),
