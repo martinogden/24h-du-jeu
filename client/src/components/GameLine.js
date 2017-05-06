@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Icon } from 'react-materialize';
+import { Icon, Modal, Button } from 'react-materialize';
 
 
 const pluralize = (iterable, singular, plural) => {
@@ -42,14 +42,18 @@ const GameLine = ({ name, img_uri, img_ratio, type_genre, own, know, owners, kno
 	const active = 'active teal-text';
 
 	const reveal = (
-		<div>
-
-		</div>
-	);
-
-	// https://www.perpetual-beta.org/weblog/responsive-images-without-browser-reflow.html
-	const Header = () => (
-		<div >
+		<div className="row">
+			<div className="col s5 m5">
+				<img src={ img_uri } style={{ background: "#eff0f1", backgroundImage: "url('/static/img/placeholder.png')", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}/>
+			</div>
+			<div className="col offset-s1 offset-m1 s3 m3">
+				<strong>{ pluralize(owners, 'possède', 'possèdent') }</strong>
+				<ul className="owner-list">{ li(owners) }</ul>
+			</div>
+			<div className="col s3 m3">
+				<strong>{ pluralize(knowers, 'explique', 'expliquent') }</strong>
+				<ul className="knower-list">{ li(knowers) }</ul>
+			</div>
 		</div>
 	);
 
@@ -74,7 +78,17 @@ const GameLine = ({ name, img_uri, img_ratio, type_genre, own, know, owners, kno
 
 	return (
 		<tr>
-			<td><a href='#!' className="teal-text">{ name }</a></td>
+			<td>
+				<Modal
+					header={ name }
+					fixedFooter
+					actions={[<Button waves='light' modal='close' className='grey'>Fermer</Button>]}
+					trigger={
+					<a href='#!' className="teal-text">{ name }</a>
+					}>
+					{ reveal }
+				</Modal>
+			</td>
 			<td style={{ width: '15%' }}>{ type_genre }</td>
 			<td style={{ width: '15%' }}>{ pluralize(owners, 'possède', 'possèdent') }</td>
 			<td style={{ width: '15%' }}>{ pluralize(knowers, 'explique', 'expliquent') }</td>
