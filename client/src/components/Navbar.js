@@ -23,7 +23,7 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, 
 						<Col s={1} m={1}>
 					    	<a href="#!" className="brand-logo"><img src='/static/img/logo.png' style={ styles.img }/></a>
 					    </Col>
-					    <Col s={6} m={6} offset={'m2'}>
+					    <Col s={6} m={6} offset={'l2'}>
 					    	<SearchBox search={ onSearch } />
 					    </Col>
 						    <ul className="right">

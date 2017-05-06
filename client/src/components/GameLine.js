@@ -43,14 +43,22 @@ const GameLine = ({ name, img_uri, img_ratio, type_genre, own, know, owners, kno
 
 	const reveal = (
 		<div className="row">
-			<div className="col s5 m5">
+			<div className="col s12 m5">
 				<img src={ img_uri } style={{ background: "#eff0f1", backgroundImage: "url('/static/img/placeholder.png')", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}/>
+				<div className="show-on-small hide-on-med-and-up">
+					<strong>{ pluralize(owners, 'possède', 'possèdent') }</strong>
+					<ul className="owner-list">{ li(owners) }</ul>
+				</div>
+				<div className="show-on-small hide-on-med-and-up">
+					<strong>{ pluralize(knowers, 'explique', 'expliquent') }</strong>
+					<ul className="knower-list">{ li(knowers) }</ul>
+				</div>
 			</div>
-			<div className="col offset-s1 offset-m1 s3 m3">
+			<div className="col offset-m1 m3 hide-on-small-and-down">
 				<strong>{ pluralize(owners, 'possède', 'possèdent') }</strong>
 				<ul className="owner-list">{ li(owners) }</ul>
 			</div>
-			<div className="col s3 m3">
+			<div className="col m3 hide-on-small-and-down">
 				<strong>{ pluralize(knowers, 'explique', 'expliquent') }</strong>
 				<ul className="knower-list">{ li(knowers) }</ul>
 			</div>
