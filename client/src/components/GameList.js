@@ -64,7 +64,7 @@ const GameList = ({ games, onOwnClick, onKnowClick, ownedGameIDs, knownGameIDs, 
 			return(
 				<div className="container">
 					{ getMessage() }
-					<table className='bordered highlight'>
+					<table className='bordered highlight responsive-table'>
 						<tbody>{ childrenLine }</tbody>
 					</table>
 				</div>
