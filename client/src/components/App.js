@@ -18,7 +18,7 @@ export class App extends React.Component {
 	}
 
 	render() {
-		const { store, isLoggedIn, failedLogIn, authWithFacebook, filterGames, logoutFromFacebook, sortAlpha, isFiltered, isSortedAlpha, fetchGames, fetchGamesIKnow, fetchGamesIOwn, loggedInUser } = this.props;
+		const { store, isLoggedIn, failedLogIn, authWithFacebook, filterGames, logoutFromFacebook, sortAlpha, isFiltered, isTileDisplay, toggleDisplay, isSortedAlpha, fetchGames, fetchGamesIKnow, fetchGamesIOwn, loggedInUser } = this.props;
 
 		if (!isLoggedIn)
 			return <Login failedLogIn={ failedLogIn } success={ authWithFacebook }/>;
@@ -32,6 +32,8 @@ export class App extends React.Component {
 					onSortAlpha={ sortAlpha }
 					isFiltered={ isFiltered }
 					isSortedAlpha={ isSortedAlpha }
+					isTileDisplay={ isTileDisplay }
+					onToggleDisplay={ toggleDisplay }
 					onFetchGames={ fetchGames }
 					onFetchGamesIKnow={ fetchGamesIKnow } 
 					onFetchGamesIOwn={ fetchGamesIOwn }/>
@@ -53,6 +55,7 @@ App.PropTypes = {
 	fetchGamesIKnow: PropTypes.func.isRequired,
 	fetchGamesIOwn: PropTypes.func.isRequired,
 	sortAlpha: PropTypes.func.isRequired,
+	toggleDisplay: PropTypes.func.isRequired,
 	isSortedAlpha: PropTypes.bool.isRequired,
 	isFiltered: PropTypes.bool.isRequired,
 };
@@ -64,6 +67,7 @@ const mapStateToProps = (state) => ({
 	loggedInUser: getLoggedInUser(state),
 	isSortedAlpha: state.games.isSortedAlpha,
 	isFiltered: state.games.isFiltered,
+	isTileDisplay: state.games.isTileDisplay,
 });
 
 const actions = {

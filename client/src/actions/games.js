@@ -73,6 +73,10 @@ export const paginateGames = () => ({
 });
 
 
+export const toggleDisplay = () => ({
+	type: ActionTypes.TOGGLE_DISPLAY,
+});
+
 export const filterGames = (query) => ({
 	type: ActionTypes.FILTER_GAMES,
 	payload: query,

@@ -142,6 +142,16 @@ const isSortedAlpha = (state=false, action) => {
 	}
 }
 
+const isTileDisplay = (state=true, action) => {
+	switch(action.type) {
+		case ActionTypes.TOGGLE_DISPLAY:
+			return !state;
+
+		default:
+			return state;
+	}
+}
+
 const usersByID = (state={}, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
@@ -226,6 +236,7 @@ export default combineReducers({
 	isAddingGame,
 	isFiltered,
 	isSortedAlpha,
+	isTileDisplay,
 	usersByID,
 	bggByID,
 	bggList,
