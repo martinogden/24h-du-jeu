@@ -45,8 +45,6 @@ const Userbar = ({ loggedInUser, onLogout }) => {
 
 Userbar.propTypes = {
 	 onLogout: PropTypes.func.isRequired,
-	 onFetchGamesIKnow: PropTypes.func.isRequired,
-	 onFetchGamesIOwn: PropTypes.func.isRequired,
 	 loggedInUser: PropTypes.object.isRequired,
 };
 

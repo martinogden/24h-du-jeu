@@ -101,7 +101,7 @@ const GameTile = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnC
 
 	return (
 		<div className="col s12 m4 l3">
-			<Card header={ <Header/> } reveal={ reveal } actions={ actions } className="sticky-action">
+			<Card header={ <Header/> } reveal={ reveal } actions={ [actions] } className="sticky-action">
 
 				<span className="card-title grey-text text-darken-4 activator" style={ styles.cardTitle }>
 					{ name }
