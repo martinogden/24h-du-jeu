@@ -97,9 +97,9 @@ const GameLine = ({ name, img_uri, img_ratio, type_genre, own, know, owners, kno
 					{ reveal }
 				</Modal>
 			</td>
-			<td style={{ width: '15%' }}>{ type_genre }</td>
-			<td style={{ width: '15%' }}>{ pluralize(owners, 'possède', 'possèdent') }</td>
-			<td style={{ width: '15%' }}>{ pluralize(knowers, 'explique', 'expliquent') }</td>
+			<td style={{ width: '15%' }} className='hide-on-small-and-down'>{ type_genre }</td>
+			<td style={{ width: '15%' }} className='hide-on-small-and-down'>{ pluralize(owners, 'possède', 'possèdent') }</td>
+			<td style={{ width: '15%' }} className='hide-on-small-and-down'>{ pluralize(knowers, 'explique', 'expliquent') }</td>
 			<td style={{ width: '15%' }}>{ ownAction }</td>
 			<td style={{ width: '15%' }}>{ knowAction }</td>
 		</tr>
