@@ -150,7 +150,10 @@ def pdf_par_genre(request):
 	parcours_games = Game.objects.filter(type_genre = "Parcours", owner__is_bringing = True).distinct()
 	 
 	data1 = [
-	["PLACEMENT", "", "", "ENFANTS", ""],
+	["ENFANTS", "", "", "COOPERATIF", ""],
+	]
+	data6 = [
+	["PLACEMENT", "", ""]
 	]
 	data2 = [
 	["GESTION", "", ""]
@@ -159,7 +162,7 @@ def pdf_par_genre(request):
 	["AMBIANCE", "", "", ""]
 	]
 	data4 = [
-	["STRATEGIE", "", "", "COOPERATIF", ""]
+	["STRATEGIE", "", ""]
 	]
 	data5 = [
 	["ENCHERES", "", "", "PARCOURS", ""]
@@ -169,23 +172,34 @@ def pdf_par_genre(request):
 	
 	# We build the data
 
-	# PLACEMENT AND ENFANTS
-
+	# ENFANTS AND COOPERATIF
 	# We display all the combinaison depending which list is shorter than the other
 	# and depending if the number of elements in the list is odd or even
 	# There are 8 possible combinations.
-	for i, j in zip_longest(xrange(0, len(placement_games), 2), xrange(0, len(enfants_games), 2), fillvalue=-1):
+
+	for i, j in zip_longest(xrange(0, len(enfants_games), 2), xrange(0, len(cooperatif_games), 2), fillvalue=-1):
 		col1 = col2 = col3 = col4 = ""
 		if i >= 0:
-			col1 = Paragraph(placement_games[i].name, styles['BodyText'])
-		if i >= 0 and i+1 < len(placement_games):
-			col2 = Paragraph(placement_games[i+1].name, styles['BodyText'])
+			col1 = Paragraph(enfants_games[i].name, styles['BodyText'])
+		if i >= 0 and i+1 < len(enfants_games):
+			col2 = Paragraph(enfants_games[i+1].name, styles['BodyText'])
 		if j >= 0:
-			col3 = Paragraph(enfants_games[j].name, styles['BodyText'])
-		if j >= 0 and j+1 < len(enfants_games):
-			col4 = Paragraph(enfants_games[j+1].name, styles['BodyText'])
+			col3 = Paragraph(cooperatif_games[j].name, styles['BodyText'])
+		if j >= 0 and j+1 < len(cooperatif_games):
+			col4 = Paragraph(cooperatif_games[j+1].name, styles['BodyText'])
 
 		data1.append([col1, col2, "", col3, col4])
+
+
+	# PLACEMENT
+
+	for i in xrange(0, len(placement_games), 3):
+		if i+1 == len(placement_games):
+			data6.append([Paragraph(placement_games[i].name, styles['BodyText']), "", ""])
+		elif i+2 == len(placement_games):
+			data6.append([Paragraph(placement_games[i].name, styles['BodyText']), Paragraph(placement_games[i+1].name, styles['BodyText']), ""])
+		else:
+			data6.append([Paragraph(placement_games[i].name, styles['BodyText']), Paragraph(placement_games[i+1].name, styles['BodyText']), Paragraph(placement_games[i+2].name, styles['BodyText'])])
 
 	# GESTION
 
@@ -209,20 +223,16 @@ def pdf_par_genre(request):
 		else:
 			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), Paragraph(ambiance_games[i+3].name, styles['BodyText'])])
 
-	# STRATEGIE AND COOPERATIF
 
-	for i, j in zip_longest(xrange(0, len(strategie_games), 2), xrange(0, len(cooperatif_games), 2), fillvalue=-1):
-		col1 = col2 = col3 = col4 = ""
-		if i >= 0:
-			col1 = Paragraph(strategie_games[i].name, styles['BodyText'])
-		if i >= 0 and i+1 < len(strategie_games):
-			col2 = Paragraph(strategie_games[i+1].name, styles['BodyText'])
-		if j >= 0:
-			col3 = Paragraph(cooperatif_games[j].name, styles['BodyText'])
-		if j >= 0 and j+1 < len(cooperatif_games):
-			col4 = Paragraph(cooperatif_games[j+1].name, styles['BodyText'])
+	# STRATEGIE
 
-		data4.append([col1, col2, "", col3, col4])
+	for i in xrange(0, len(strategie_games), 3):
+		if i+1 == len(strategie_games):
+			data4.append([Paragraph(strategie_games[i].name, styles['BodyText']), "", ""])
+		elif i+2 == len(strategie_games):
+			data4.append([Paragraph(strategie_games[i].name, styles['BodyText']), Paragraph(strategie_games[i+1].name, styles['BodyText']), ""])
+		else:
+			data4.append([Paragraph(strategie_games[i].name, styles['BodyText']), Paragraph(strategie_games[i+1].name, styles['BodyText']), Paragraph(strategie_games[i+2].name, styles['BodyText'])])
 
 	# ENCHERES AND PARCOURS
 
@@ -241,9 +251,10 @@ def pdf_par_genre(request):
 
 
 	t1=Table(data1, colWidths=(None, None, 50, None, None))
+	t6=Table(data6)
 	t2=Table(data2)
 	t3=Table(data3)
-	t4=Table(data4, colWidths=(None, None, 50, None, None))
+	t4=Table(data4)
 	t5=Table(data5, colWidths=(None, None, 50, None, None))
 
 	# Styling the titles and the grid
@@ -252,6 +263,7 @@ def pdf_par_genre(request):
 	                    ('ALIGN',(0,0),(-1,0),'CENTER'),
 					   ])
 	t1.setStyle(style)
+	t6.setStyle(style)
 	t2.setStyle(style)
 	t3.setStyle(style)
 	t4.setStyle(style)
@@ -273,13 +285,16 @@ def pdf_par_genre(request):
 	                    ])
 	
 	t1.setStyle(style1)
+	t6.setStyle(style2)
 	t2.setStyle(style2)
 	t3.setStyle(style2)
-	t4.setStyle(style1)
+	t4.setStyle(style2)
 	t5.setStyle(style1)
 
 	#Send the data and build the file
 	elements.append(t1)
+	elements.append(PageBreak())
+	elements.append(t6)
 	elements.append(PageBreak())
 	elements.append(t2)
 	elements.append(PageBreak())
