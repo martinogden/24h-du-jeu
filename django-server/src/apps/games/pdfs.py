@@ -91,14 +91,20 @@ def pdf_jeu_genre(request):
 	]
 
 	styles = getSampleStyleSheet()
-	
+
 	# We build the data
-	for i in xrange(0, len(games), 2):
-		# when the number of games is odd, the last row contains only 1 element
-		if i+1 == len(games):
+	l = len(games)
+	if l % 2 == 0:
+		sc = l/2
+	else:
+		sc = l/2+1
+	for i in range(sc):
+		# in case we have an odd number of elements, we display the last line
+		if l % 2 != 0 and i == l/2:
 			data.append([Paragraph(games[i].name, styles['BodyText']), games[i].type_genre, "", "", ""])
-		else:
-			data.append([Paragraph(games[i].name, styles['BodyText']), games[i].type_genre, "", Paragraph(games[i+1].name, styles['BodyText']), games[i+1].type_genre])
+		elif i < l:
+			data.append([Paragraph(games[i].name, styles['BodyText']), games[i].type_genre, "", Paragraph(games[i+sc].name, styles['BodyText']), games[i+sc].type_genre])
+
 
 	t=Table(data, colWidths=(None,60, 50, None, 60))
 
@@ -159,7 +165,7 @@ def pdf_par_genre(request):
 	["GESTION", "", ""]
 	]
 	data3 = [
-	["AMBIANCE", "", "", ""]
+	["AMBIANCE", "", ""]
 	]
 	data4 = [
 	["STRATEGIE", "", ""]
@@ -177,75 +183,109 @@ def pdf_par_genre(request):
 	# and depending if the number of elements in the list is odd or even
 	# There are 8 possible combinations.
 
-	for i, j in zip_longest(xrange(0, len(enfants_games), 2), xrange(0, len(cooperatif_games), 2), fillvalue=-1):
+	le = len(enfants_games)
+	if le % 2 == 0:
+		sce = le/2
+	else:
+		sce = le/2+1
+
+	lc = len(cooperatif_games)
+	if lc % 2 == 0:
+		scc = lc/2
+	else:
+		scc = lc/2+1
+
+	for i, j in zip_longest(range(sce), range(scc), fillvalue=-1):
 		col1 = col2 = col3 = col4 = ""
 		if i >= 0:
 			col1 = Paragraph(enfants_games[i].name, styles['BodyText'])
-		if i >= 0 and i+1 < len(enfants_games):
-			col2 = Paragraph(enfants_games[i+1].name, styles['BodyText'])
+		if i >= 0 and i+sce < le:
+			col2 = Paragraph(enfants_games[i+sce].name, styles['BodyText'])
 		if j >= 0:
 			col3 = Paragraph(cooperatif_games[j].name, styles['BodyText'])
-		if j >= 0 and j+1 < len(cooperatif_games):
-			col4 = Paragraph(cooperatif_games[j+1].name, styles['BodyText'])
+		if j >= 0 and j+scc < lc:
+			col4 = Paragraph(cooperatif_games[j+scc].name, styles['BodyText'])
 
 		data1.append([col1, col2, "", col3, col4])
 
 
 	# PLACEMENT
 
-	for i in xrange(0, len(placement_games), 3):
-		if i+1 == len(placement_games):
-			data6.append([Paragraph(placement_games[i].name, styles['BodyText']), "", ""])
-		elif i+2 == len(placement_games):
-			data6.append([Paragraph(placement_games[i].name, styles['BodyText']), Paragraph(placement_games[i+1].name, styles['BodyText']), ""])
-		else:
-			data6.append([Paragraph(placement_games[i].name, styles['BodyText']), Paragraph(placement_games[i+1].name, styles['BodyText']), Paragraph(placement_games[i+2].name, styles['BodyText'])])
+	scpo = (len(placement_games) + 2) / 3
+	for i in range(scpo):
+		col1 = col2 = col3 = ""
+		col1 = Paragraph(placement_games[i].name, styles['BodyText'])
+		if i >= 0 and i+scpo < len(placement_games):
+			col2 = Paragraph(placement_games[i+scpo].name, styles['BodyText'])
+		if i >= 0 and i+2*scpo < len(placement_games):
+			col3 = Paragraph(placement_games[i+2*scpo].name, styles['BodyText'])
+
+		data6.append([col1, col2, col3])
 
 	# GESTION
 
-	for i in xrange(0, len(gestion_games), 3):
-		if i+1 == len(gestion_games):
-			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), "", ""])
-		elif i+2 == len(gestion_games):
-			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), Paragraph(gestion_games[i+1].name, styles['BodyText']), ""])
-		else:
-			data2.append([Paragraph(gestion_games[i].name, styles['BodyText']), Paragraph(gestion_games[i+1].name, styles['BodyText']), Paragraph(gestion_games[i+2].name, styles['BodyText'])])
+	scg = (len(gestion_games) + 2) / 3
+	for i in range(scg):
+		col1 = col2 = col3 = ""
+		col1 = Paragraph(gestion_games[i].name, styles['BodyText'])
+		if i >= 0 and i+scg < len(gestion_games):
+			col2 = Paragraph(gestion_games[i+scg].name, styles['BodyText'])
+		if i >= 0 and i+2*scg < len(gestion_games):
+			col3 = Paragraph(gestion_games[i+2*scg].name, styles['BodyText'])
+
+		data2.append([col1, col2, col3])
 
 	# AMBIANCE
 
-	for i in xrange(0, len(ambiance_games), 4):
-		if i+1 == len(ambiance_games):
-			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), "", "", ""])
-		elif i+2 == len(ambiance_games):
-			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), "", ""])
-		elif i+3 == len(ambiance_games):
-			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), ""])
-		else:
-			data3.append([Paragraph(ambiance_games[i].name, styles['BodyText']), Paragraph(ambiance_games[i+1].name, styles['BodyText']), Paragraph(ambiance_games[i+2].name, styles['BodyText']), Paragraph(ambiance_games[i+3].name, styles['BodyText'])])
+	sca = (len(ambiance_games) + 2) / 3
+	for i in range(sca):
+		col1 = col2 = col3 = ""
+		col1 = Paragraph(ambiance_games[i].name, styles['BodyText'])
+		if i >= 0 and i+sca < len(ambiance_games):
+			col2 = Paragraph(ambiance_games[i+sca].name, styles['BodyText'])
+		if i >= 0 and i+2*sca < len(ambiance_games):
+			col3 = Paragraph(ambiance_games[i+2*sca].name, styles['BodyText'])
 
+		data3.append([col1, col2, col3])
 
 	# STRATEGIE
 
-	for i in xrange(0, len(strategie_games), 3):
-		if i+1 == len(strategie_games):
-			data4.append([Paragraph(strategie_games[i].name, styles['BodyText']), "", ""])
-		elif i+2 == len(strategie_games):
-			data4.append([Paragraph(strategie_games[i].name, styles['BodyText']), Paragraph(strategie_games[i+1].name, styles['BodyText']), ""])
-		else:
-			data4.append([Paragraph(strategie_games[i].name, styles['BodyText']), Paragraph(strategie_games[i+1].name, styles['BodyText']), Paragraph(strategie_games[i+2].name, styles['BodyText'])])
+	sct = (len(strategie_games) + 2) / 3
+	for i in range(sct):
+		col1 = col2 = col3 = ""
+		col1 = Paragraph(strategie_games[i].name, styles['BodyText'])
+		if i >= 0 and i+sct < len(strategie_games):
+			col2 = Paragraph(strategie_games[i+sct].name, styles['BodyText'])
+		if i >= 0 and i+2*sct < len(strategie_games):
+			col3 = Paragraph(strategie_games[i+2*sct].name, styles['BodyText'])
+
+		data4.append([col1, col2, col3])
 
 	# ENCHERES AND PARCOURS
 
-	for i, j in zip_longest(xrange(0, len(encheres_games), 2), xrange(0, len(parcours_games), 2), fillvalue=-1):
+
+	lb = len(encheres_games)
+	if lb % 2 == 0:
+		scb = lb/2
+	else:
+		scb = lb/2+1
+
+	lp = len(parcours_games)
+	if lp % 2 == 0:
+		scp = lp/2
+	else:
+		scp = lp/2+1
+
+	for i, j in zip_longest(range(scb), range(scp), fillvalue=-1):
 		col1 = col2 = col3 = col4 = ""
 		if i >= 0:
 			col1 = Paragraph(encheres_games[i].name, styles['BodyText'])
-		if i >= 0 and i+1 < len(encheres_games):
-			col2 = Paragraph(encheres_games[i+1].name, styles['BodyText'])
+		if i >= 0 and i+scb < lb:
+			col2 = Paragraph(encheres_games[i+scb].name, styles['BodyText'])
 		if j >= 0:
 			col3 = Paragraph(parcours_games[j].name, styles['BodyText'])
-		if j >= 0 and j+1 < len(parcours_games):
-			col4 = Paragraph(parcours_games[j+1].name, styles['BodyText'])
+		if j >= 0 and j+scp < lp:
+			col4 = Paragraph(parcours_games[j+scp].name, styles['BodyText'])
 
 		data5.append([col1, col2, "", col3, col4])
 
