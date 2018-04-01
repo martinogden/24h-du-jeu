@@ -327,12 +327,17 @@ def pdf_a_apporter(request):
 	styles = getSampleStyleSheet()
 	
 	# We build the data
-	for i in xrange(0, len(games), 2):
-		# when the number of games is odd, the last row contains only 1 element
-		if i+1 == len(games):
+	l = len(games)
+	if l % 2 == 0:
+		sc = l/2
+	else:
+		sc = l/2+1
+	for i in range(sc):
+		# in case we have an odd number of elements, we display the last line
+		if l % 2 != 0 and i == l/2:
 			data.append([Paragraph(games[i].name, styles['BodyText']), "", "", "", "", ""])
-		else:
-			data.append([Paragraph(games[i].name, styles['BodyText']), "", "", Paragraph(games[i+1].name, styles['BodyText']), "", ""])
+		elif i < l:
+			data.append([Paragraph(games[i].name, styles['BodyText']), "", "", Paragraph(games[i + sc].name, styles['BodyText']), "", ""])
 
 	t=Table(data, colWidths=(None,40, 40, None, 40, 40))
 
