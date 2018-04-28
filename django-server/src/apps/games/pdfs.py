@@ -10,7 +10,7 @@ from itertools import izip_longest as zip_longest
 from .models import Game, User, Knower, Owner
 
 
-def print_big_list(games):
+def print_big_list(data):
 	# Create the HttpResponse object with the appropriate PDF headers.
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'inline; filename="RECAP.pdf"'
@@ -18,30 +18,6 @@ def print_big_list(games):
 	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
 	doc.pagesize = landscape(A4)
 	elements = []
-	data = [
-	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
-	]
-
-	styles = getSampleStyleSheet()
-	
-	# We build the data
-	for game in games:
-
-		game_owners = ""
-		for owner in game.owners.filter(owner__is_bringing = True):
-			game_owners = owner.pseudo + " " + game_owners
-
-		game_knowers_set = set([])
-		# we don't display people that are not animajoueur this year
-		for knower in game.knowers.filter(is_animajoueur = True):
-			game_knowers_set.add(knower.pseudo)
-		# the owners that are animajoueurs are automatically considered as knower
-		for owner in game.owners.filter(is_animajoueur = True):
-			game_knowers_set.add(owner.pseudo)
-		# we create the string: 
-		game_knowers = " ".join(game_knowers_set)
-
-		data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
 
 	t=Table(data, colWidths=(None,None,300,60))
 
@@ -79,7 +55,33 @@ def pdf_recap(request):
 	'''
 	# Get data
 	games = Game.objects.filter(owner__is_bringing = True).distinct()
-	response = print_big_list(games)
+
+	data = [
+	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
+	]
+
+	styles = getSampleStyleSheet()
+	
+	# We build the data
+	for game in games:
+
+		game_owners = ""
+		for owner in game.owners.filter(owner__is_bringing = True):
+			game_owners = owner.pseudo + " " + game_owners
+
+		game_knowers_set = set([])
+		# we don't display people that are not animajoueur this year
+		for knower in game.knowers.filter(is_animajoueur = True):
+			game_knowers_set.add(knower.pseudo)
+		# the owners that are animajoueurs are automatically considered as knower
+		for owner in game.owners.filter(is_animajoueur = True):
+			game_knowers_set.add(owner.pseudo)
+		# we create the string: 
+		game_knowers = " ".join(game_knowers_set)
+
+		data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
+
+	response = print_big_list(data)
 	return response
 
 @login_required
@@ -89,7 +91,32 @@ def pdf_all_games(request):
 	'''
 	# Get data
 	games = Game.objects.all().order_by('sort_name')
-	response = print_big_list(games)
+	data = [
+	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
+	]
+
+	styles = getSampleStyleSheet()
+	
+	# We build the data
+	for game in games:
+
+		game_owners = ""
+		for owner in game.owners.filter(is_animajoueur = True):
+			game_owners = owner.pseudo + " " + game_owners
+
+		game_knowers_set = set([])
+		# we don't display people that are not animajoueur this year
+		for knower in game.knowers.filter(is_animajoueur = True):
+			game_knowers_set.add(knower.pseudo)
+		# the owners that are animajoueurs are automatically considered as knower
+		for owner in game.owners.filter(is_animajoueur = True):
+			game_knowers_set.add(owner.pseudo)
+		# we create the string: 
+		game_knowers = " ".join(game_knowers_set)
+
+		data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
+
+	response = print_big_list(data)
 	return response
 
 
