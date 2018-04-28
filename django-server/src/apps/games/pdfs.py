@@ -9,19 +9,15 @@ from itertools import izip_longest as zip_longest
 
 from .models import Game, User, Knower, Owner
 
-@login_required
-def pdf_recap(request):
-    # # Create the HttpResponse object with the appropriate PDF headers.
+
+def print_big_list(games):
+	# Create the HttpResponse object with the appropriate PDF headers.
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'inline; filename="RECAP.pdf"'
 
 	doc = SimpleDocTemplate(response, rightMargin=20,leftMargin=20, topMargin=20,bottomMargin=20)
 	doc.pagesize = landscape(A4)
 	elements = []
-
-	# Get data
-	games = Game.objects.filter(owner__is_bringing = True).distinct()
-	 
 	data = [
 	["TITRE", "PROPRIETAIRES", "SAVENT EXPLIQUER", "GENRE"],
 	]
@@ -72,7 +68,30 @@ def pdf_recap(request):
 	#Send the data and build the file
 	elements.append(t)
 	doc.build(elements)
+
 	return response
+
+
+@login_required
+def pdf_recap(request):
+	'''
+	Display only the games brought by at least 1 person
+	'''
+	# Get data
+	games = Game.objects.filter(owner__is_bringing = True).distinct()
+	response = print_big_list(games)
+	return response
+
+@login_required
+def pdf_all_games(request):
+	'''
+	Display all the games in the DB.
+	'''
+	# Get data
+	games = Game.objects.all().order_by('sort_name')
+	response = print_big_list(games)
+	return response
+
 
 @login_required
 def pdf_jeu_genre(request):

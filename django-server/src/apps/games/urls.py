@@ -9,6 +9,7 @@ urlpatterns = [
 
 	url(r'^game/$', views.add_game, name='add-game'),
 
+	url(r'^pdf/tous_les_jeux/$', pdfs.pdf_all_games, name='pdf-tous-les-jeux'),
 	url(r'^pdf/recap/$', pdfs.pdf_recap, name='pdf-recap'),
 	url(r'^pdf/jeu_genre/$', pdfs.pdf_jeu_genre, name='pdf-jeu-genre'),
 	url(r'^pdf/par_genre/$', pdfs.pdf_par_genre, name='pdf-par-genre'),
