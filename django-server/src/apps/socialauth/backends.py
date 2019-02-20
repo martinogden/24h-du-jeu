@@ -49,7 +49,9 @@ class FacebookBackend(object):
 		User = get_user_model()
 
 		try:
-			return User.objects.get(username=username)
+			dj_user = User.objects.get(username=username)
+			update_fb_picture(dj_user, fb_user)
+			return dj_user
 		except User.DoesNotExist:
 			return self.create_django_user(fb_user)
 
@@ -193,6 +195,10 @@ def get_picture_url(facebook_user_id):
 
 	if response.ok:
 		return response.url
+
+def update_fb_picture(dj_user, fb_user):
+	pic = get_picture_url(fb_user['id'])
+	dj_user.picture_url = pic or dj_user.picture_url
 
 
 def django_user_from_fb_user(dj_user, fb_user):
