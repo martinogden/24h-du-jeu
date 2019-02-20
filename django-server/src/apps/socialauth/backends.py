@@ -199,6 +199,7 @@ def get_picture_url(facebook_user_id):
 def update_fb_picture(dj_user, fb_user):
 	pic = get_picture_url(fb_user['id'])
 	dj_user.picture_url = pic or dj_user.picture_url
+	dj_user.save()
 
 
 def django_user_from_fb_user(dj_user, fb_user):
