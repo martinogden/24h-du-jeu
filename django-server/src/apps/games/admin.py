@@ -77,6 +77,7 @@ class UserAdmin(admin.ModelAdmin):
     def get_is_animajoueur(self, obj):
         return obj.is_animajoueur
     get_is_animajoueur.short_description = 'Animajoueur'
+    get_is_animajoueur.boolean = True
 
 
 class ShiftAdmin(admin.ModelAdmin):
