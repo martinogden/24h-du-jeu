@@ -37,7 +37,7 @@ class User(AbstractUser):
 
     @property
     def is_animajoueur(self):
-        if self.shifts:
+        if self.shifts.all():
             return True
         else:
             return False
