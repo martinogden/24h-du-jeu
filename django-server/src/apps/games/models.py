@@ -22,10 +22,10 @@ IMG_URI = 'https://ichenil.com/24hdujeu/images/'
 class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
     picture_url = models.TextField(blank=True, null=True)
-    is_animajoueur = models.BooleanField(blank=True, default=True, verbose_name='Animajoueur')
 
     known_games = models.ManyToManyField('Game', through='Knower', related_name='knowers', verbose_name='Jeux connus', blank=True)
     owned_games = models.ManyToManyField('Game', through='Owner', related_name='owners', verbose_name='Jeux possédés', blank=True)
+    shifts = models.ManyToManyField('Shift', related_name='animajoueurs', verbose_name='Planning', blank=True)
 
     class Meta:
         db_table = 'player'
@@ -33,6 +33,13 @@ class User(AbstractUser):
 
     def __unicode__(self):
         return unidecode(self.pseudo or '') or self.username
+
+    @property
+    def is_animajoueur(self):
+        if self.shifts:
+            return True
+        else:
+            return False
 
     def known_and_owned_games(self):
         return (self.known_games.all() | self.owned_games.all()).distinct()
@@ -177,3 +184,18 @@ class Owner(models.Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.fk_player.pseudo, self.fk_game.name)
+
+
+class Shift(models.Model):
+    name = models.TextField(verbose_name ='Titre', unique=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    class Meta:
+        db_table = 'shift'
+        verbose_name = 'tranche horaire'
+        verbose_name_plural = 'tranches horaires'
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name

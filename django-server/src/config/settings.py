@@ -174,7 +174,7 @@ if DEBUG:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.sqlite3',
-			'NAME': '../db/24hDuJeuReferentDb2016Full',
+			'NAME': '../db/24hDuJeuReferentDb',
 		}
 	}
 
