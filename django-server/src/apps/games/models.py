@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 IMG_WIDTH = 223
 IMG_URI = 'https://ichenil.com/24hdujeu/images/'
 
+
 class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
     picture_url = models.TextField(blank=True, null=True)
@@ -45,10 +46,11 @@ class User(AbstractUser):
         return (self.known_games.all() | self.owned_games.all()).distinct()
 
     def as_json(self):
-        fields = ['id', 'pseudo', 'picture_url', 'username', 'email', 
-                   'first_name', 'last_name', 'is_staff', 'last_login',
-                   'is_active', 'is_animajoueur']
+        fields = ['id', 'pseudo', 'picture_url', 'username', 'email',
+                  'first_name', 'last_name', 'is_staff', 'last_login',
+                  'is_active', 'is_animajoueur']
         return model_to_dict(self, fields)
+
 
 class Game(models.Model):
     GENRE_CHOICES = (
@@ -57,11 +59,11 @@ class Game(models.Model):
         ('Stratégie', 'Stratégie'),
         ('Placement', 'Placement'),
         ('Parcours', 'Parcours'),
-        ('Gestion','Gestion'),
-        ('Enfants','Enfants'),
-        ('Enchères','Enchères'),
+        ('Gestion', 'Gestion'),
+        ('Enfants', 'Enfants'),
+        ('Enchères', 'Enchères'),
     )
-    name = models.TextField(verbose_name ='Titre', unique=True)
+    name = models.TextField(verbose_name='Titre', unique=True)
     type_genre = models.TextField('Genre', db_column='type', default='Gestion', choices=GENRE_CHOICES)
     themes = models.TextField(blank=True, null=True)
     mechanisms = models.TextField(blank=True, null=True)
@@ -160,8 +162,8 @@ class Game(models.Model):
 
 
 class Knower(models.Model):
-    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name ='Jeu')
-    fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name ='Joueur')
+    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name='Jeu')
+    fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Joueur')
 
     class Meta:
         db_table = 'knower'
@@ -173,8 +175,8 @@ class Knower(models.Model):
 
 
 class Owner(models.Model):
-    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name ='Jeu')
-    fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name ='Joueur')
+    fk_game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name='Jeu')
+    fk_player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Joueur')
     is_bringing = models.BooleanField(blank=True, default=False, verbose_name='Apporte')
 
     class Meta:
@@ -187,7 +189,7 @@ class Owner(models.Model):
 
 
 class Shift(models.Model):
-    name = models.TextField(verbose_name ='Titre', unique=True)
+    name = models.TextField(verbose_name='Titre', unique=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
 
