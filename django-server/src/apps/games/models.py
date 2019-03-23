@@ -189,14 +189,14 @@ class Owner(models.Model):
 
 
 class Shift(models.Model):
-    name = models.TextField(verbose_name='Titre', unique=True)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    name = models.TextField(verbose_name='Nom', unique=True)
+    start = models.DateTimeField(verbose_name='Début')
+    end = models.DateTimeField(verbose_name='Fin')
 
     class Meta:
         db_table = 'shift'
         verbose_name = 'créneau horaire'
-        verbose_name_plural = 'créneaux horaires'
+        verbose_name_plural = 'planning'
         ordering = ('name',)
 
     def __unicode__(self):
