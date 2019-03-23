@@ -197,7 +197,7 @@ class Shift(models.Model):
         db_table = 'shift'
         verbose_name = 'créneau horaire'
         verbose_name_plural = 'planning'
-        ordering = ('name',)
+        ordering = ('start',)
 
     def __unicode__(self):
         return self.name
