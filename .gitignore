@@ -10,3 +10,4 @@ env
 flask.log
 *.ico
 *.png
+.vscode
