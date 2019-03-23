@@ -128,12 +128,12 @@ class Game(models.Model):
             return None
 
     def as_json(self):
-        fields = ['id', 'name', 'type_genre', 'themes', 'mechanisms', 
-                   'families', 'min_player', 'max_player', 'min_age',
-                   'max_age', 'duration', 'description',
-                   'thumbnail_uri', 'sort_name', 'id_trictrac', 'id_bgg']
+        fields = ['id', 'name', 'type_genre', 'themes', 'mechanisms',
+                  'families', 'min_player', 'max_player', 'min_age',
+                  'max_age', 'duration', 'description',
+                  'thumbnail_uri', 'sort_name', 'id_trictrac', 'id_bgg']
         data = model_to_dict(self, fields)
-        
+
         # in the frontend, we also need the list of owners and knowers
         # We display the owners even if they don't bring the game 
         #   as the owners need to specify they own it even if the admin doesn't
@@ -197,7 +197,6 @@ class Shift(models.Model):
         db_table = 'shift'
         verbose_name = 'créneau horaire'
         verbose_name_plural = 'planning'
-        ordering = ('start',)
 
     def __unicode__(self):
         return self.name

@@ -87,7 +87,7 @@ class UserAdmin(admin.ModelAdmin):
 class ShiftAdmin(admin.ModelAdmin):
     inlines = (AnimajoueurInLine, )
     list_display = ('name', 'start')
-    ordering = ('name',)
+    ordering = ('start',)
 
 
 class OwnerAdmin(admin.ModelAdmin):
