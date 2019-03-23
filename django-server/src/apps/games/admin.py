@@ -14,6 +14,10 @@ class KnowerInline(admin.TabularInline):
     extra = 1  # how many rows to show
 
 
+class AnimajoueurInLine(admin.TabularInline):
+    model = User.shifts.through
+
+
 class GameAdmin(admin.ModelAdmin):
     inlines = (OwnerInline, KnowerInline, )
     list_display = ('name', 'type_genre')
@@ -81,6 +85,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class ShiftAdmin(admin.ModelAdmin):
+    inlines = (AnimajoueurInLine, )
     list_display = ('name', 'start')
     ordering = ('name',)
 
