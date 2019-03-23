@@ -195,8 +195,8 @@ class Shift(models.Model):
 
     class Meta:
         db_table = 'shift'
-        verbose_name = 'tranche horaire'
-        verbose_name_plural = 'tranches horaires'
+        verbose_name = 'créneau horaire'
+        verbose_name_plural = 'créneaux horaires'
         ordering = ('name',)
 
     def __unicode__(self):

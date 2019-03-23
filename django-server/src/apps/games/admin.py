@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import TextInput
 from django.db import models
-from .models import Game, Knower, Owner, User
+from .models import Game, Knower, Owner, User, Shift
 
 
 class OwnerInline(admin.TabularInline):
@@ -79,6 +79,11 @@ class UserAdmin(admin.ModelAdmin):
     get_is_animajoueur.short_description = 'Animajoueur'
 
 
+class ShiftAdmin(admin.ModelAdmin):
+    list_display = ('name', 'start')
+    ordering = ('name',)
+
+
 class OwnerAdmin(admin.ModelAdmin):
     list_display = ('fk_player', 'fk_game', 'is_bringing')
     list_editable = ('is_bringing',)
@@ -101,3 +106,4 @@ admin.site.register(Game, GameAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Knower, KnowerAdmin)
 admin.site.register(Owner, OwnerAdmin)
+admin.site.register(Shift, ShiftAdmin)
