@@ -80,13 +80,6 @@ const GameTile = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnC
 		</div>
 	);
 
-	const knowText = () => {
-		if (own)
-			return(<span><Icon className="tiny">done_all</Icon>{ ' ' }J&#39;EXPLIQUE</span>)
-		else
-			return(<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}><Icon className="tiny">done_all</Icon>{ ' ' }j&#39;explique</a>)
-	};
-
 	const actions = (
 		<div>
 			<span className={ `toggle-own ${own ? active : inactive}` } style={ styles.noSplit }>
@@ -94,7 +87,7 @@ const GameTile = ({ name, img_uri, img_ratio, own, know, owners, knowers, onOwnC
 			</span>
 			<span></span>
 			<span className={ `toggle-know ${know ? active : inactive}` } style={ styles.noSplit }>
-							{ knowText() }		
+				<a href="#" key="know" className={ know ? active : inactive }  onClick={ (e) => { onKnowClick(); e.preventDefault() }}><Icon className="tiny">done_all</Icon>{ ' ' }j&#39;explique</a>	
 			</span>
 		</div>
 	);

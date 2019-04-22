@@ -48,7 +48,7 @@ def list_games(request, filter_='all'):
 			# by default we sort by added date
 			games = Game.objects.all().order_by('-date_added')
 	elif filter_ == 'iknow':
-		games = player.known_and_owned_games().order_by('sort_name')
+		games = player.known_games.all().order_by('sort_name')
 	elif filter_ == 'iown':
 		games = player.owned_games.all().order_by('sort_name')
 
