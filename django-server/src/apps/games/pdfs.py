@@ -60,25 +60,17 @@ def pdf_recap(request):
     ]
 
     styles = getSampleStyleSheet()
-    
+
     # We build the data
     for game in games:
 
         game_owners = ""
         for owner in game.owners.filter(owner__is_bringing=True):
             game_owners = owner.pseudo + " " + game_owners
-
-        game_knowers_set = set([])
-        # we don't display people that are not animajoueur this year
+        game_knowers = ""
         for knower in game.knowers.all():
             if knower.is_animajoueur:
-                game_knowers_set.add(knower.pseudo)
-        # the owners that are animajoueurs are automatically considered as knower
-        for owner in game.owners.all():
-            if owner.is_animajoueur:
-                game_knowers_set.add(owner.pseudo)
-        # we create the string: 
-        game_knowers = " ".join(game_knowers_set)
+                game_knowers = knower.pseudo + " " + game_knowers
 
         data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
 
@@ -106,15 +98,9 @@ def pdf_all_games(request):
         for owner in game.owners.all():
             game_owners = owner.pseudo + " " + game_owners
 
-        game_knowers_set = set([])
-        # we don't display people that are not animajoueur this year
+        game_knowers = ""
         for knower in game.knowers.all():
-            game_knowers_set.add(knower.pseudo)
-        # the owners that are animajoueurs are automatically considered as knower
-        for owner in game.owners.all():
-            game_knowers_set.add(owner.pseudo)
-        # we create the string: 
-        game_knowers = " ".join(game_knowers_set)
+            game_knowers = knower.pseudo + " " + game_knowers
 
         data.append([Paragraph(game.name, styles['BodyText']), Paragraph(game_owners, styles['BodyText']), Paragraph(game_knowers, styles['BodyText']), game.type_genre])
 
