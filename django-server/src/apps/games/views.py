@@ -85,6 +85,10 @@ def _owner_knower_helper(game_id, attr, model_name, current_user):
 	game_player, created = model_name.objects.get_or_create(**kwargs)
 	if not created:
 		game_player.delete()
+	# if we add "ownership", we automatically add "knowledge"
+	# (we don't remove the knowledge if we remove ownership though)
+	elif attr == 'owners':
+		game_player, created = Knower.objects.get_or_create(**kwargs)
 
 	data = game.as_json()
 	return JsonResponse(data)
