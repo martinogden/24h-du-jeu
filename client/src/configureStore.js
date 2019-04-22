@@ -14,7 +14,7 @@ const configureStore = () => {
 		headersMiddleware,
 		apiMiddleware,
 		normalizrMiddleware,
-		loggerMiddleware,
+		// loggerMiddleware,
 	];
 
 	return createStore(

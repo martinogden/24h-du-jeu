@@ -72,7 +72,7 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ('pseudo',)
     # to select multiple owners/knowers at once
     filter_horizontal = ('known_games', 'owned_games',)
-    list_display = ('pseudo', 'get_is_animajoueur')
+    list_display = ('pseudo', 'get_is_animajoueur', 'is_staff')
     exclude = ('password',)
     formfield_overrides = {
         models.TextField: {'widget': TextInput(attrs={'size':'20'})},
