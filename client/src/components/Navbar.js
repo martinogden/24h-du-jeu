@@ -13,7 +13,7 @@ const styles = {  // TODO extract inline styles
 };
 
 
-const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, isFiltered, isTileDisplay, onToggleDisplay, onFetchGames, onFetchGamesIKnow, onFetchGamesIOwn }) => {
+const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, isFiltered, isTileDisplay, onToggleDisplay, onFetchGames, onFetchGamesIKnow, onFetchGamesIOwn, onFetchBroughtGames, onfetchBroughtGamesSortAlpha }) => {
 	return (
 		<span>
 		<div className="navbar-fixed">
@@ -28,7 +28,9 @@ const Navbar = ({ loggedInUser, onSearch, onLogout, onSortAlpha, isSortedAlpha, 
 					    </Col>
 						    <ul className="right">
 						    	<DisplayMode onFetchGamesIKnow={ onFetchGamesIKnow } onFetchGamesIOwn={ onFetchGamesIOwn } isFiltered={ isFiltered }
-						    				 onToggleDisplay={ onToggleDisplay } isTileDisplay={ isTileDisplay } onSortAlpha={ onSortAlpha } onFetchGames={ onFetchGames } isSortedAlpha={ isSortedAlpha } />
+											 onToggleDisplay={ onToggleDisplay } isTileDisplay={ isTileDisplay } onSortAlpha={ onSortAlpha } 
+											 onFetchGames={ onFetchGames } isSortedAlpha={ isSortedAlpha } onFetchBroughtGames={ onFetchBroughtGames} 
+											 onfetchBroughtGamesSortAlpha={ onfetchBroughtGamesSortAlpha } />
 						    	<Print />
 						    	<Userbar loggedInUser={ loggedInUser } onLogout={ onLogout } />
 						   </ul>
@@ -48,6 +50,8 @@ Navbar.propTypes = {
 	onFetchGamesIOwn: PropTypes.func.isRequired,
 	onFetchGames: PropTypes.func.isRequired,
 	onSortAlpha: PropTypes.func.isRequired,
+	onFetchBroughtGames: PropTypes.func.isRequired,
+	onfetchBroughtGamesSortAlpha: PropTypes.func.isRequired,
 	onToggleDisplay: PropTypes.func.isRequired,
 	loggedInUser: PropTypes.object.isRequired,
 	isSortedAlpha: PropTypes.bool.isRequired,

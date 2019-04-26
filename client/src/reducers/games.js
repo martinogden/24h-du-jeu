@@ -6,6 +6,8 @@ const byID = (state={}, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
 		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 		case ActionTypes.TOGGLE_GAME_OWNERSHIP_SUCCESS:
@@ -28,6 +30,8 @@ const list = (state=[], action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_SUCCESS:
 		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 			return action.payload.result;
@@ -80,12 +84,18 @@ const isFetching = (state=false, action) => {
 		case ActionTypes.FETCH_GAMES_I_KNOW_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_FAILURE:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_FAILURE:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_FAILURE:
 			return false;
 
 		case ActionTypes.FETCH_GAMES_REQUEST:
 		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_REQUEST:
 		case ActionTypes.FETCH_GAMES_I_KNOW_REQUEST:
 		case ActionTypes.FETCH_GAMES_I_OWN_REQUEST:
+		case ActionTypes.FETCH_BROUGHT_GAMES_REQUEST:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_REQUEST:
 			return true;
 
 		default:
@@ -112,6 +122,8 @@ const isFiltered = (state=false, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_GAMES_I_KNOW_SUCCESS:
 		case ActionTypes.FETCH_GAMES_I_OWN_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SUCCESS:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_SUCCESS:
 			return true;
 
 		case ActionTypes.FETCH_GAMES_SUCCESS:
@@ -120,6 +132,8 @@ const isFiltered = (state=false, action) => {
 		case ActionTypes.FETCH_GAMES_SORTED_ALPHA_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_OWN_FAILURE:
 		case ActionTypes.FETCH_GAMES_I_KNOW_FAILURE:
+		case ActionTypes.FETCH_BROUGHT_GAMES_FAILURE:
+		case ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_FAILURE:
 			return false;
 
 		default:

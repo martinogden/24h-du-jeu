@@ -18,7 +18,7 @@ export class App extends React.Component {
 	}
 
 	render() {
-		const { store, isLoggedIn, failedLogIn, authWithFacebook, filterGames, logoutFromFacebook, sortAlpha, isFiltered, isTileDisplay, toggleDisplay, isSortedAlpha, fetchGames, fetchGamesIKnow, fetchGamesIOwn, loggedInUser } = this.props;
+		const { store, isLoggedIn, failedLogIn, authWithFacebook, filterGames, logoutFromFacebook, sortAlpha, isFiltered, isTileDisplay, toggleDisplay, isSortedAlpha, fetchGames, fetchGamesIKnow, fetchGamesIOwn, fetchBroughtGames, fetchBroughtGamesSortAlpha, loggedInUser } = this.props;
 
 		if (!isLoggedIn)
 			return <Login failedLogIn={ failedLogIn } success={ authWithFacebook }/>;
@@ -36,7 +36,9 @@ export class App extends React.Component {
 					onToggleDisplay={ toggleDisplay }
 					onFetchGames={ fetchGames }
 					onFetchGamesIKnow={ fetchGamesIKnow } 
-					onFetchGamesIOwn={ fetchGamesIOwn }/>
+					onFetchGamesIOwn={ fetchGamesIOwn }
+					onFetchBroughtGames={ fetchBroughtGames }
+					onfetchBroughtGamesSortAlpha={ fetchBroughtGamesSortAlpha } />
 				<Provider store={ store }>
 					<GameListContainer />
 				</Provider>
@@ -55,6 +57,8 @@ App.PropTypes = {
 	fetchGamesIKnow: PropTypes.func.isRequired,
 	fetchGamesIOwn: PropTypes.func.isRequired,
 	sortAlpha: PropTypes.func.isRequired,
+	fetchBroughtGames: PropTypes.func.isRequired,
+	fetchBroughtGamesSortAlpha: PropTypes.func.isRequired,
 	toggleDisplay: PropTypes.func.isRequired,
 	isSortedAlpha: PropTypes.bool.isRequired,
 	isFiltered: PropTypes.bool.isRequired,

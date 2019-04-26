@@ -36,6 +36,38 @@ export const sortAlpha = () => ({
 	}
 });
 
+export const fetchBroughtGames = () => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/brought/`,
+		method: 'GET',
+		credentials: 'include',
+		types: [
+			ActionTypes.FETCH_BROUGHT_GAMES_REQUEST,
+			{
+				type: ActionTypes.FETCH_BROUGHT_GAMES_SUCCESS,
+				meta: { schema: Schemas.GAMES },
+			},
+			ActionTypes.FETCH_BROUGHT_GAMES_FAILURE,
+		],
+	}
+});
+
+export const fetchBroughtGamesSortAlpha = () => ({
+	[CALL_API]: {
+		endpoint: `${API_ENDPOINT_URL}/games/brought/?sort=alpha`,
+		method: 'GET',
+		credentials: 'include',
+		types: [
+			ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_REQUEST,
+			{
+				type: ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_SUCCESS,
+				meta: { schema: Schemas.GAMES },
+			},
+			ActionTypes.FETCH_BROUGHT_GAMES_SORTED_ALPHA_FAILURE,
+		],
+	}
+});
+
 export const fetchGamesIKnow = () => ({
 	[CALL_API]: {
 		endpoint: `${API_ENDPOINT_URL}/games/iknow/`,

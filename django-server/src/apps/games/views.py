@@ -49,7 +49,11 @@ def list_games(request, filter_='all'):
         games = player.known_games.all().order_by('sort_name')
     elif filter_ == 'iown':
         games = player.owned_games.all().order_by('sort_name')
-
+    elif filter_ == 'brought':
+        if sort == 'alpha':
+            games = Game.objects.filter(owner__is_bringing=True).distinct().order_by('sort_name')
+        else:
+            games = Game.objects.filter(owner__is_bringing=True).distinct().order_by('-date_added')
     else:
         data['errors'] = ['invalid filter %s' % filter_]
 
@@ -59,6 +63,7 @@ def list_games(request, filter_='all'):
         data = [game.as_json() for game in games]
         status = HTTP_STATUS_CODE_OK
     return JsonResponse(data, status=status, safe=False)
+
 
 @login_required
 @require_http_methods(['PATCH'])
