@@ -43,7 +43,6 @@ if not DEBUG:
 
 # Application definition
 INSTALLED_APPS = [
-	'solo',
 	'backend',
 	'health',
 	'socialauth',
