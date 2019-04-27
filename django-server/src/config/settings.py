@@ -263,7 +263,7 @@ CSRF_COOKIE_HTTPONLY = False
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+MEDIA_ROOT = os.environ['MEDIA_ROOT']
 
 AUTH_USER_MODEL = 'games.User'
 
