@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.conf import settings
 
 from wand.image import Image
+from easy_thumbnails.fields import ThumbnailerImageField
 import requests
 import os
 import logging
@@ -23,6 +24,13 @@ IMG_URI = 'https://ichenil.com/24hdujeu/images/'
 class User(AbstractUser):
     pseudo = models.TextField(blank=True, null=True)
     picture_url = models.TextField(blank=True, null=True)
+    # using easy-thumbnails to resize image when upload
+    # Max width: 1000px (we set a big value for the height on purpose)
+    photo = ThumbnailerImageField(
+        upload_to='avatars',
+        blank=True,
+        resize_source=dict(size=(1000, 4000))
+        )
 
     known_games = models.ManyToManyField('Game', through='Knower', related_name='knowers', verbose_name='Jeux connus', blank=True)
     owned_games = models.ManyToManyField('Game', through='Owner', related_name='owners', verbose_name='Jeux possédés', blank=True)

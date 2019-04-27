@@ -1,5 +1,6 @@
 django==1.11.20
 gunicorn==19.6.0
+easy-thumbnails==2.6.0
 django-dotenv==1.4.1
 coloredlogs==5.0
 django-jwt-auth==0.0.2

@@ -43,6 +43,7 @@ if not DEBUG:
 
 # Application definition
 INSTALLED_APPS = [
+	'easy_thumbnails',
 	'backend',
 	'health',
 	'socialauth',
