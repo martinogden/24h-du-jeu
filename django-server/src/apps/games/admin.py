@@ -93,7 +93,7 @@ class ShiftAdmin(admin.ModelAdmin):
 class OwnerAdmin(admin.ModelAdmin):
     list_display = ('fk_player', 'fk_game', 'is_bringing')
     list_editable = ('is_bringing',)
-    ordering = ('fk_game__name', 'fk_player__pseudo')
+    ordering = ('fk_player__pseudo', 'fk_game__name')
     # raise TypeError('Related Field got invalid lookup: %s' % lookup_name)
     # search_fields = ('fk_game')
     list_filter = ('fk_player', 'fk_game')
@@ -101,7 +101,7 @@ class OwnerAdmin(admin.ModelAdmin):
 
 class KnowerAdmin(admin.ModelAdmin):
     list_display = ('fk_player', 'fk_game')
-    ordering = ('fk_game__name', 'fk_player__pseudo')
+    ordering = ('fk_player__pseudo', 'fk_game__name')
     # raise TypeError('Related Field got invalid lookup: %s' % lookup_name)
     # search_fields = ('fk_game')
     list_filter = ('fk_player', 'fk_game')
