@@ -15,7 +15,6 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^api/games/', include('games.urls')),
 	url(r'^$', TemplateView.as_view(template_name='index.html')),
-	url(r'^fb_user_data_deletion/', TemplateView.as_view(template_name='fb_user_data_deletion.html')),
 	url(r'^privacy_policy/', TemplateView.as_view(template_name='privacy_policy.html')),
 ]
 
