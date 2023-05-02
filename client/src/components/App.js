@@ -18,10 +18,10 @@ export class App extends React.Component {
 	}
 
 	render() {
-		const { store, isLoggedIn, failedLogIn, authWithFacebook, filterGames, logoutFromFacebook, sortAlpha, isFiltered, isTileDisplay, toggleDisplay, isSortedAlpha, fetchGames, fetchGamesIKnow, fetchGamesIOwn, fetchBroughtGames, fetchBroughtGamesSortAlpha, loggedInUser } = this.props;
+		const { store, isLoggedIn, failedLogIn, authWithFacebook, authWithDjango, filterGames, logoutFromFacebook, sortAlpha, isFiltered, isTileDisplay, toggleDisplay, isSortedAlpha, fetchGames, fetchGamesIKnow, fetchGamesIOwn, fetchBroughtGames, fetchBroughtGamesSortAlpha, loggedInUser } = this.props;
 
 		if (!isLoggedIn)
-			return <Login failedLogIn={ failedLogIn } success={ authWithFacebook }/>;
+			return <Login failedLogIn={ failedLogIn } success={ authWithFacebook } onDjangoLogin={ authWithDjango }/>;
 
 		return (
 			<div>
@@ -53,6 +53,7 @@ App.PropTypes = {
 	store: PropTypes.object.isRequired,
 	loggedInUser: PropTypes.object.isRequired,
 	authWithFacebook: PropTypes.func.isRequired,
+	authWithDjango: PropTypes.func.isRequired,
 	filterGames: PropTypes.func.isRequired,
 	fetchGamesIKnow: PropTypes.func.isRequired,
 	fetchGamesIOwn: PropTypes.func.isRequired,

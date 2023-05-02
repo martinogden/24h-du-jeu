@@ -4,8 +4,9 @@ easy-thumbnails==2.6.0
 django-dotenv==1.4.1
 coloredlogs==5.0
 django-jwt-auth==0.0.2
-reportlab==3.3.0
+reportlab==3.5.0
 unidecode==0.04.20
 boardgamegeek==0.13.2
 wand==0.4.4
+requests-cache==0.4.13
 https://github.com/martinogden/django-jet/archive/master.zip

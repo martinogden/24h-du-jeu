@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import { Card, CardTitle } from 'react-materialize';
+import {  Button, Input } from 'react-materialize';
 import { FACEBOOK_PARAMS } from '../constants';
 
 
@@ -14,7 +14,7 @@ const centerStyles = {
 };
 
 
-const Login = ({ failedLogIn, success }) => {
+const Login = ({ failedLogIn, success, onDjangoLogin }) => {
 
 	const callback = (response) => {
 		console.log(response);
@@ -29,16 +29,42 @@ const Login = ({ failedLogIn, success }) => {
 			);
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		var fd = new FormData(e.target);
+		console.log(fd);
+		onDjangoLogin(fd);
+	};
+
 	const fb = <FacebookLogin callback={ callback } { ...FACEBOOK_PARAMS } />;
 
 	return (
 		<div style={ centerStyles }>
 			{ failedLogInMessage(failedLogIn) }
-			<Card className="brown lighten-5"
-				header={<CardTitle image={"/static/img/logo-login.png"} className="responsive-img"/>}
-				title="Bienvenue aux 24h du Jeu !"
-				actions={ [fb] }>
-			</Card>
+			<div className="card">
+				<div className="card-content">
+					<span className="card-title responsive-img"><img src="/static/img/logo-login.png"/></span>
+					<div className="card-title grey-text text-darken-4">Bienvenue aux 24h du Jeu !</div>
+				</div>
+				<div className="card-content grey lighten-4">
+					<div id="django" className="section">
+					<form method="post" onSubmit={ handleSubmit } action="http://localhost:8000/api/games/django-login/">
+						<div>
+							<Input name="username" label="Nom d'utilisateur" type="text" />
+						</div>
+						<div>
+							<Input name="password" label="Mot de passe" type="password" />
+						</div>
+						<div>
+							<Button waves="light" type="submit" >Se connecter</Button>
+						</div>
+					</form>
+					</div>
+					<div className="section">OR</div>					
+					<div id="facebook" className="section">{[fb]}</div>
+				</div>
+				
+			</div>
 		</div>
 	);
 };
@@ -46,6 +72,7 @@ const Login = ({ failedLogIn, success }) => {
 Login.PropTypes = {
 	success: PropTypes.func.isRequired,
 	failedLogIn: PropTypes.bool.isRequired,
+	onDjangoLogin: PropTypes.func.isRequired,
 };
 
 
