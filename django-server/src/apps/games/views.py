@@ -14,6 +14,7 @@ import requests
 import json
 
 from socialauth.views import facebook_login as sa_facebook_login
+from djangoauth.views import django_login as da_django_login
 from .models import Game, User, Knower, Owner
 from .forms import GameForm
 
@@ -30,6 +31,9 @@ def facebook_login(request):
     # backend = 'games.backends.GameFacebookBackend'
     return sa_facebook_login(request)
 
+@require_http_methods(['POST'])
+def django_login(request):
+    return da_django_login(request)
 
 @login_required
 def list_games(request, filter_='all'):

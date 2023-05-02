@@ -3,6 +3,7 @@ from . import views, pdfs
 
 urlpatterns = [
 	url(r'^facebook-login/$', views.facebook_login, name='facebook'),
+    url(r'^django-login/$', views.django_login, name='django_login'),
 
 	url(r'^bgg/$', views.bgg_games, name='bgg-games'),
 	url(r'^bgg/(?P<game_id>\d+)/$', views.bgg_game, name='bgg-game'),

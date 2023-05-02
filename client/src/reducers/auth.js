@@ -30,16 +30,6 @@ const failedLogIn = (state=false, action) => {
 	}
 }
 
-const access_token = (state=null, action) => {
-	switch(action.type) {
-		case ActionTypes.AUTH_USER_SUCCESS:
-			return action.payload.access_token;
-
-		default:
-			return state;
-	}
-}
-
 const csrf_token = (state=null, action) => {
 	switch(action.type) {
 		case ActionTypes.AUTH_USER_SUCCESS:
@@ -64,7 +54,6 @@ const userID = (state=null, action) => {
 export default combineReducers({
 	isLoggedIn,
 	failedLogIn,
-	access_token,
 	csrf_token,
 	userID,
 });

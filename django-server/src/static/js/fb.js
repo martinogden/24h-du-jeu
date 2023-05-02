@@ -69,31 +69,31 @@ var statusChangeHandler = function (response) {
 }
 
 
-window.fbAsyncInit = function() {
+// window.fbAsyncInit = function() {
 
 
-	FB.init({
-		appId: config.FACEBOOK_CLIENT_ID,
-		cookie: true,
-		xfbml: true,
-		status: true,
-		version: 'v2.5'
-	});
+// 	FB.init({
+// 		appId: config.FACEBOOK_CLIENT_ID,
+// 		cookie: true,
+// 		xfbml: true,
+// 		status: true,
+// 		version: 'v2.5'
+// 	});
 
-	FB.Event.subscribe('auth.statusChange', statusChangeHandler);
+// 	FB.Event.subscribe('auth.statusChange', statusChangeHandler);
 
-	FB.Event.subscribe('auth.logout', function(response) {
-		console.log('you logged out via facebook');
-	});
+// 	FB.Event.subscribe('auth.logout', function(response) {
+// 		console.log('you logged out via facebook');
+// 	});
 
-	// document.getElementById("fb-login").addEventListener('click', function() {
-	// 	debugger
-	// 	FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
-	// })
-}
+// 	// document.getElementById("fb-login").addEventListener('click', function() {
+// 	// 	debugger
+// 	// 	FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
+// 	// })
+// }
 
-window.myFacebookLogin = function() {
-  FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
-}
+// window.myFacebookLogin = function() {
+//   FB.login(statusChangeHandler, { scope: config.FB_SCOPE });
+// }
 
 })();
