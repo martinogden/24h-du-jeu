@@ -60,7 +60,7 @@ const Login = ({ failedLogIn, success, onDjangoLogin }) => {
 						</div>
 					</form>
 					</div>
-					<div className="section">OR</div>					
+					<div className="section">OU</div>					
 					<div id="facebook" className="section">{[fb]}</div>
 				</div>
 				
